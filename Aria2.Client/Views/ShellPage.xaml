@@ -1,0 +1,67 @@
+<Page
+    x:Class="Aria2.Client.Views.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:Aria2.Client.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Aria2.Client.UI.Controls"
+    mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand, Mode=OneWay}" />
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ui:TitleBar
+            x:Name="TitleBar"
+            IsExtendsContentIntoTitleBar="True"
+            TitleMode="Tall"
+            TitleVerticalAlignment="Center">
+            <ui:TitleBar.Header>
+                <MenuBar Margin="3">
+                    <MenuBarItem Title="程序">
+                        <MenuFlyoutItem Text="添加任务">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE710;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator />
+                        <MenuFlyoutSubItem Text="退出">
+                            <MenuFlyoutSubItem.Icon>
+                                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE894;" />
+                            </MenuFlyoutSubItem.Icon>
+                            <MenuFlyoutItem Text="托盘" />
+                            <MenuFlyoutItem Text="直接退出" />
+                        </MenuFlyoutSubItem>
+                    </MenuBarItem>
+                    <MenuBarItem Title="RSS" />
+                    <MenuBarItem Title="关于" />
+                </MenuBar>
+            </ui:TitleBar.Header>
+
+        </ui:TitleBar>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Rectangle
+                Width="20"
+                Height="20"
+                Fill="{x:Bind ViewModel.ConnectState, Mode=OneWay}"
+                RadiusX="20"
+                RadiusY="20" />
+            <TextBlock
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Text="{x:Bind ViewModel.ConnectText, Mode=OneWay}" />
+        </StackPanel>
+        <Frame
+            x:Name="frame"
+            Grid.Row="1"
+            Margin="0" />
+    </Grid>
+</Page>

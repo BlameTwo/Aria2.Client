@@ -1,0 +1,8 @@
+﻿namespace Aria2.Client.Services.Contracts;
+
+public interface IApplicationSetup<App>
+    where App : Aria2.Client.Common.ClientApplication
+{
+    public App Application { get; }
+    public void Launcher(App app);
+}
