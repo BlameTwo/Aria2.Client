@@ -16,6 +16,7 @@ public sealed partial class ShellPage : Page
     private void ShellPage_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         this.TitleBar.Window = ViewModel.ApplicationSetup.Application.MainWindow;
+        this.ViewModel.DialogManager.RegisterRoot(this.XamlRoot);
     }
 
     public ShellViewModel ViewModel { get; }

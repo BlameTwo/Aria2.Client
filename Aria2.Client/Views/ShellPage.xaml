@@ -27,11 +27,12 @@
             <ui:TitleBar.Header>
                 <MenuBar Margin="3">
                     <MenuBarItem Title="程序">
-                        <MenuFlyoutItem Text="添加任务">
-                            <MenuFlyoutItem.Icon>
+                        <MenuFlyoutSubItem Text="添加任务">
+                            <MenuFlyoutSubItem.Icon>
                                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE710;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
+                            </MenuFlyoutSubItem.Icon>
+                            <MenuFlyoutItem Command="{x:Bind ViewModel.ShowAddUriCommand}" Text="URL" />
+                        </MenuFlyoutSubItem>
                         <MenuFlyoutSeparator />
                         <MenuFlyoutSubItem Text="退出">
                             <MenuFlyoutSubItem.Icon>

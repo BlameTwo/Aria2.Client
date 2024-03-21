@@ -1,8 +1,10 @@
 ﻿using Aria2.Client.Services.Contracts;
+using Aria2.Client.Views.Dialogs;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using System;
+using System.Threading.Tasks;
 
 namespace Aria2.Client.Services;
 
@@ -25,13 +27,21 @@ public class DialogManager : IDialogManager
         this.Root = root;
     }
 
-    public void ShowAddTorrent()
+    public Task ShowAddTorrentAsync()
     {
-
+        throw new NotImplementedException();
     }
 
-    public void ShowAddUri()
-    {
+    public async Task ShowAddUriAsync()
+        => await ShowDialogAsync<AddUriDialog>();
 
+    private async Task ShowDialogAsync<T>()
+        where T:ContentDialog
+    {
+        var dialog = ProgramLife.GetService<T>();
+        if (dialog == null) return;
+        dialog.XamlRoot = Root;
+        this._dialog = dialog;
+        await dialog.ShowAsync();
     }
 }

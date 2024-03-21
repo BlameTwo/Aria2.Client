@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace Aria2.Client.Services.Contracts;
 
@@ -8,9 +9,9 @@ public interface IDialogManager
 
     public void RegisterRoot(XamlRoot root);
 
-    public void ShowAddUri();
+    public Task ShowAddUriAsync();
 
-    public void ShowAddTorrent();
+    public Task ShowAddTorrentAsync();
 
     public void CloseDialog();
 }

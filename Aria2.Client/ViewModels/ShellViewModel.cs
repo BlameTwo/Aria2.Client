@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
+using System.Threading.Tasks;
 
 namespace Aria2.Client.ViewModels;
 
@@ -15,11 +16,13 @@ public sealed partial class ShellViewModel : ObservableObject
         IApplicationSetup<App> applicationSetup,
         [FromKeyedServices(ServiceKey.ShellNavigationServiceKey)]
         INavigationService navigationService,
+        IDialogManager dialogManager,
         IAria2cClient aria2CClient
     )
     {
         ApplicationSetup = applicationSetup;
         NavigationService = navigationService;
+        DialogManager = dialogManager;
         Aria2CClient = aria2CClient;
         Aria2CClient.Aria2ConnectStateChanged += Aria2CClient_Aria2ConnectStateChanged;
     }
@@ -51,11 +54,19 @@ public sealed partial class ShellViewModel : ObservableObject
 
     public IApplicationSetup<App> ApplicationSetup { get; }
     public INavigationService NavigationService { get; }
+    public IDialogManager DialogManager { get; }
     public IAria2cClient Aria2CClient { get; }
 
     [RelayCommand]
     void Loaded()
     {
         NavigationService.NavigationTo<HomeViewModel>(null);
+    }
+
+
+    [RelayCommand]
+    async Task ShowAddUri()
+    {
+        await DialogManager.ShowAddUriAsync();
     }
 }
