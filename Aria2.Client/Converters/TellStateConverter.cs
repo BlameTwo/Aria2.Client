@@ -5,7 +5,7 @@ using System;
 using System.Globalization;
 using Windows.UI;
 
-namespace Motrix_WPF.Converters;
+namespace Aria2.Client.Converters;
 
 internal class TellStateConverter : IValueConverter
 {

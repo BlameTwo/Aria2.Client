@@ -8,19 +8,23 @@ using Windows.Storage;
 using System.Threading.Tasks;
 using System;
 using System.Diagnostics;
+using Aria2.Net.Services.Contracts;
+using System.Collections.Generic;
 
 namespace Aria2.Client.ViewModels.DialogViewModels;
 
 public sealed partial class AddUriViewModel:ObservableRecipient
 {
-    public AddUriViewModel(IDialogManager dialogManager,IApplicationSetup<App> applicationSetup)
+    public AddUriViewModel(IDialogManager dialogManager,IApplicationSetup<App> applicationSetup,IAria2cClient aria2CClient)
     {
         DialogManager = dialogManager;
         ApplicationSetup = applicationSetup;
+        Aria2CClient = aria2CClient;
     }
 
     public IDialogManager DialogManager { get; }
     public IApplicationSetup<App> ApplicationSetup { get; }
+    public IAria2cClient Aria2CClient { get; }
 
     [NotifyCanExecuteChangedFor(nameof(ActiveCommand))]
     [ObservableProperty]
@@ -58,32 +62,36 @@ public sealed partial class AddUriViewModel:ObservableRecipient
     }
 
     [RelayCommand(CanExecute = nameof(ActiveEnable))]
-    void Active()
+    async Task Active()
     {
+        try
+        {
+            var list = TextUri.Split("\r\n");
+            if (list == null || list.Length == 0)
+                return;
+            var result = await Aria2CClient.AddUriAsync(list, new Dictionary<string, object>() { { "dir", this.SavePath } }, 1);
+            if (result.Result != null)
+                DialogManager.CloseDialog();
+        }
+        catch (Exception ex)
+        {
 
+        }
+        finally
+        {
+            DialogManager.CloseDialog();
+        }
     }
 
 
     [RelayCommand]
     async Task SelectSaveFolder()
     {
-
-        // Create a folder picker
         FolderPicker openPicker = new Windows.Storage.Pickers.FolderPicker();
-
-        // See the sample code below for how to make the window accessible from the App class.
-
-        // Retrieve the window handle (HWND) of the current WinUI 3 window.
         var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(ApplicationSetup.Application.MainWindow);
-
-        // Initialize the folder picker with the window handle (HWND).
         WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
-
-        // Set options for your folder picker
         openPicker.SuggestedStartLocation = PickerLocationId.Desktop;
         openPicker.FileTypeFilter.Add("*");
-
-        // Open the picker for the user to pick a folder
         StorageFolder folder = await openPicker.PickSingleFolderAsync();
         if (folder != null)
         {

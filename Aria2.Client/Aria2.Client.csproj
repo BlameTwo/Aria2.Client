@@ -15,6 +15,7 @@
     <None Remove="Assets\logo.png" />
     <None Remove="UI\Styles\Button.xaml" />
     <None Remove="UI\Styles\TitleBar.xaml" />
+    <None Remove="Views\DateTemplate\DownloadTellFileTemplate.xaml" />
     <None Remove="Views\Dialogs\AddUriDialog.xaml" />
     <None Remove="Views\DownloadPages\ActivePage.xaml" />
     <None Remove="Views\DownloadPages\PausePage.xaml" />
@@ -97,6 +98,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\AddUriDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DateTemplate\DownloadTellFileTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

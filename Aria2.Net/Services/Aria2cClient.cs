@@ -20,10 +20,11 @@ using System.Text.Json.Serialization.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
 using Aria2.Net.Common;
+using System.IO;
 
 namespace Aria2.Net.Services;
 
-public class Aria2cClient : IAria2cClient
+public partial class Aria2cClient : IAria2cClient
 {
     public int ProcessId { get; private set; }
 
@@ -116,6 +117,8 @@ public class Aria2cClient : IAria2cClient
             }
         }
         var jsonRequest = JsonSerializer.Serialize(request);
+        if (Socket.State != WebSocketState.Open)
+            throw new Exception("Aria2未运行！请前往设置重新运行！");
         HttpClient client = new HttpClient();
         var pos = await client.PostAsync(
             GlobalUsings.HttpRequetBaseUrl,
@@ -160,21 +163,28 @@ public class Aria2cClient : IAria2cClient
             Process ps = new Process();
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = GlobalUsings.Aria2Path;
-            string argument = $"--enable-rpc=true --rpc-listen-port={GlobalUsings.Port} --rpc-listen-all=true";
+            info.RedirectStandardError = true;
+            string argument = $" --enable-rpc=true --rpc-listen-port={GlobalUsings.Port} --rpc-listen-all=true";
             if (config.BtTracker != null)
             {
                 argument += $" --bt-tracker={string.Join("", config.BtTracker)}";
             }
 
-            if (string.IsNullOrWhiteSpace(config.SesionFilePath))
+            if (!string.IsNullOrWhiteSpace(config.SesionFilePath))
             {
-                argument += $" --save-session={config.SesionFilePath}";
+                argument += $" --save-session=\"{config.SesionFilePath}\"";
+                if (System.IO.File.Exists(config.SesionFilePath))
+                {
+                    argument += $" --input-file=\"{config.SesionFilePath}\"";
+                }
+                info.WorkingDirectory = Path.GetDirectoryName(config.SesionFilePath);
             }
 
             info.UseShellExecute = false;
             info.RedirectStandardOutput = true;
             info.RedirectStandardError = true;
             info.CreateNoWindow = false;
+            info.Arguments = argument;
             ps.StartInfo = info;
             ps.Start();
             this.ProcessId = ps.Id;
@@ -378,10 +388,6 @@ public class Aria2cClient : IAria2cClient
             try
             {
                 Thread.Sleep(1000);
-                if(Socket.State != WebSocketState.Open)
-                {
-                    return;
-                }
                 WebSocketReceiveResult result = await Socket.ReceiveAsync(
                     new ArraySegment<byte>(buffer),
                     default
@@ -389,12 +395,14 @@ public class Aria2cClient : IAria2cClient
                 if (result.MessageType == WebSocketMessageType.Text)
                 {
                     var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    Aria2WebSocketMessageDelegate?.Invoke(
-                        this,
-                        JsonSerializer.Deserialize<WebSocketResultCode>(
+                    var jsonObject = JsonSerializer.Deserialize<WebSocketResultCode>(
                            message
-                        )!
+                        )!;
+                    Aria2WebSocketMessageDelegate?.Invoke(
+                        this, jsonObject
+
                     );
+                    OnWebSocketEvent(jsonObject);
                 }
                 if (result.MessageType == WebSocketMessageType.Close)
                 {
@@ -407,6 +415,31 @@ public class Aria2cClient : IAria2cClient
                 this._aria2ConnectStateHandler?.Invoke(this, Socket.State);
             }
             
+        }
+    }
+
+    private void OnWebSocketEvent(WebSocketResultCode message)
+    {
+        switch (message.Method)
+        {
+            case Aria2Socket_Method.OnDowloadStart:
+                this.aria2DownloadStartHandler?.Invoke(this, message);
+                break;
+            case Aria2Socket_Method.OnDownloadPause:
+                this.aria2DownloadPauseHandler?.Invoke(this, message);
+                break;
+            case Aria2Socket_Method.OnDownloadStop:
+                this.aria2DownloadStopHandler?.Invoke(this, message);
+                break;
+            case Aria2Socket_Method.OnDownloadComplete:
+                this.aria2DownloadCompleteHandler?.Invoke(this, message);
+                break;
+            case Aria2Socket_Method.OnDowloadError:
+                this.aria2DownloadErrorHandler?.Invoke(this, message);
+                break;
+            case Aria2Socket_Method.OnBtDownloadComplete:
+                this.aria2DownloadBtCompleteHandler?.Invoke(this, message);
+                break;
         }
     }
 
@@ -455,4 +488,6 @@ public class Aria2cClient : IAria2cClient
         add => Aria2WebSocketMessageDelegate += value;
         remove => Aria2WebSocketMessageDelegate -= value;
     }
+
+
 }

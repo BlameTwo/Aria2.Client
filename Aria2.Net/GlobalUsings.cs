@@ -38,7 +38,7 @@ public static class Aria2Socket_Method
 {
     public const string OnDowloadStart = "aria2.onDownloadStart";
 
-    public const string OnDowloadPause = "aria2.onDownloadPause";
+    public const string OnDownloadPause = "aria2.onDownloadPause";
 
     public const string OnDownloadStop = "aria2.onDownloadStop";
 

@@ -1,5 +1,6 @@
 ﻿using Aria2.Client.Services.Contracts;
 using Aria2.Client.Views;
+using System;
 
 namespace Aria2.Client.Services;
 
@@ -17,4 +18,7 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
         Application.MainWindow.Content = ProgramLife.GetService<ShellPage>();
         this.Application.MainWindow.Activate();
     }
+
+    public void TryEnqueue(Action action)
+        => this.Application.MainWindow.DispatcherQueue.TryEnqueue(() => action());
 }

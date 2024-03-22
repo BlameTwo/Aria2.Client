@@ -16,7 +16,10 @@ public sealed partial class App : ClientApplication
     protected async override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
         ProgramLife.GetService<IApplicationSetup<App>>().Launcher(this);
-        await ProgramLife.GetService<IAria2cClient>().LauncherAsync();
+        await ProgramLife.GetService<IAria2cClient>().LauncherAsync(new()
+        {
+            SesionFilePath = "D:\\save.session"
+        });
         await ProgramLife.GetService<IAria2cClient>().ConnectAsync();
     }
 }

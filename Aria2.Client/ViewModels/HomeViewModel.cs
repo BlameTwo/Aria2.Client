@@ -1,7 +1,9 @@
 ﻿using Aria2.Client.Services;
 using Aria2.Client.Services.Contracts;
+using Aria2.Client.ViewModels.DownloadViewModels;
 using Aria2.Client.Views.DownloadPages;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 
@@ -19,6 +21,13 @@ public sealed partial class HomeViewModel : ObservableObject
         NavigationViewService = navigationViewService;
         NavigationService = navigationService;
         NavigationService.Navigated += NavigationService_Navigated;
+        
+    }
+
+    [RelayCommand]
+    void Loaded()
+    {
+        NavigationService.NavigationTo<ActiveViewModel>(null);
     }
 
     private void NavigationService_Navigated(object sender, Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)

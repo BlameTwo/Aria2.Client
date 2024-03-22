@@ -97,6 +97,7 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     private void DataRefresh(FileDownloadTell data)
     {
         this._gid = data.Gid;
+        RefreshFileName();
         //switch (data.Status)
         //{
         //    case TellState.Active:
@@ -209,6 +210,11 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     {
         base.SetData(data);
         DataRefresh(data);
+        
+    }
+
+    private void RefreshFileName()
+    {
         if (Data.Files.Count == 1)
         {
             this.FileName = System.IO.Path.GetFileName(Data.Files[0].Path);
