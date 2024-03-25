@@ -32,6 +32,7 @@
                                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE710;" />
                             </MenuFlyoutSubItem.Icon>
                             <MenuFlyoutItem Command="{x:Bind ViewModel.ShowAddUriCommand}" Text="URL" />
+                            <MenuFlyoutItem Command="{x:Bind ViewModel.ShowAddTorrentCommand}" Text="种子(.torrent)" />
                         </MenuFlyoutSubItem>
                         <MenuFlyoutSeparator />
                         <MenuFlyoutSubItem Text="退出">

@@ -6,7 +6,6 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:local="using:Aria2.Client.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:property="using:Aria2.Client.UI.Propertys"
     mc:Ignorable="d">
@@ -20,9 +19,15 @@
         Grid.Row="1"
         Header="{x:Bind ViewModel.Title, Mode=OneWay}"
         IsBackButtonVisible="Collapsed"
-        PaneTitle="下载"
         SelectedItem="{x:Bind ViewModel.NavigationSelectItem, Mode=OneWay}">
         <NavigationView.MenuItems>
+            <NavigationViewItem property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.OverviewViewModel" Content="总览">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Home" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItemSeparator />
+            <NavigationViewItemHeader Content="任务" />
             <NavigationViewItem property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.DownloadViewModels.ActiveViewModel" Content="活动中">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE768;" />
@@ -39,6 +44,58 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
         </NavigationView.MenuItems>
-        <Frame x:Name="frame" Margin="20,0" />
+        <Grid>
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition />
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+            <Border
+                Margin="0,0,5,5"
+                Padding="7"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="5">
+
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Padding="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{ThemeResource TransparentButtonStyle}">
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="15"
+                            Glyph="&#xE72C;" />
+                    </Button>
+                    <Button
+                        Padding="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{ThemeResource TransparentButtonStyle}">
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="15"
+                            Glyph="&#xE768;" />
+                    </Button>
+                    <Button
+                        Padding="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{ThemeResource TransparentButtonStyle}">
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="15"
+                            Glyph="&#xE894;" />
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <Frame x:Name="frame" Margin="20,0" />
+        </Grid>
+
     </NavigationView>
 </Page>

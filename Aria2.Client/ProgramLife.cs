@@ -38,6 +38,10 @@ public static class ProgramLife
             .AddTransient<HomeViewModel>()
             .AddTransient<AddUriDialog>()
             .AddTransient<AddUriViewModel>()
+            .AddTransient<OverviewPage>()
+            .AddTransient<OverviewViewModel>()
+            .AddTransient<AddTorrentDialog>()
+            .AddTransient<AddTorrentViewModel>()
         #region 注册下载页面
             .AddTransient<ActivePage>()
             .AddTransient<ActiveViewModel>()

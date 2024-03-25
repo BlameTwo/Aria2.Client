@@ -229,15 +229,6 @@ public interface IAria2cClient
     public Task<ResultCode<string>> ChangeTellOption(string gid,Dictionary<string,object> values,CancellationToken token = default);
 
 
-    public event Aria2DownloadStartDelegate DownloadStartEvent;
 
-    public event Aria2DownloadCompleteDelegate DownloadCompleteEvent;
-
-    public event Aria2DownloadStopDelegate DownloadStopEvent;
-
-    public event Aria2DownloadPauseDelegate DownloadCompleteStopEvent;
-
-    public event Aria2DownloadErrorDelegate DownloadErrorEvent;
-
-    public event Aria2DownloadBtCompleteDelegate DownloadBtCompleteEvent;
+    public event Aria2DownloadStateChangedDelegate Aria2DownloadStateEvent;
 }

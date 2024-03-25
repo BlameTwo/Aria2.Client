@@ -3,10 +3,24 @@
     x:Class="Aria2.Client.Views.DownloadPages.PausePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:Aria2.Client.Views.DownloadPages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Margin="0,25,0,0"
     mc:Ignorable="d">
-
-    <Grid />
+    <i:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="Loaded">
+            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand, Mode=OneWay}" />
+        </core:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <RepositionThemeTransition />
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <ItemsControl ItemTemplate="{ThemeResource DownloadTellTemplate}" ItemsSource="{x:Bind ViewModel.Downloads, Mode=OneWay}" />
+    </Grid>
 </Page>

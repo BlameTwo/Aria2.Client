@@ -11,3 +11,13 @@ public enum RequestType
     /// </summary>
     Http
 }
+
+public enum WebSocketEventType
+{
+    Start,
+    Stop,
+    Pause,
+    Complete,
+    BtComplete,
+    Error
+}

@@ -21,6 +21,7 @@ public sealed partial class PageService:IPageService
         RegisterView<ActivePage, ActiveViewModel>();
         RegisterView<PausePage, PauseViewModel>();
         RegisterView<StopPage, StopViewModel>();
+        RegisterView<OverviewPage, OverviewViewModel>();
     }
 
     public Type GetPage(string key)

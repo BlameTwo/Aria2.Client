@@ -27,10 +27,8 @@ public class DialogManager : IDialogManager
         this.Root = root;
     }
 
-    public Task ShowAddTorrentAsync()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task ShowAddTorrentAsync()
+        => await ShowDialogAsync<AddTorrentDialog>();
 
     public async Task ShowAddUriAsync()
         => await ShowDialogAsync<AddUriDialog>();

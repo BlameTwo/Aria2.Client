@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
@@ -16,11 +16,13 @@
     <None Remove="UI\Styles\Button.xaml" />
     <None Remove="UI\Styles\TitleBar.xaml" />
     <None Remove="Views\DateTemplate\DownloadTellFileTemplate.xaml" />
+    <None Remove="Views\Dialogs\AddTorrentDialog.xaml" />
     <None Remove="Views\Dialogs\AddUriDialog.xaml" />
     <None Remove="Views\DownloadPages\ActivePage.xaml" />
     <None Remove="Views\DownloadPages\PausePage.xaml" />
     <None Remove="Views\DownloadPages\StopPage.xaml" />
     <None Remove="Views\HomePage.xaml" />
+    <None Remove="Views\OverviewPage.xaml" />
     <None Remove="Views\ShellPage.xaml" />
   </ItemGroup>
 
@@ -60,6 +62,16 @@
     <Content Update="Assets\logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\AddTorrentDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\OverviewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\DownloadPages\StopPage.xaml">

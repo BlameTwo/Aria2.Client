@@ -1,6 +1,7 @@
 ﻿using Aria2.Client.Services;
 using Aria2.Client.Services.Contracts;
 using Aria2.Client.ViewModels.DownloadViewModels;
+using Aria2.Client.Views;
 using Aria2.Client.Views.DownloadPages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -49,6 +50,10 @@ public sealed partial class HomeViewModel : ObservableObject
         if (e.SourcePageType == typeof(StopPage))
         {
             this.Title = "停止中";
+        }
+        if(e.SourcePageType == typeof(OverviewPage))
+        {
+            this.Title = "总览";
         }
     }
 

@@ -53,15 +53,25 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
 
     private async void _timer_Tick(object? sender, object e)
     {
-        if (this._stopFlage)
-            return;
-        this.Data = (await Aria2CClient.GetTellStatusAsync(this.Data.Gid, token)).Result;
-        DataRefresh(this.Data);
-        this.ProgressRatio = Math.Round(
-            double.Parse(Data.CompletedLength) / double.Parse(Data.TotalLength) * 100,
-            2
-        );
-        this.IsRemoved = (Data.Status == TellState.Stopped || Data.Status == TellState.Removed);
+        try
+        {
+            if (this._stopFlage)
+                return;
+            var result = (await Aria2CClient.GetTellStatusAsync(this.Data.Gid, token));
+            if (result == null) return;
+            this.Data = result.Result;
+            DataRefresh(this.Data);
+            this.ProgressRatio = Math.Round(
+                double.Parse(Data.CompletedLength) / double.Parse(Data.TotalLength) * 100,
+                2
+            );
+            this.IsRemoved = (Data.Status == TellState.Stopped || Data.Status == TellState.Removed);
+        }
+        catch (Exception ex)
+        {
+
+        }
+        
     }
 
     [RelayCommand]
@@ -98,41 +108,25 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     {
         this._gid = data.Gid;
         RefreshFileName();
-        //switch (data.Status)
-        //{
-        //    case TellState.Active:
-        //        this.StateFont = FontIconEnum.Pause;
-        //        break;
-        //    case TellState.Waiting:
-        //        this.StateFont = FontIconEnum.Play;
-        //        break;
-        //    case TellState.Paused:
-        //        this.StateFont = FontIconEnum.Play;
-        //        break;
-        //    default:
-        //        this.StateFont = FontIconEnum.Error;
-        //        break;
-        //}
-        if (this.Data.Status == TellState.Active)
+        switch (data.Status)
         {
-            WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveMessager>(
-                new(TellState.Active, TellState.Paused, _gid)
-            );
-        }
-        else if (this.Data.Status == TellState.Waiting || this.Data.Status == TellState.Paused)
-        {
-            WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveMessager>(
-                new(TellState.Paused, TellState.Active, _gid)
-            );
-        }
-        else if (this.Data.Status == TellState.Removed ||this.Data.Status == TellState.Complete)
-        {
-            WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveMessager>(
-                new(TellState.Removed, TellState.Removed, _gid)
-            );
-            //MessageBox.Show("任务终止！");
+            case TellState.Active:
+                this.StateFont = "\uE769";
+                break;
+            case TellState.Waiting:
+                this.StateFont = "\uE768";
+                break;
+            case TellState.Paused:
+                this.StateFont = "\uE768";
+                break;
+            default:
+                this.StateFont = "\uE783";
+                break;
         }
     }
+
+    [ObservableProperty]
+    string _StateFont;
 
     [RelayCommand]
     async Task RemoveStopTask()

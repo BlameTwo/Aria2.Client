@@ -10,113 +10,138 @@
     mc:Ignorable="d">
     <converter:NetworkLengthConverter x:Key="NetworkLengthConverter" />
     <converter:ColorTellStateConverter x:Key="ColorTellStateConverter" />
+    <converter:NetworkBytesConverter x:Key="NetworkBytesConverter" />
     <DataTemplate x:Key="DownloadTellTemplate" x:DataType="model:DownloadTellItemData">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
-            <FontIcon
-                Grid.RowSpan="3"
-                Margin="10,0,10,0"
-                VerticalAlignment="Center"
-                FontFamily="Segoe Fluent Icons"
-                FontSize="18"
-                Glyph="&#xE875;" />
-            <TextBlock
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                Text="{x:Bind FileName, Mode=OneWay}" />
-            <Grid Grid.Row="1" Grid.Column="1">
-                <ProgressBar
-                    Height="10"
-                    Margin="0,0,10,0"
-                    CornerRadius="5"
-                    Maximum="{x:Bind Data.TotalLength, Mode=OneWay}"
-                    Minimum="0"
-                    Value="{x:Bind Data.CompletedLength, Mode=OneWay}" />
-
-            </Grid>
-            <StackPanel
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                Orientation="Horizontal">
-                <Button Style="{ThemeResource TransparentButtonStyle}">
-                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE712;" />
-                </Button>
-                <Button Command="{x:Bind OpenFolderLocalCommand, Mode=OneWay}" Style="{ThemeResource TransparentButtonStyle}">
-                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8DA;" />
-                </Button>
-                <Button
-                    Command="{x:Bind ActiveTaskCommand}"
-                    Content="测试"
-                    Style="{ThemeResource TransparentButtonStyle}" />
-                <Button Command="{x:Bind RemoveStopTaskCommand}" Style="{ThemeResource TransparentButtonStyle}">
-                    <FontIcon
-                        FontFamily="Segoe Fluent Icons"
-                        Foreground="Red"
-                        Glyph="&#xE894;" />
-                </Button>
-            </StackPanel>
-            <StackPanel
-                Grid.Row="2"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Margin="0,10,0,5"
-                Orientation="Horizontal">
-                <TextBlock
+        <Border
+            Margin="0,5,0,0"
+            Padding="10"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="5">
+            <Border.ChildTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition />
+                </TransitionCollection>
+            </Border.ChildTransitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <FontIcon
+                    Grid.RowSpan="3"
+                    Margin="10,0,10,0"
                     VerticalAlignment="Center"
-                    FontSize="10"
-                    Foreground="{x:Bind Data.Status, Mode=OneWay, Converter={StaticResource ColorTellStateConverter}}"
-                    Text="{x:Bind Data.Status, Mode=OneWay, Converter={StaticResource TellStateConverter}}" />
+                    FontFamily="Segoe Fluent Icons"
+                    FontSize="18"
+                    Glyph="&#xE875;" />
                 <TextBlock
                     Grid.Column="1"
-                    Margin="10,0,0,0"
                     VerticalAlignment="Center"
-                    FontSize="10">
-                    <Run Text="{x:Bind ProgressRatio, Mode=OneWay}" />
-                    <Run Text="%" />
-                </TextBlock>
-                <FontIcon
-                    Margin="10,0,0,0"
+                    Text="{x:Bind FileName, Mode=OneWay}" />
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <ProgressBar
+                        Height="10"
+                        Margin="0,0,10,0"
+                        CornerRadius="5"
+                        Maximum="{x:Bind Data.TotalLength, Mode=OneWay}"
+                        Minimum="0"
+                        Value="{x:Bind Data.CompletedLength, Mode=OneWay}" />
+
+                </Grid>
+                <StackPanel
+                    Grid.Column="1"
+                    Padding="3"
+                    HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    FontFamily="Segoe Fluent Icons"
-                    FontSize="10"
-                    Glyph="&#xE896;" />
-                <TextBlock
-                    Margin="3,0,0,0"
-                    VerticalAlignment="Center"
-                    FontSize="10"
-                    Text="{x:Bind Data.DownloadSpeed, Mode=OneWay, Converter={StaticResource NetworkBytesConverter}, ConverterParameter=M}" />
-                <FontIcon
-                    Margin="10,0,0,0"
-                    VerticalAlignment="Center"
-                    FontFamily="Segoe Fluent Icons"
-                    FontSize="10"
-                    Glyph="&#xE898;" />
-                <TextBlock
-                    Margin="3,0,0,0"
-                    VerticalAlignment="Center"
-                    Text="{x:Bind Data.UploadSpeed, Mode=OneWay, Converter={StaticResource NetworkBytesConverter}, ConverterParameter=M}" />
-            </StackPanel>
-            <StackPanel
-                Grid.Row="2"
-                Grid.Column="1"
-                Margin="0,0,10,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock>
-                    <Run FontWeight="Bold" Text="{x:Bind Data.CompletedLength, Mode=OneWay, Converter={StaticResource NetworkLengthConverter}, ConverterParameter=M}" />
-                    <Run Text="/" />
-                    <Run Text="{x:Bind Data.TotalLength, Mode=OneWay, Converter={StaticResource NetworkLengthConverter}, ConverterParameter=M}" />
-                </TextBlock>
-            </StackPanel>
-        </Grid>
+                    Orientation="Horizontal">
+                    <Button VerticalAlignment="Center" Style="{ThemeResource TransparentButtonStyle}">
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="15"
+                            Glyph="&#xE712;" />
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="详细信息">
+                                    <MenuFlyoutItem.Icon>
+                                        <SymbolIcon Symbol="Filter" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                                <MenuFlyoutItem Text="复制源链接">
+                                    <MenuFlyoutItem.Icon>
+                                        <SymbolIcon Symbol="Link" />
+                                    </MenuFlyoutItem.Icon>
+                                </MenuFlyoutItem>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+                    <Button
+                        VerticalAlignment="Center"
+                        Command="{x:Bind OpenFolderLocalCommand, Mode=OneWay}"
+                        Style="{ThemeResource TransparentButtonStyle}">
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="15"
+                            Glyph="&#xE8DA;" />
+                    </Button>
+                    <Button
+                        VerticalAlignment="Center"
+                        Command="{x:Bind ActiveTaskCommand}"
+                        Style="{ThemeResource TransparentButtonStyle}">
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="15"
+                            Glyph="{x:Bind StateFont, Mode=OneWay}" />
+                    </Button>
+                    <Button
+                        VerticalAlignment="Center"
+                        Command="{x:Bind RemoveStopTaskCommand}"
+                        Style="{ThemeResource TransparentButtonStyle}">
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="15"
+                            Foreground="Red"
+                            Glyph="&#xE894;" />
+                    </Button>
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="10"
+                            Glyph="&#xE896;" />
+                        <TextBlock FontSize="14" Text="{Binding Data.DownloadSpeed, Mode=OneWay, Converter={ThemeResource NetworkBytesConverter}, ConverterParameter=M}" />
+                    </StackPanel>
+                    <StackPanel Margin="15,0,0,0" Orientation="Horizontal">
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="10"
+                            Glyph="&#xE898;" />
+                        <TextBlock FontSize="14" Text="{Binding Data.UploadSpeed, Mode=OneWay, Converter={ThemeResource NetworkBytesConverter}, ConverterParameter=M}" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Margin="0,0,10,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <TextBlock Text="{x:Bind Data.CompletedLength, Mode=OneWay, Converter={StaticResource NetworkLengthConverter}, ConverterParameter=M}" />
+                    <TextBlock Text="/" />
+                    <TextBlock Text="{x:Bind Data.TotalLength, Mode=OneWay, Converter={StaticResource NetworkLengthConverter}, ConverterParameter=M}" />
+                    <TextBlock Margin="30,0,0,0" Text="{x:Bind ProgressRatio, Mode=OneWay}" />
+                    <TextBlock Text="%" />
+                </StackPanel>
+            </Grid>
+        </Border>
     </DataTemplate>
 </ResourceDictionary>

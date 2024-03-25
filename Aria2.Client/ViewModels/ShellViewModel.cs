@@ -69,4 +69,10 @@ public sealed partial class ShellViewModel : ObservableObject
     {
         await DialogManager.ShowAddUriAsync();
     }
+
+    [RelayCommand]
+    async Task ShowAddTorrent()
+    {
+        await DialogManager.ShowAddTorrentAsync();
+    }
 }

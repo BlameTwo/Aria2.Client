@@ -226,11 +226,8 @@ public partial class Aria2cClient : IAria2cClient
         CancellationToken token = default
     )
     {
-        var att = typeof(Type).GetCustomAttribute<GlobalOptionPropertyAttribute>();
-        if (att == null)
-            return default;
         return this.ChangeGlobalOption(
-            new Dictionary<string, string>() { { att.Name, value.ToString() } },
+            new Dictionary<string, string>() { { GlobalOptionConvert.EnumToString(type), value.ToString() } },
             token
         );
     }
@@ -423,22 +420,22 @@ public partial class Aria2cClient : IAria2cClient
         switch (message.Method)
         {
             case Aria2Socket_Method.OnDowloadStart:
-                this.aria2DownloadStartHandler?.Invoke(this, message);
+                this.aria2DownloadStateChangedHandler?.Invoke( Enums.WebSocketEventType.Start, message);
                 break;
             case Aria2Socket_Method.OnDownloadPause:
-                this.aria2DownloadPauseHandler?.Invoke(this, message);
+                this.aria2DownloadStateChangedHandler?.Invoke(Enums.WebSocketEventType.Pause, message);
                 break;
             case Aria2Socket_Method.OnDownloadStop:
-                this.aria2DownloadStopHandler?.Invoke(this, message);
+                this.aria2DownloadStateChangedHandler?.Invoke(Enums.WebSocketEventType.Stop, message);
                 break;
             case Aria2Socket_Method.OnDownloadComplete:
-                this.aria2DownloadCompleteHandler?.Invoke(this, message);
+                this.aria2DownloadStateChangedHandler?.Invoke(Enums.WebSocketEventType.Complete, message);
                 break;
             case Aria2Socket_Method.OnDowloadError:
-                this.aria2DownloadErrorHandler?.Invoke(this, message);
+                this.aria2DownloadStateChangedHandler?.Invoke(Enums.WebSocketEventType.Error, message);
                 break;
             case Aria2Socket_Method.OnBtDownloadComplete:
-                this.aria2DownloadBtCompleteHandler?.Invoke(this, message);
+                this.aria2DownloadStateChangedHandler?.Invoke(Enums.WebSocketEventType.BtComplete, message);
                 break;
         }
     }

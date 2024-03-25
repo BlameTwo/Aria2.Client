@@ -27,3 +27,37 @@ public enum Aria2GlobalOptionEnum
     [GlobalOptionProperty(display:"保存会话地址", "save-session")]
     SaveSession,
 }
+
+public static class GlobalOptionConvert
+{
+    public static string EnumToString(Aria2GlobalOptionEnum aria2)
+    {
+        switch (aria2)
+        {
+            case Aria2GlobalOptionEnum.BtMaxFile:
+                return "bt-max-open-files";
+            case Aria2GlobalOptionEnum.SaveDownloadResult:
+                return "keep-unfinished-download-result";
+            case Aria2GlobalOptionEnum.LogFilePath:
+                return "log";
+            case Aria2GlobalOptionEnum.LogLevel:
+                return "log-level";
+            case Aria2GlobalOptionEnum.MaxConcurrentDownloadCount:
+                return "max-concurrent-downloads";
+            case Aria2GlobalOptionEnum.MaxDownloadSaveResultCount:
+                return "max-download-result";
+            case Aria2GlobalOptionEnum.MaxAllDownloadLimit:
+                return "max-overall-download-limit";
+            case Aria2GlobalOptionEnum.MaxAllUploadLimit:
+                return "max-overall-upload-limit";
+            case Aria2GlobalOptionEnum.OptimizeConCurrent:
+                return "optimize-concurrent-downloads";
+            case Aria2GlobalOptionEnum.CookiePath:
+                return "save-cookies";
+            case Aria2GlobalOptionEnum.SaveSession:
+                return "save-session";
+            default:
+                return null;
+        }
+    }
+}
