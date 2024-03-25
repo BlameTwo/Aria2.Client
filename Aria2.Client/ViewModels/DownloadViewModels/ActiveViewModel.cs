@@ -1,23 +1,26 @@
 ﻿using Aria2.Client.Common.ViewModelBase;
 using Aria2.Client.Models;
+using Aria2.Client.Models.Messagers;
 using Aria2.Client.Services;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Aria2.Client.ViewModels.DownloadViewModels;
 
-public sealed partial class ActiveViewModel : DownloadViewModelBase
+public sealed partial class ActiveViewModel : DownloadViewModelBase,IRecipient<TellTaskStateAddRemoveItemMessager>
 {
     public ActiveViewModel(
         IAria2cClient aria2CClient,
         IDataFactory dataFactory,
         IApplicationSetup<App> applicationSetup
     )
-        : base(aria2CClient, dataFactory, applicationSetup) { }
+        : base(aria2CClient, dataFactory, applicationSetup) { IsActive = true; }
 
     private void Aria2CClient_Aria2WebSocketMessage(
         object source,
@@ -45,7 +48,10 @@ public sealed partial class ActiveViewModel : DownloadViewModelBase
         }
     }
 
-
+    public override void OnUnLoad()
+    {
+        base.OnUnLoad();
+    }
 
     public async override Task OnRefreshAsync()
     {
@@ -59,4 +65,15 @@ public sealed partial class ActiveViewModel : DownloadViewModelBase
         }
     }
 
+    public void Receive(TellTaskStateAddRemoveItemMessager message)
+    {
+        if (message.IsRemove)
+        {
+            foreach (var item in Downloads.ToList())
+            {
+                if(item.Data.Gid == message.Value.Data.Gid)
+                    Downloads.Remove(item);
+            }
+        }
+    }
 }

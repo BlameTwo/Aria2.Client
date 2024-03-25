@@ -140,6 +140,8 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
         )
         {
             var clear = await Aria2CClient.Aria2RemoveDownloadResult(this._gid);
+            if(clear == null)
+                WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveItemMessager>(new(this, true, false));
             if (clear.Result == GlobalUsings.RequestOK)
             {
                 clearFlage = true;
@@ -149,6 +151,8 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
         else
         {
             var result = await Aria2CClient.RemoveTask(this._gid, token);
+            if (result == null)
+                return;
             if (result.Result == this.Data.Gid)
             {
                 var clear = await Aria2CClient.Aria2RemoveDownloadResult(this._gid);

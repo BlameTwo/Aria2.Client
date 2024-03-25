@@ -11,6 +11,7 @@ public sealed partial class App : ClientApplication
     public App()
     {
         this.InitializeComponent();
+        
     }
 
     protected async override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)

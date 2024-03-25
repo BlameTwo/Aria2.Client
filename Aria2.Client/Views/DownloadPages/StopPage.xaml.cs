@@ -12,4 +12,9 @@ public sealed partial class StopPage : Page
     }
 
     public StopViewModel ViewModel { get; }
+
+    private void Page_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        ViewModel.OnUnLoad();
+    }
 }

@@ -31,7 +31,16 @@ public sealed partial class AddUriViewModel:ObservableRecipient
     private bool _ActiveEnable;
 
     [ObservableProperty]
-    string _TextUri;
+    string _TextUri="";
+
+    [ObservableProperty]
+    string _HttpHeader="";
+
+    [ObservableProperty]
+    string _UserAgent="";
+
+    [ObservableProperty]
+    string _Refrere="";
 
     [ObservableProperty]
     string _SavePath = UserDataPaths.GetDefault().Downloads;
@@ -69,6 +78,13 @@ public sealed partial class AddUriViewModel:ObservableRecipient
             var list = TextUri.Split("\r\n");
             if (list == null || list.Length == 0)
                 return;
+            var option = new Dictionary<string,object>();
+            if (!string.IsNullOrWhiteSpace(this.UserAgent))
+                option.Add("user-agent", UserAgent);
+            if (!string.IsNullOrWhiteSpace(this.Refrere))
+                option.Add("referer", UserAgent);
+            if (!string.IsNullOrWhiteSpace(this.HttpHeader))
+                option.Add("header", UserAgent);
             var result = await Aria2CClient.AddUriAsync(list, new Dictionary<string, object>() { { "dir", this.SavePath } }, 1);
             if (result.Result != null)
                 DialogManager.CloseDialog();

@@ -1,5 +1,6 @@
 ﻿using Aria2.Client.Services.Contracts;
 using Aria2.Client.Views;
+using Aria2.Net.Services.Contracts;
 using System;
 
 namespace Aria2.Client.Services;
@@ -16,6 +17,10 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
         this.Application.MainWindow.SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop();
         this.Application.MainWindow.ExtendsContentIntoTitleBar = true;
         Application.MainWindow.Content = ProgramLife.GetService<ShellPage>();
+        Application.MainWindow.AppWindow.Closing += async (sender, e) =>
+        {
+            await ProgramLife.GetService<IAria2cClient>().ExitAria2();
+        };
         this.Application.MainWindow.Activate();
     }
 

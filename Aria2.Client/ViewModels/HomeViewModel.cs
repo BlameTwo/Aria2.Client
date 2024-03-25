@@ -65,4 +65,5 @@ public sealed partial class HomeViewModel : ObservableObject
 
     public INavigationViewService NavigationViewService { get; }
     public INavigationService NavigationService { get; }
+    
 }

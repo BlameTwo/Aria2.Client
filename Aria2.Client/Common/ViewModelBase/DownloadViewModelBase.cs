@@ -5,9 +5,11 @@ using Aria2.Net.Models;
 using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Aria2.Client.Common.ViewModelBase;
@@ -21,6 +23,9 @@ public abstract partial class DownloadViewModelBase: ObservableRecipient
         ApplicationSetup = applicationSetup;
         OnInitEnd();
     }
+
+ 
+    public CancellationTokenSource TokenSource = new();
 
     [ObservableProperty]
     ObservableCollection<DownloadTellItemData> _Downloads = new();
@@ -56,7 +61,7 @@ public abstract partial class DownloadViewModelBase: ObservableRecipient
             
             foreach (var item in gids)
             {
-                var gid = await Aria2CClient.GetTellStatusAsync(item.Gid);
+                var gid = await Aria2CClient.GetTellStatusAsync(item.Gid,TokenSource.Token);
                 if (gid == null)
                     continue;
                 if (gid.Result == null)
@@ -95,6 +100,14 @@ public abstract partial class DownloadViewModelBase: ObservableRecipient
         OnLoaded();
     }
 
+
+    [RelayCommand]
+    void UnLoad() => OnUnLoad();
+
+    public virtual void OnUnLoad()
+    {
+        TokenSource.Cancel();
+    }
 
     public abstract void OnInitEnd();
 

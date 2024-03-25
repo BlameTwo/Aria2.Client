@@ -32,18 +32,24 @@ public sealed partial class ShellViewModel : ObservableObject
         System.Net.WebSockets.WebSocketState state
     )
     {
-        ApplicationSetup.Application.MainWindow.DispatcherQueue.TryEnqueue(async () =>
+        try
         {
-            if (state == System.Net.WebSockets.WebSocketState.Open)
+            ApplicationSetup.Application.MainWindow.DispatcherQueue.TryEnqueue(async () =>
             {
-                ConnectState = new SolidColorBrush(Colors.Green);
-                ConnectText = "连接";
-                return;
-            }
-            ConnectState = new SolidColorBrush(Colors.Red);
-            ConnectText = "断开";
-            await Aria2CClient.ReconnectionSocket();
-        });
+                if (state == System.Net.WebSockets.WebSocketState.Open)
+                {
+                    ConnectState = new SolidColorBrush(Colors.Green);
+                    ConnectText = "连接";
+                    return;
+                }
+                ConnectState = new SolidColorBrush(Colors.Red);
+                ConnectText = "断开";
+                await Aria2CClient.ReconnectionSocket();
+            });
+        }
+        catch (System.Exception)
+        {
+        }
     }
 
     [ObservableProperty]

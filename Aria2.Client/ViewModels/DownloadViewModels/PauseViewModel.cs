@@ -25,7 +25,7 @@ public sealed partial class PauseViewModel : DownloadViewModelBase, IRecipient<P
 
     public async override Task OnRefreshAsync()
     {
-        var result = await Aria2CClient.GetWaitingTaskAsync();
+        var result = await Aria2CClient.GetWaitingTaskAsync(0,1,TokenSource.Token);
         if (result.Result == null)
             return;
         foreach (var item in result.Result)

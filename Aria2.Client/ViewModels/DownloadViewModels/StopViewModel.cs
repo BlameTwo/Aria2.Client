@@ -1,19 +1,22 @@
 ﻿using Aria2.Client.Common.ViewModelBase;
+using Aria2.Client.Models.Messagers;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Aria2.Client.ViewModels.DownloadViewModels;
 
-public sealed partial class StopViewModel : DownloadViewModelBase
+public sealed partial class StopViewModel : DownloadViewModelBase, IRecipient<TellTaskStateAddRemoveItemMessager>
 {
     public StopViewModel(
         IAria2cClient aria2CClient,
         IDataFactory dataFactory,
         IApplicationSetup<App> applicationSetup
     )
-        : base(aria2CClient, dataFactory, applicationSetup) { }
+        : base(aria2CClient, dataFactory, applicationSetup) { IsActive = true; }
 
     public override void OnInitEnd()
     {
@@ -22,13 +25,25 @@ public sealed partial class StopViewModel : DownloadViewModelBase
 
     public async override Task OnRefreshAsync()
     {
-        var result = await Aria2CClient.GetStopedTaskAsync();
+        var result = await Aria2CClient.GetStopedTaskAsync(0,1,TokenSource.Token);
         if (result.Result == null)
             return;
         foreach (var item in result.Result)
         {
             var download = DataFactory.CreateownloadTellItemData(item);
             AddDownload(download);
+        }
+    }
+
+    public void Receive(TellTaskStateAddRemoveItemMessager message)
+    {
+        if (message.IsRemove)
+        {
+            foreach (var item in Downloads.ToList())
+            {
+                if (item.Data.Gid == message.Value.Data.Gid)
+                    Downloads.Remove(item);
+            }
         }
     }
 

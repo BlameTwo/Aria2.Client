@@ -13,7 +13,7 @@
 
         <converter:BoolToStringConverter x:Key="BoolToStringConverter" />
     </ContentDialog.Resources>
-    <Grid Width="450" Height="350">
+    <Grid Width="490" Height="350">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <ContentThemeTransition />

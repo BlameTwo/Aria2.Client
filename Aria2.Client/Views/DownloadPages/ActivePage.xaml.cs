@@ -12,5 +12,10 @@ namespace Aria2.Client.Views.DownloadPages
         }
 
         public ActiveViewModel ViewModel { get; }
+
+        private void Page_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            this.ViewModel.OnUnLoad();
+        }
     }
 }
