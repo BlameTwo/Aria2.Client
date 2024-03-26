@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aria2.Client", "Aria2.Client\Aria2.Client.csproj", "{7E181B07-BFF1-4190-AC84-8D4312B685F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aria2.Client", "Aria2.Client\Aria2.Client.csproj", "{7E181B07-BFF1-4190-AC84-8D4312B685F1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aria2.Console", "Aria2.Console\Aria2.Console.csproj", "{11E0546A-848B-4CBE-A6A5-76F58F42BAA7}"
 EndProject

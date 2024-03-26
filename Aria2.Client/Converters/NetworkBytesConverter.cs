@@ -11,17 +11,31 @@ public class NetworkBytesConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, string language)
     {
         if (value == null) return value;
-        if (parameter is string type && long.TryParse(value.ToString(), out var obj))
+        if (parameter is string type && double.TryParse(value.ToString(), out var obj))
         {
-            switch (type)
+            string unit;
+
+            if (obj >= 1_073_741_824)
             {
-                case "G":
-                    return ByteConversion.BytesToGigabytes(obj, 2) + "gb/s";
-                case "M":
-                    return ByteConversion.BytesToMegabytes(obj, 2) + "mb/s";
-                case "K":
-                    return ByteConversion.BytesToKilobytes(obj, 2) + "kb/s";
+                unit = "gb/s";
+                obj /= 1_073_741_824;
             }
+            else if (obj >= 1_048_576)
+            {
+                unit = "mb/s";
+                obj /= 1_048_576;
+            }
+            else if (obj >= 1024)
+            {
+                unit = "kb/s";
+                obj /= 1024;
+            }
+            else
+            {
+                unit = "b/s";
+            }
+
+            return $"{obj:0.##}{unit}";
         }
         return value;
     }
@@ -38,17 +52,31 @@ public class NetworkLengthConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, string language)
     {
         if (value == null) return value;
-        if (parameter is string type && long.TryParse(value.ToString(), out var obj))
+        if (parameter is string type && double.TryParse(value.ToString(), out var obj))
         {
-            switch (type)
+            string unit;
+
+            if (obj >= 1_073_741_824)
             {
-                case "G":
-                    return ByteConversion.BytesToGigabytes(obj, 2) + "GB";
-                case "M":
-                    return ByteConversion.BytesToMegabytes(obj, 2) + "MB";
-                case "K":
-                    return ByteConversion.BytesToKilobytes(obj, 2) + "KB";
+                unit = "GB";
+                obj /= 1_073_741_824;
             }
+            else if (obj >= 1_048_576)
+            {
+                unit = "MB";
+                obj /= 1_048_576;
+            }
+            else if (obj >= 1024)
+            {
+                unit = "KB";
+                obj /= 1024;
+            }
+            else
+            {
+                unit = "B";
+            }
+
+            return $"{obj:0.##}{unit}";
         }
         return value;
     }

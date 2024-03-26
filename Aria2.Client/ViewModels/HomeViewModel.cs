@@ -1,8 +1,10 @@
 ﻿using Aria2.Client.Services;
 using Aria2.Client.Services.Contracts;
 using Aria2.Client.ViewModels.DownloadViewModels;
+using Aria2.Client.ViewModels.FrameViewModels;
 using Aria2.Client.Views;
 using Aria2.Client.Views.DownloadPages;
+using Aria2.Client.Views.FramePages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,12 +36,10 @@ public sealed partial class HomeViewModel : ObservableObject
     private void NavigationService_Navigated(object sender, Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
     {
         var selectedItem = this.NavigationViewService.GetSelectItem(e.SourcePageType);
-        if (selectedItem != null)
-        {
-            this.NavigationSelectItem = selectedItem;
-        }
 
-        if(e.SourcePageType == typeof(ActivePage))
+
+        this.NavigationSelectItem = selectedItem;
+        if (e.SourcePageType == typeof(ActivePage))
         {
             this.Title = "活动中";
         }
@@ -54,6 +54,10 @@ public sealed partial class HomeViewModel : ObservableObject
         if(e.SourcePageType == typeof(OverviewPage))
         {
             this.Title = "总览";
+        }
+        if(e.SourcePageType == typeof(AnimePage))
+        {
+            this.Title = "Anime Search";
         }
     }
 

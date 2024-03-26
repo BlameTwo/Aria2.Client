@@ -10,6 +10,9 @@
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+    <Platform>x64</Platform>
+    <Platforms>x86;x64;arm64</Platforms>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\logo.png" />
@@ -21,6 +24,7 @@
     <None Remove="Views\DownloadPages\ActivePage.xaml" />
     <None Remove="Views\DownloadPages\PausePage.xaml" />
     <None Remove="Views\DownloadPages\StopPage.xaml" />
+    <None Remove="Views\FramePages\AnimePage.xaml" />
     <None Remove="Views\HomePage.xaml" />
     <None Remove="Views\OverviewPage.xaml" />
     <None Remove="Views\ShellPage.xaml" />
@@ -43,6 +47,8 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240311000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.3" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
     <PackageReference Include="WinUIEx" Version="2.3.4" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
@@ -115,6 +121,16 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\DateTemplate\DownloadTellFileTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\FramePages\AnimePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\FramePages\AnimePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

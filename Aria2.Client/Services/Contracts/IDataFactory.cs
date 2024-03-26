@@ -1,4 +1,5 @@
 ﻿using Aria2.Client.Models;
+using Aria2.Client.Models.Anime;
 using Aria2.Net.Models.ClientModel;
 using System.Collections.Generic;
 
@@ -15,4 +16,8 @@ public interface IDataFactory
     public DownloadTellItemData CreateownloadTellItemData(FileDownloadTell tellValue);
 
     public List<DownloadTellItemData> CreateownloadTellItemDatas(List<FileDownloadTell> tellValue);
+
+    public AnimeItemData CreateAnimeItemData(AnimeResource value);
+
+    public List<AnimeItemData> CreateAnimeItemDatas(List<AnimeResource> values);
 }

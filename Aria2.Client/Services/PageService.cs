@@ -1,8 +1,10 @@
 ﻿using Aria2.Client.Services.Contracts;
 using Aria2.Client.ViewModels;
 using Aria2.Client.ViewModels.DownloadViewModels;
+using Aria2.Client.ViewModels.FrameViewModels;
 using Aria2.Client.Views;
 using Aria2.Client.Views.DownloadPages;
+using Aria2.Client.Views.FramePages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -22,6 +24,7 @@ public sealed partial class PageService:IPageService
         RegisterView<PausePage, PauseViewModel>();
         RegisterView<StopPage, StopViewModel>();
         RegisterView<OverviewPage, OverviewViewModel>();
+        RegisterView<AnimePage, AnimeViewModel>();
     }
 
     public Type GetPage(string key)

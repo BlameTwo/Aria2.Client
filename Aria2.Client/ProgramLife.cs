@@ -6,9 +6,11 @@ using Aria2.Client.Services.NavigationViews;
 using Aria2.Client.ViewModels;
 using Aria2.Client.ViewModels.DialogViewModels;
 using Aria2.Client.ViewModels.DownloadViewModels;
+using Aria2.Client.ViewModels.FrameViewModels;
 using Aria2.Client.Views;
 using Aria2.Client.Views.Dialogs;
 using Aria2.Client.Views.DownloadPages;
+using Aria2.Client.Views.FramePages;
 using Aria2.Net.Contracts;
 using Aria2.Net.Services;
 using Aria2.Net.Services.Contracts;
@@ -32,6 +34,7 @@ public static class ProgramLife
             .AddKeyedScoped<INavigationViewService, HomeNavigationViewService>(ServiceKey.HomeNavigationViewServiceKey)
             .AddSingleton<IAria2cClient, Aria2cClient>()
             .AddTransient<IDataFactory, DataFactory>()
+            .AddSingleton<IRssService, RssService>()
             .AddTransient<ShellPage>()
             .AddTransient<ShellViewModel>()
             .AddTransient<HomePage>()
@@ -52,6 +55,11 @@ public static class ProgramLife
         #endregion
         #region 注册子项
             .AddTransient<DownloadTellItemData>()
+            .AddTransient<AnimeItemData>()
+        #endregion
+        #region RSS
+            .AddTransient<AnimePage>()
+            .AddTransient<AnimeViewModel>()
         #endregion
             .BuildServiceProvider();
     }

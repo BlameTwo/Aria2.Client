@@ -1,5 +1,6 @@
 ﻿using Aria2.Client.Services;
 using Aria2.Client.Services.Contracts;
+using Aria2.Client.ViewModels.FrameViewModels;
 using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -16,12 +17,15 @@ public sealed partial class ShellViewModel : ObservableObject
         IApplicationSetup<App> applicationSetup,
         [FromKeyedServices(ServiceKey.ShellNavigationServiceKey)]
         INavigationService navigationService,
+        [FromKeyedServices(ServiceKey.HomeNavigationServiceKey)]
+        INavigationService homeNavigationService,
         IDialogManager dialogManager,
         IAria2cClient aria2CClient
     )
     {
         ApplicationSetup = applicationSetup;
         NavigationService = navigationService;
+        HomeNavigationService = homeNavigationService;
         DialogManager = dialogManager;
         Aria2CClient = aria2CClient;
         Aria2CClient.Aria2ConnectStateChanged += Aria2CClient_Aria2ConnectStateChanged;
@@ -60,6 +64,7 @@ public sealed partial class ShellViewModel : ObservableObject
 
     public IApplicationSetup<App> ApplicationSetup { get; }
     public INavigationService NavigationService { get; }
+    public INavigationService HomeNavigationService { get; }
     public IDialogManager DialogManager { get; }
     public IAria2cClient Aria2CClient { get; }
 
@@ -80,5 +85,11 @@ public sealed partial class ShellViewModel : ObservableObject
     async Task ShowAddTorrent()
     {
         await DialogManager.ShowAddTorrentAsync();
+    }
+
+    [RelayCommand]
+    void GoAnimePage()
+    {
+        HomeNavigationService.NavigationTo<AnimeViewModel>(null);
     }
 }

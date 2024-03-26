@@ -43,11 +43,16 @@
                             <MenuFlyoutItem Text="直接退出" />
                         </MenuFlyoutSubItem>
                     </MenuBarItem>
-                    <MenuBarItem Title="RSS" />
+                    <MenuBarItem Title="RSS">
+                        <MenuFlyoutItem Command="{x:Bind ViewModel.GoAnimePageCommand}" Text="Anime Garden">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x2721;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuBarItem>
                     <MenuBarItem Title="关于" />
                 </MenuBar>
             </ui:TitleBar.Header>
-
         </ui:TitleBar>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
             <Rectangle

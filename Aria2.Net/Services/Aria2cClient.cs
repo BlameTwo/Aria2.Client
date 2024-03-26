@@ -118,7 +118,7 @@ public partial class Aria2cClient : IAria2cClient
         }
         var jsonRequest = JsonSerializer.Serialize(request);
         if (Socket.State != WebSocketState.Open)
-            throw new Exception("Aria2未运行！请前往设置重新运行！");
+            return null;
         HttpClient client = new HttpClient();
         var pos = await client.PostAsync(
             GlobalUsings.HttpRequetBaseUrl,
@@ -167,7 +167,7 @@ public partial class Aria2cClient : IAria2cClient
             string argument = $" --enable-rpc=true --rpc-listen-port={GlobalUsings.Port} --rpc-listen-all=true";
             if (config.BtTracker != null)
             {
-                argument += $" --bt-tracker={string.Join("", config.BtTracker)}";
+                argument += $" --bt-tracker={string.Join(",", config.BtTracker)}";
             }
 
             if (!string.IsNullOrWhiteSpace(config.SesionFilePath))

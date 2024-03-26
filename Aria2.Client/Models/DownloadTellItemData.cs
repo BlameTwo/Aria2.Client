@@ -1,4 +1,5 @@
 ﻿using Aria2.Client.Common;
+using Aria2.Client.Helpers;
 using Aria2.Client.Models.Bases;
 using Aria2.Client.Models.Messagers;
 using Aria2.Client.Services.Contracts;
@@ -9,7 +10,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,9 +38,20 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     [ObservableProperty]
     bool _IsRemoved;
 
+
+    [ObservableProperty]
+    BitmapImage _FileImage;
+
+    [ObservableProperty]
+    bool _FileImageVisibility;
+
+    [ObservableProperty]
+    string _FileIcon;
+
     public IAria2cClient Aria2CClient { get; }
 
     public IDataFactory DataFactory { get; }
+
 
     public DownloadTellItemData(IAria2cClient aria2CClient, IDataFactory dataFactory)
     {
@@ -191,6 +205,7 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
         )
         {
             var result = await Aria2CClient.Unpause(this.Data.Gid, token);
+            if(result == null)return;
             if (result.Result == this._gid)
             {
                 WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveMessager>(
@@ -211,18 +226,31 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
         
     }
 
-    private void RefreshFileName()
+    private async void RefreshFileName()
     {
         if (Data.Files.Count == 1)
         {
             this.FileName = System.IO.Path.GetFileName(Data.Files[0].Path);
+            var icon =  FileHelper.GetIcon(Data.Files[0].Path, true);
+            if(icon == null)
+            {
+                this.FileImageVisibility = true;
+                return;
+            }
+            var bitmap = icon.ToBitmap();
+            if (bitmap == null)
+            {
+                this.FileImageVisibility = true;
+                return;
+            }
+            this.FileImage = await FileHelper.BitmapToBitmapImage(bitmap);
         }
         else
         {
             DirectoryInfo info = new DirectoryInfo(Data.Files[0].Path);
-
-            //this.FileName = System.IO.Path.GetDirectoryName(Data.Files[0].Path)+"…………";
             this.FileName = info.Parent.Name;
+            this.FileImage = await FileHelper.BitmapToBitmapImage(FileHelper.GetIcon(info.Parent.FullName, true).ToBitmap());
+            this.FileImageVisibility = false;
         }
     }
 

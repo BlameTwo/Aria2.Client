@@ -56,7 +56,7 @@ public sealed partial class ActiveViewModel : DownloadViewModelBase,IRecipient<T
     public async override Task OnRefreshAsync()
     {
         var result = await Aria2CClient.GetAllTellActiveAsync();
-        if (result.Result == null)
+        if (result == null || result.Result == null)
             return;
         foreach (var item in result.Result)
         {
