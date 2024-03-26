@@ -85,11 +85,11 @@ public sealed partial class AddUriViewModel:ObservableRecipient
                 option.Add("referer", UserAgent);
             if (!string.IsNullOrWhiteSpace(this.HttpHeader))
                 option.Add("header", UserAgent);
-            var result = await Aria2CClient.AddUriAsync(list, new Dictionary<string, object>() { { "dir", this.SavePath } }, 1);
+            var result = await Aria2CClient.AddUriAsync(list, new Dictionary<string, object>() { { "dir", this.SavePath }, { "follow-torrent", true } }, 1);
             if (result.Result != null)
                 DialogManager.CloseDialog();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
 
         }

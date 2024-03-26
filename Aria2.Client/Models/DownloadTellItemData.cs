@@ -65,7 +65,7 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     }
 
 
-    private async void _timer_Tick(object? sender, object e)
+    private async void _timer_Tick(object sender, object e)
     {
         try
         {
