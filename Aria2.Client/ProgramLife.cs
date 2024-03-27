@@ -45,6 +45,8 @@ public static class ProgramLife
             .AddTransient<OverviewViewModel>()
             .AddTransient<AddTorrentDialog>()
             .AddTransient<AddTorrentViewModel>()
+            .AddTransient<DownloadDetailsViewModel>()
+            .AddTransient<DownloadDetailsDialog>()
         #region 注册下载页面
             .AddTransient<ActivePage>()
             .AddTransient<ActiveViewModel>()

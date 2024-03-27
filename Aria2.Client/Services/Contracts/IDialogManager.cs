@@ -14,4 +14,5 @@ public interface IDialogManager
     public Task ShowAddTorrentAsync();
 
     public void CloseDialog();
+    public Task ShowDownloadDetails(string gid);
 }

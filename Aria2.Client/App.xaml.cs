@@ -43,6 +43,5 @@ public sealed partial class App : ClientApplication
             }
         });
         await ProgramLife.GetService<IAria2cClient>().ConnectAsync();
-        ProgramLife.GetService<IRssService>().AddUrl("https://dmhy.b168.net/topics/rss/rss.xml");
     }
 }

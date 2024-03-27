@@ -21,6 +21,7 @@
     <None Remove="Views\DateTemplate\DownloadTellFileTemplate.xaml" />
     <None Remove="Views\Dialogs\AddTorrentDialog.xaml" />
     <None Remove="Views\Dialogs\AddUriDialog.xaml" />
+    <None Remove="Views\Dialogs\DownloadDetailsDialog.xaml" />
     <None Remove="Views\DownloadPages\ActivePage.xaml" />
     <None Remove="Views\DownloadPages\PausePage.xaml" />
     <None Remove="Views\DownloadPages\StopPage.xaml" />
@@ -68,6 +69,11 @@
     <Content Update="Assets\logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\DownloadDetailsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\AddTorrentDialog.xaml">

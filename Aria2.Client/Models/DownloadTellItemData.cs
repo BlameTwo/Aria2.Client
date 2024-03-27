@@ -52,11 +52,13 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
 
     public IDataFactory DataFactory { get; }
 
+    public IDialogManager DialogManager { get; }
 
-    public DownloadTellItemData(IAria2cClient aria2CClient, IDataFactory dataFactory)
+    public DownloadTellItemData(IAria2cClient aria2CClient, IDataFactory dataFactory,IDialogManager dialogManager)
     {
         Aria2CClient = aria2CClient;
         DataFactory = dataFactory;
+        DialogManager = dialogManager;
         _timer.Interval = TimeSpan.FromSeconds(1);
         cts = new CancellationTokenSource();
         token = cts.Token;
@@ -263,5 +265,11 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
             cts.Cancel();
             _timer.Stop();
         }
+    }
+
+    [RelayCommand]
+    void OpenDetailsDialog()
+    {
+        DialogManager.ShowDownloadDetails(this.Data.Gid);
     }
 }
