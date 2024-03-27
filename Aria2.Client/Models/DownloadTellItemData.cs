@@ -120,10 +120,18 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
         //Process.Start($"explorer.exe {this.Data.Dir}");
     }
 
-    private void DataRefresh(FileDownloadTell data)
+    private async void DataRefresh(FileDownloadTell data)
     {
         this._gid = data.Gid;
         RefreshFileName();
+        if(this.Data.Bittorrent != null)
+        {
+            var result = await Aria2CClient.GetBittorrentPeers(this._gid);
+            foreach (var item in result.Result)
+            {
+                var ip = await Aria2CClient.GetIpAsync(item.Ip, token);
+            }
+        }
         switch (data.Status)
         {
             case TellState.Active:

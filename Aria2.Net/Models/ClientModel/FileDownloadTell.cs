@@ -25,10 +25,35 @@ public class File
     public List<Uri> Uris { get; set; }
 }
 
+public class Bittorrent
+{
+    [JsonPropertyName("announceList")]
+    public List<List<string>> AnnounceList { get; set; }
+
+    [JsonPropertyName("creationDate")]
+    public int CreationDate { get; set; }
+
+    [JsonPropertyName("info")]
+    public Info Info { get; set; }
+
+    [JsonPropertyName("mode")]
+    public string Mode { get; set; }
+}
+
+public class Info
+{
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+}
+
+
 public class FileDownloadTell
 {
     [JsonPropertyName("bitfield")]
     public string Bitfield { get; set; }
+
+    [JsonPropertyName("bittorrent")]
+    public Bittorrent Bittorrent { get; set; }
 
     [JsonPropertyName("completedLength")]
     public string CompletedLength { get; set; }
@@ -42,23 +67,26 @@ public class FileDownloadTell
     [JsonPropertyName("downloadSpeed")]
     public string DownloadSpeed { get; set; }
 
-    [JsonPropertyName("errorCode")]
-    public string ErrorCode { get; set; }
-
-    [JsonPropertyName("errorMessage")]
-    public string ErrorMessage { get; set; }
-
     [JsonPropertyName("files")]
     public List<File> Files { get; set; }
 
     [JsonPropertyName("gid")]
     public string Gid { get; set; }
 
+    [JsonPropertyName("infoHash")]
+    public string InfoHash { get; set; }
+
     [JsonPropertyName("numPieces")]
     public string NumPieces { get; set; }
 
+    [JsonPropertyName("numSeeders")]
+    public string NumSeeders { get; set; }
+
     [JsonPropertyName("pieceLength")]
     public string PieceLength { get; set; }
+
+    [JsonPropertyName("seeder")]
+    public string Seeder { get; set; }
 
     [JsonPropertyName("status")]
     public string Status { get; set; }

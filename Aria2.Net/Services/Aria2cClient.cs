@@ -474,6 +474,19 @@ public partial class Aria2cClient : IAria2cClient
         return await this.ConnectAsync(token);
     }
 
+    public async Task<ResultCode<List<BittorrentPeer>>> GetBittorrentPeers(string gid, CancellationToken token = default)
+    {
+        return await RequestAsync<List<BittorrentPeer>>("aria2.getPeers",token,gid);
+    }
+
+    public async Task<IpData> GetIpAsync(string ip, CancellationToken token = default)
+    {
+        var uri = $"https://opendata.baidu.com/api.php?query={ip}&co=&resource_id=6006&oe=utf8";
+        HttpClient client = new HttpClient();
+        var result = await client.GetAsync(uri,token);
+        return JsonSerializer.Deserialize<IpData>(await result.Content.ReadAsStringAsync())!;
+    }
+
     public event Aria2ConnectStateChangedDelegate Aria2ConnectStateChanged
     {
         add => _aria2ConnectStateHandler += value;

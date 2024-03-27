@@ -189,12 +189,16 @@ public interface IAria2cClient
     /// <returns></returns>
     public Task<ResultCode<List<FileDownloadTell>>> GetStopedTaskAsync(int offset = 0, int pagesize = 1000, CancellationToken token = default);
 
+    public Task<ResultCode<List<BittorrentPeer>>> GetBittorrentPeers(string gid,CancellationToken token = default);
+
     /// <summary>
     /// 连接WebSocket
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
     public Task<WebSocketState> ConnectAsync(CancellationToken token=default);
+
+    public Task<IpData> GetIpAsync(string ip ,CancellationToken token=default);
 
     /// <summary>
     /// 断开WebSocket连接

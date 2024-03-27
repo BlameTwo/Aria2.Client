@@ -14,7 +14,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock VerticalAlignment="Center" Text="ÈÎÎñÃû³Æ" />
+        <TextBlock VerticalAlignment="Center" Text="Task Name" />
         <Button
             Padding="7"
             HorizontalAlignment="Right"
@@ -26,7 +26,7 @@
                 Glyph="&#xE894;" />
         </Button>
         <SelectorBar Grid.Row="1">
-            <SelectorBarItem Text="{x:Bind CloseButtonText}" />
+            <SelectorBarItem Text="Task" />
         </SelectorBar>
     </Grid>
 
