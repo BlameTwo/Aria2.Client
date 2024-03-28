@@ -49,6 +49,7 @@ public class DialogManager : IDialogManager
         var dialog = ProgramLife.GetService<T>();
         if (dialog == null) return;
         dialog.XamlRoot = Root;
+        this._dialog = dialog;
         dialog.SetData(type);
         await dialog.ShowAsync();
     }

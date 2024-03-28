@@ -76,6 +76,7 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
             var result = (await Aria2CClient.GetTellStatusAsync(this.Data.Gid, token));
             if (result == null) return;
             this.Data = result.Result;
+            if (Data == null) return;
             DataRefresh(this.Data);
             this.ProgressRatio = Math.Round(
                 double.Parse(Data.CompletedLength) / double.Parse(Data.TotalLength) * 100,
@@ -127,9 +128,12 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
         if(this.Data.Bittorrent != null)
         {
             var result = await Aria2CClient.GetBittorrentPeers(this._gid);
-            foreach (var item in result.Result)
+            if(result != null)
             {
-                var ip = await Aria2CClient.GetIpAsync(item.Ip, token);
+                foreach (var item in result.Result)
+                {
+                    //var ip = await Aria2CClient.GetIpAsync(item.Ip, token);
+                }
             }
         }
         switch (data.Status)

@@ -82,7 +82,6 @@ public sealed partial class AddTorrentViewModel:ObservableObject
         {
             var data = await Aria2CClient.ChangeTellOption(this._gid, new Dictionary<string, object>() { { "select-file", numbers } });
             var result = await Aria2CClient.Unpause(_gid);
-            var files = await Aria2CClient.GetFiles(this._gid);
             DialogManager.CloseDialog();
         }
     }
