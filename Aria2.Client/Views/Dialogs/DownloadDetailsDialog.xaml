@@ -41,12 +41,13 @@
             SelectedItem="{x:Bind ViewModel.TabSelectoritem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <SelectorBarItem x:Uid="Dialog_DownloadDetils_Task" />
             <SelectorBarItem x:Uid="Dialog_DownloadDetils_Link" />
+            <SelectorBarItem Text="Data" />
         </SelectorBar>
         <Grid
             x:Name="task"
             Grid.Row="2"
             Padding="15"
-            Visibility="{x:Bind ViewModel.IsIpShow, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}">
+            Visibility="{x:Bind ViewModel.TaskVisibility, Mode=OneWay}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -99,9 +100,9 @@
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Margin="17,15,0,0" VerticalAlignment="Center">
-                        <Run Text="共" />
+                        <Run x:Uid="Dialog_DownloadDetils_FileSum" />
                         <Run Text="{x:Bind ViewModel.SelectFile, Mode=OneWay}" />
-                        <Run Text="个文件" />
+                        <Run x:Uid="Dialog_DownloadDetils_FileCount" />
                     </TextBlock>
                     <Button
                         Margin="0,15,15,0"
@@ -114,36 +115,43 @@
                             Glyph="&#xE72C;" />
                     </Button>
                 </Grid>
-                <ScrollView Grid.Row="1" Margin="10">
-                    <ItemsRepeater ItemsSource="{x:Bind ViewModel.Downloads, Mode=OneWay}">
-                        <ItemsRepeater.ItemTemplate>
-                            <DataTemplate x:DataType="data:DownloadFile">
-                                <Grid
-                                    Margin="3"
-                                    Padding="10,5"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                    BorderThickness="1"
-                                    ToolTipService.ToolTip="{x:Bind Path, Mode=OneWay}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="30" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock VerticalAlignment="Center" TextTrimming="CharacterEllipsis">
-                                        <Run FontWeight="Bold" Text="{x:Bind Index, Mode=OneWay}" />
-                                        <Run Text="{x:Bind Path, Mode=OneWay}" />
-                                    </TextBlock>
-                                    <CheckBox
-                                        Grid.Column="1"
-                                        Margin="10,0,0,0"
-                                        IsChecked="{x:Bind Selected, Mode=TwoWay, Converter={StaticResource BoolToStringConverter}, UpdateSourceTrigger=PropertyChanged}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsRepeater.ItemTemplate>
-                    </ItemsRepeater>
-                </ScrollView>
+                <Grid Grid.Row="1" Margin="10">
+                    <ScrollView
+                        Grid.Row="0"
+                        Margin="10"
+                        Visibility="Visible">
+                        <ItemsRepeater ItemsSource="{x:Bind ViewModel.Downloads, Mode=OneWay}">
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="data:DownloadFile">
+                                    <Grid
+                                        Margin="3"
+                                        Padding="10,5"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        ToolTipService.ToolTip="{x:Bind Path, Mode=OneWay}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="30" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock VerticalAlignment="Center" TextTrimming="CharacterEllipsis">
+                                            <Run FontWeight="Bold" Text="{x:Bind Index, Mode=OneWay}" />
+                                            <Run Text="{x:Bind Path, Mode=OneWay}" />
+                                        </TextBlock>
+                                        <CheckBox
+                                            Grid.Column="1"
+                                            Margin="10,0,0,0"
+                                            IsChecked="{x:Bind Selected, Mode=TwoWay, Converter={StaticResource BoolToStringConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </ScrollView>
+
+                </Grid>
+
                 <Button
                     x:Uid="Dialog_DownloadDetils_Editer"
                     Grid.Row="2"
@@ -156,9 +164,9 @@
         <Grid
             x:Name="ip"
             Grid.Row="2"
-            Visibility="{x:Bind ViewModel.IsIpShow, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            Margin="10,20,10,10"
+            Visibility="{x:Bind ViewModel.LinkVisibility, Mode=OneWay}">
             <ScrollView Grid.Row="1">
-
                 <ItemsRepeater ItemsSource="{x:Bind ViewModel.Peers, Mode=OneWay}">
                     <ItemsRepeater.ItemTransitionProvider>
                         <LinedFlowLayoutItemCollectionTransitionProvider />
@@ -191,6 +199,42 @@
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>
             </ScrollView>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Margin="10,20,10,10"
+            Padding="8"
+            HorizontalAlignment="Stretch"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            Visibility="{x:Bind ViewModel.DataVisibility, Mode=OneWay}">
+            <ScrollView>
+                <ItemsRepeater ItemsSource="{x:Bind ViewModel.Data.Bitfields, Mode=OneWay}">
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout
+                            MinColumnSpacing="8"
+                            MinItemHeight="20"
+                            MinItemWidth="20"
+                            MinRowSpacing="8" />
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate>
+                            <Rectangle
+                                Margin="3"
+                                Fill="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                Opacity="{Binding}"
+                                Stroke="{ThemeResource AccentAAFillColorDisabledBrush}"
+                                StrokeThickness="1">
+                                <Rectangle.OpacityTransition>
+                                    <ScalarTransition />
+                                </Rectangle.OpacityTransition>
+                            </Rectangle>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ScrollView>
+
         </Grid>
     </Grid>
 </ContentDialog>

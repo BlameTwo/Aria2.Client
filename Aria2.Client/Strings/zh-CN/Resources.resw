@@ -120,6 +120,12 @@
   <data name="Dialog_DownloadDetils_Editer.Content" xml:space="preserve">
     <value>修改</value>
   </data>
+  <data name="Dialog_DownloadDetils_FileCount.Text" xml:space="preserve">
+    <value>个文件</value>
+  </data>
+  <data name="Dialog_DownloadDetils_FileSum.Text" xml:space="preserve">
+    <value>共</value>
+  </data>
   <data name="Dialog_DownloadDetils_Link.Text" xml:space="preserve">
     <value>连接</value>
   </data>

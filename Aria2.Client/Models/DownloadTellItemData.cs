@@ -12,6 +12,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Threading;
@@ -128,11 +130,19 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
         if(this.Data.Bittorrent != null)
         {
             var result = await Aria2CClient.GetBittorrentPeers(this._gid);
-            if(result != null)
+            if(this.Data.Bitfield != null)
             {
-                foreach (var item in result.Result)
+                var value = TellHelper.GetBitfield(this.Data.Bitfield.ToUpper());
+                if (Bitfields.Count == value.Count)
                 {
-                    //var ip = await Aria2CClient.GetIpAsync(item.Ip, token);
+                    for (int i = 0; i < value.Count; i++) 
+                    {
+                        Bitfields[i] = value[i];
+                    }
+                }
+                else
+                {
+                    this.Bitfields = value;
                 }
             }
         }
@@ -155,6 +165,9 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
 
     [ObservableProperty]
     string _StateFont;
+
+    [ObservableProperty]
+    ObservableCollection<double> _Bitfields=new();
 
     [RelayCommand]
     async Task RemoveStopTask()

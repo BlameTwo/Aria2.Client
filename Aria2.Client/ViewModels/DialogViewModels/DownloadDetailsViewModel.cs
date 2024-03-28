@@ -40,7 +40,7 @@ public sealed partial class DownloadDetailsViewModel : ObservableRecipient
     DispatcherTimer _timer = null;
 
     [ObservableProperty]
-    List<DownloadFile> _Downloads;
+    ObservableCollection<DownloadFile> _Downloads;
 
     [ObservableProperty]
     DownloadTellItemData _Data;
@@ -49,7 +49,13 @@ public sealed partial class DownloadDetailsViewModel : ObservableRecipient
     SelectorBarItem _TabSelectoritem;
 
     [ObservableProperty]
-    bool _IsIpShow = false;
+    Visibility _TaskVisibility = Visibility.Visible;
+
+    [ObservableProperty]
+    Visibility _LinkVisibility = Visibility.Collapsed;
+
+    [ObservableProperty]
+    Visibility _DataVisibility = Visibility.Collapsed;
 
     [ObservableProperty]
     ObservableCollection<BittorrentPeer> _Peers;
@@ -87,11 +93,22 @@ public sealed partial class DownloadDetailsViewModel : ObservableRecipient
     {
         if (value.Text == "任务详情")
         {
-            IsIpShow = false;
+            TaskVisibility = Visibility.Visible;
+            LinkVisibility = Visibility.Collapsed;
+            DataVisibility = Visibility.Collapsed;
         }
-        else
+        else if(value.Text == "连接")
         {
-            IsIpShow = true;
+            TaskVisibility = Visibility.Collapsed;
+            LinkVisibility = Visibility.Visible;
+            DataVisibility = Visibility.Collapsed;
+        }
+        else if(value.Text == "Data")
+        {
+
+            TaskVisibility = Visibility.Collapsed;
+            LinkVisibility = Visibility.Collapsed;
+            DataVisibility = Visibility.Visible;
         }
     }
 
@@ -113,7 +130,7 @@ public sealed partial class DownloadDetailsViewModel : ObservableRecipient
         var downloads = await this.Aria2CClient.GetFiles(this.Gid,_source.Token);
         if (downloads == null)
             return;
-        this.Downloads = downloads.Result;
+        this.Downloads = new(downloads.Result);
         this.SelectFile = Downloads.Count();
         this.Size = 2312;
     }
