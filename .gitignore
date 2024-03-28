@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /.vscode
+/Aria2.Client/Assets/Countries/countries_abb2.json
+/Aria2.Client/Assets/Countries/countries_list.json
+/Aria2.Client/Assets/Countries/flags
