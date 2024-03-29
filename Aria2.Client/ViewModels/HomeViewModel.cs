@@ -7,8 +7,10 @@ using Aria2.Client.Views.DownloadPages;
 using Aria2.Client.Views.FramePages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using IBtSearch;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
+using System.Threading.Tasks;
 
 namespace Aria2.Client.ViewModels;
 
@@ -27,8 +29,17 @@ public sealed partial class HomeViewModel : ObservableObject
         
     }
 
+    [ObservableProperty]
+    object _NavigationSelectItem;
+
+    [ObservableProperty]
+    string _Title;
+
+    public INavigationViewService NavigationViewService { get; }
+    public INavigationService NavigationService { get; }
+
     [RelayCommand]
-    void Loaded()
+    async Task Loaded()
     {
         NavigationService.NavigationTo<ActiveViewModel>(null);
     }
@@ -61,13 +72,4 @@ public sealed partial class HomeViewModel : ObservableObject
         }
     }
 
-    [ObservableProperty]
-    object _NavigationSelectItem;
-
-    [ObservableProperty]
-    string _Title;
-
-    public INavigationViewService NavigationViewService { get; }
-    public INavigationService NavigationService { get; }
-    
 }

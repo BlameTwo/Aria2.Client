@@ -14,6 +14,8 @@ using Aria2.Client.Views.FramePages;
 using Aria2.Net.Contracts;
 using Aria2.Net.Services;
 using Aria2.Net.Services.Contracts;
+using BtSearch.Fitgril;
+using IBtSearch;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
 
@@ -32,11 +34,14 @@ public static class ProgramLife
             .AddKeyedScoped<INavigationService, ShellNavigationService>(ServiceKey.ShellNavigationServiceKey)
             .AddKeyedScoped<INavigationService, HomeNavigationService>(ServiceKey.HomeNavigationServiceKey)
             .AddKeyedScoped<INavigationViewService, HomeNavigationViewService>(ServiceKey.HomeNavigationViewServiceKey)
+            .AddKeyedSingleton<IBTSearchPlugin, FitgrilPlugin>("Fitgril")
             .AddSingleton<IAria2cClient, Aria2cClient>()
             .AddTransient<IDataFactory, DataFactory>()
             .AddSingleton<IRssService, RssService>()
             .AddTransient<ShellPage>()
             .AddTransient<ShellViewModel>()
+            .AddTransient<SearchPage>()
+            .AddTransient<SearchViewModel>()
             .AddTransient<HomePage>()
             .AddTransient<HomeViewModel>()
             .AddTransient<AddUriDialog>()

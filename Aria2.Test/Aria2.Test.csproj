@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Aria2.Net\Aria2.Net.csproj" />
+    <ProjectReference Include="..\BtSearchs\BtSearch.Fitgril\BtSearch.Fitgril.csproj" />
+    <ProjectReference Include="..\IBtSearch\IBtSearch.csproj" />
   </ItemGroup>
 
   <ItemGroup>

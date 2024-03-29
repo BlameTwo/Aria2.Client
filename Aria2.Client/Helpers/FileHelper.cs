@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -74,4 +75,14 @@ public static class FileHelper
 
     [DllImport("user32.dll")]
     private static extern bool DestroyIcon(IntPtr hIcon); // 用来释放图标资源
+
+    public static bool CheckFolder(string folder)
+    {
+        if (Directory.Exists(folder)) 
+        {
+            return true;
+        }
+        Directory.CreateDirectory(folder);
+        return Directory.Exists(folder);
+    }
 }

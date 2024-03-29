@@ -1,9 +1,9 @@
 ﻿using Aria2.Client.Common;
+using Aria2.Client.Helpers;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
-using System.Drawing;
+using System;
 
 namespace Aria2.Client;
 
@@ -15,13 +15,16 @@ public sealed partial class App : ClientApplication
         this.UnhandledException += App_UnhandledException;
     }
 
-    private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
         e.Handled = true;
     }
 
+    public static string SearchPluginFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Aria2ClientPlugin";
+
     protected async override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
+        FileHelper.CheckFolder(SearchPluginFolder);
         ProgramLife.GetService<IApplicationSetup<App>>().Launcher(this);
         await ProgramLife.GetService<IAria2cClient>().LauncherAsync(new()
         {
