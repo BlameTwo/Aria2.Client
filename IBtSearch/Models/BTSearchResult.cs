@@ -53,4 +53,13 @@ public class BTSearchResult
 
     public string OrginSource => "Fitgril";
 
+    /// <summary>
+    /// 当前页
+    /// </summary>
+    public int NowPage { get; set; }
+
+    /// <summary>
+    /// 最大页面
+    /// </summary>
+    public int MaxPageCount { get; set; }
 }

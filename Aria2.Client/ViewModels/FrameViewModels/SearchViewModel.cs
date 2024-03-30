@@ -23,6 +23,8 @@ public sealed partial class SearchViewModel:ObservableRecipient
         Aria2CClient = aria2CClient;
     }
 
+    CancellationTokenSource cts = new CancellationTokenSource();
+
     [ObservableProperty]
     List<SearchTypeModel> _Tabs = new()
     {
@@ -43,34 +45,48 @@ public sealed partial class SearchViewModel:ObservableRecipient
     public IBTSearchPlugin FitgrilSearchPlugin { get; }
     public IAria2cClient Aria2CClient { get; }
 
-    async partial void OnSearchTagChanged(SearchTypeModel value)
-    {
-        await this.refresh(value);
-    }
 
     [ObservableProperty]
     string _Query;
 
-    private async Task refresh(SearchTypeModel value)
-    {
-        switch (value.Tag)
-        {
-            case "Fitgril":
-                break;
-        }
-    }
+    [ObservableProperty]
+    bool _IsRun;
+
+    [ObservableProperty]
+    string _RunTip = "请输入关键字进行搜索";
 
     [RelayCommand]
     async Task SearchAsync()
     {
-        await foreach (var item in FitgrilSearchPlugin.SearchAsync(Query))
+        try
         {
-            if (item == null)
-                continue;
-            this.Result.Add(item);
+            if (string.IsNullOrWhiteSpace(this.Query))
+                return;
+            IsRun = true;
+            this.RunTip = "正在检索";
+            this.Result.Clear();
+            await foreach (var item in FitgrilSearchPlugin.SearchAsync(Query, cts.Token))
+            {
+                if (item == null)
+                    continue;
+                this.Result.Add(item);
+                this.RunTip = $"当前检索位置{item.NowPage-1}页，最大页面{item.MaxPageCount}，检索总数{Result.Count}";
+            }
         }
+        catch (Exception)
+        {
+            this.cts = new CancellationTokenSource();
+        }
+        this.RunTip = $"检索总数{Result.Count},开始搜索后清空";
+        IsRun = false;
     }
 
+    [RelayCommand]
+    void ClearSearch()
+    {
+        cts.Cancel();
+        IsRun = false;
+    }
    
 }
 
