@@ -89,6 +89,8 @@ public class FitgrilPlugin : IBTSearchPlugin
                     continue;
                 result.Cover = image.GetAttributeValue<string>("src", null);
                 var size = article.SelectSingleNode("//div//p[1]/strong[5]");
+                if (size == null)
+                    continue;
                 result.Size = size.InnerHtml;
                 #endregion
                 #region 获得下载链接

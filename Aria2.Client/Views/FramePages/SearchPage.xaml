@@ -99,7 +99,10 @@
                                     FontWeight="Bold"
                                     Text="{Binding Name, Mode=OneWay}"
                                     TextTrimming="CharacterEllipsis" />
-                                <StackPanel Grid.Row="1" Orientation="Vertical">
+                                <StackPanel
+                                    Grid.Row="1"
+                                    Margin="0,5,0,0"
+                                    Orientation="Vertical">
                                     <TextBlock FontSize="10" Foreground="Gray">
                                         <Run Text="大小：" />
                                         <Run Text="{Binding Size, Mode=OneWay}" />

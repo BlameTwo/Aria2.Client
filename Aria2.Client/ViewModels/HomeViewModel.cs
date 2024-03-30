@@ -70,6 +70,10 @@ public sealed partial class HomeViewModel : ObservableObject
         {
             this.Title = "Anime Search";
         }
+        if(e.SourcePageType == typeof(SearchPage))
+        {
+            this.Title = "搜索种子";
+        }
     }
 
 }
