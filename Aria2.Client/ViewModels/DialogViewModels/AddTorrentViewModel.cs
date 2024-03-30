@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 
 namespace Aria2.Client.ViewModels.DialogViewModels;
@@ -26,7 +27,7 @@ public sealed partial class AddTorrentViewModel:ObservableObject
     }
 
     [ObservableProperty]
-    string _SaveFolder= "C:\\Users\\30140\\Downloads";
+    string _SaveFolder = UserDataPaths.GetDefault().Downloads;
 
     [ObservableProperty]
     string _TorrentName = "选择Torrent文件";

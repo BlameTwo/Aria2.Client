@@ -63,6 +63,7 @@ public static class ProgramLife
         #region 注册子项
             .AddTransient<DownloadTellItemData>()
             .AddTransient<AnimeItemData>()
+            .AddTransient<BTSearchRresultItem>()
         #endregion
         #region RSS
             .AddTransient<AnimePage>()

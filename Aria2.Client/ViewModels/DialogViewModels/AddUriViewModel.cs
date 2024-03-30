@@ -13,9 +13,13 @@ using System.Collections.Generic;
 
 namespace Aria2.Client.ViewModels.DialogViewModels;
 
-public sealed partial class AddUriViewModel:ObservableRecipient
+public sealed partial class AddUriViewModel : ObservableRecipient
 {
-    public AddUriViewModel(IDialogManager dialogManager,IApplicationSetup<App> applicationSetup,IAria2cClient aria2CClient)
+    public AddUriViewModel(
+        IDialogManager dialogManager,
+        IApplicationSetup<App> applicationSetup,
+        IAria2cClient aria2CClient
+    )
     {
         DialogManager = dialogManager;
         ApplicationSetup = applicationSetup;
@@ -31,16 +35,16 @@ public sealed partial class AddUriViewModel:ObservableRecipient
     private bool _ActiveEnable;
 
     [ObservableProperty]
-    string _TextUri="";
+    string _TextUri = "";
 
     [ObservableProperty]
-    string _HttpHeader="";
+    string _HttpHeader = "";
 
     [ObservableProperty]
-    string _UserAgent="";
+    string _UserAgent = "";
 
     [ObservableProperty]
-    string _Refrere="";
+    string _Refrere = "";
 
     [ObservableProperty]
     string _SavePath = UserDataPaths.GetDefault().Downloads;
@@ -78,33 +82,39 @@ public sealed partial class AddUriViewModel:ObservableRecipient
             var list = TextUri.Split("\r\n");
             if (list == null || list.Length == 0)
                 return;
-            var option = new Dictionary<string,object>();
+            var option = new Dictionary<string, object>();
             if (!string.IsNullOrWhiteSpace(this.UserAgent))
                 option.Add("user-agent", UserAgent);
             if (!string.IsNullOrWhiteSpace(this.Refrere))
                 option.Add("referer", UserAgent);
             if (!string.IsNullOrWhiteSpace(this.HttpHeader))
                 option.Add("header", UserAgent);
-            var result = await Aria2CClient.AddUriAsync(list, new Dictionary<string, object>() { { "dir", this.SavePath }, { "follow-torrent", true } }, 1);
+            var result = await Aria2CClient.AddUriAsync(
+                list,
+                new Dictionary<string, object>()
+                {
+                    { "dir", this.SavePath },
+                    { "follow-torrent", true }
+                },
+                1
+            );
             if (result.Result != null)
                 DialogManager.CloseDialog();
         }
-        catch (Exception)
-        {
-
-        }
+        catch (Exception) { }
         finally
         {
             DialogManager.CloseDialog();
         }
     }
 
-
     [RelayCommand]
     async Task SelectSaveFolder()
     {
         FolderPicker openPicker = new Windows.Storage.Pickers.FolderPicker();
-        var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(ApplicationSetup.Application.MainWindow);
+        var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(
+            ApplicationSetup.Application.MainWindow
+        );
         WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
         openPicker.SuggestedStartLocation = PickerLocationId.Desktop;
         openPicker.FileTypeFilter.Add("*");
@@ -113,9 +123,7 @@ public sealed partial class AddUriViewModel:ObservableRecipient
         {
             this.SavePath = folder.Path;
         }
-
     }
-
 
     [RelayCommand]
     void Close()

@@ -2,6 +2,7 @@
 using Aria2.Client.Models.Anime;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Models.ClientModel;
+using IBtSearch.Models;
 using System.Collections.Generic;
 
 namespace Aria2.Client.Services;
@@ -13,6 +14,9 @@ public class DataFactory : IDataFactory
 
     public List<AnimeItemData> CreateAnimeItemDatas(List<AnimeResource> values)
         => CreateItemDatas<AnimeItemData, AnimeResource>(values);
+
+    public BTSearchRresultItem CreateBTSearchRresultItem(BTSearchResult value)
+        =>CreateItemData<BTSearchRresultItem, BTSearchResult>(value);
 
     public Object CreateItemData<Object, Value>(Value value)
         where Object : class, IItemData<Value>

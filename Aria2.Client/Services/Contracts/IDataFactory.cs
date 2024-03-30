@@ -1,6 +1,7 @@
 ﻿using Aria2.Client.Models;
 using Aria2.Client.Models.Anime;
 using Aria2.Net.Models.ClientModel;
+using IBtSearch.Models;
 using System.Collections.Generic;
 
 namespace Aria2.Client.Services.Contracts;
@@ -20,4 +21,6 @@ public interface IDataFactory
     public AnimeItemData CreateAnimeItemData(AnimeResource value);
 
     public List<AnimeItemData> CreateAnimeItemDatas(List<AnimeResource> values);
+
+    public BTSearchRresultItem CreateBTSearchRresultItem(BTSearchResult value);
 }

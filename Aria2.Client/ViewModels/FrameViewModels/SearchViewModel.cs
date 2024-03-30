@@ -1,4 +1,7 @@
-﻿using Aria2.Net.Services.Contracts;
+﻿using Aria2.Client.Models;
+using Aria2.Client.Services;
+using Aria2.Client.Services.Contracts;
+using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using IBtSearch;
@@ -12,39 +15,43 @@ using System.Threading.Tasks;
 
 namespace Aria2.Client.ViewModels.FrameViewModels;
 
-public sealed partial class SearchViewModel:ObservableRecipient
+public sealed partial class SearchViewModel : ObservableRecipient
 {
     public SearchViewModel(
-        [FromKeyedServices("Fitgril")] 
-        IBTSearchPlugin bTSearchPlugin,
-        IAria2cClient aria2CClient)
+        [FromKeyedServices("Fitgril")] IBTSearchPlugin bTSearchPlugin,
+        IAria2cClient aria2CClient,
+        IDataFactory dataFactory
+    )
     {
         FitgrilSearchPlugin = bTSearchPlugin;
         Aria2CClient = aria2CClient;
+        DataFactory = dataFactory;
     }
 
     CancellationTokenSource cts = new CancellationTokenSource();
 
     [ObservableProperty]
-    List<SearchTypeModel> _Tabs = new()
-    {
+    List<SearchTypeModel> _Tabs =
         new()
         {
-            Icon="https://fitgirl-repacks.site/wp-content/uploads/2016/08/cropped-icon-270x270.jpg",
-            Name = "Fitgril",
-            Tag = "Fitgril"
-        }
-    };
+            new()
+            {
+                Icon =
+                    "https://fitgirl-repacks.site/wp-content/uploads/2016/08/cropped-icon-270x270.jpg",
+                Name = "Fitgril",
+                Tag = "Fitgril"
+            }
+        };
 
     [ObservableProperty]
     SearchTypeModel _SearchTag;
 
     [ObservableProperty]
-    ObservableCollection<BTSearchResult> _Result=new();
+    ObservableCollection<BTSearchRresultItem> _Result = new();
 
     public IBTSearchPlugin FitgrilSearchPlugin { get; }
     public IAria2cClient Aria2CClient { get; }
-
+    public IDataFactory DataFactory { get; }
 
     [ObservableProperty]
     string _Query;
@@ -69,8 +76,9 @@ public sealed partial class SearchViewModel:ObservableRecipient
             {
                 if (item == null)
                     continue;
-                this.Result.Add(item);
-                this.RunTip = $"当前检索位置{item.NowPage-1}页，最大页面{item.MaxPageCount}，检索总数{Result.Count}";
+                this.Result.Add(DataFactory.CreateBTSearchRresultItem(item));
+                this.RunTip =
+                    $"当前检索位置{item.NowPage - 1}页，最大页面{item.MaxPageCount}，检索总数{Result.Count}";
             }
         }
         catch (Exception)
@@ -87,9 +95,7 @@ public sealed partial class SearchViewModel:ObservableRecipient
         cts.Cancel();
         IsRun = false;
     }
-   
 }
-
 
 public class SearchTypeModel
 {

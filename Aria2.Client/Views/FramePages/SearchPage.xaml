@@ -1,4 +1,3 @@
-
 <Page
     x:Class="Aria2.Client.Views.FramePages.SearchPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -88,7 +87,7 @@
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Image Height="100" Source="{Binding Cover, Mode=OneWay}" />
+                            <Image Height="100" Source="{Binding Data.Cover, Mode=OneWay}" />
                             <Grid Grid.Column="1" Margin="8,0,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
@@ -97,7 +96,7 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock
                                     FontWeight="Bold"
-                                    Text="{Binding Name, Mode=OneWay}"
+                                    Text="{Binding Data.Name, Mode=OneWay}"
                                     TextTrimming="CharacterEllipsis" />
                                 <StackPanel
                                     Grid.Row="1"
@@ -105,14 +104,14 @@
                                     Orientation="Vertical">
                                     <TextBlock FontSize="10" Foreground="Gray">
                                         <Run Text="大小：" />
-                                        <Run Text="{Binding Size, Mode=OneWay}" />
+                                        <Run Text="{Binding Data.Size, Mode=OneWay}" />
                                     </TextBlock>
                                     <TextBlock
                                         Margin="0,5,0,0"
                                         FontSize="10"
                                         Foreground="LightGray">
                                         <Run Text="发布日期：" />
-                                        <Run Text="{Binding CreateTime, Mode=OneWay}" />
+                                        <Run Text="{Binding Data.CreateTime, Mode=OneWay}" />
                                     </TextBlock>
                                     <TextBlock
                                         Margin="0,5,0,0"
@@ -120,14 +119,14 @@
                                         Foreground="LightGray"
                                         TextTrimming="CharacterEllipsis">
                                         <Run Text="链接：" />
-                                        <Run Text="{Binding BTUrl, Mode=OneWay}" />
+                                        <Run Text="{Binding Data.BTUrl, Mode=OneWay}" />
                                     </TextBlock>
                                 </StackPanel>
                                 <StackPanel
                                     Grid.Row="2"
                                     Margin="0,8,0,0"
                                     Orientation="Horizontal">
-                                    <Button Padding="4">
+                                    <Button Padding="4" Command="{Binding DownloadCommand}">
                                         <FontIcon
                                             FontFamily="Segoe Fluent Icons"
                                             FontSize="10"
@@ -138,7 +137,7 @@
                                         Padding="4"
                                         Content="详情页面"
                                         FontSize="10"
-                                        NavigateUri="{Binding WebUrl, Mode=OneWay}" />
+                                        NavigateUri="{Binding Data.WebUrl, Mode=OneWay}" />
                                 </StackPanel>
                             </Grid>
                         </Grid>

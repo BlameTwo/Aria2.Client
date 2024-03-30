@@ -209,7 +209,18 @@
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             Visibility="{x:Bind ViewModel.DataVisibility, Mode=OneWay}">
-            <ScrollView>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Center">
+                <Run Text="Sharding" />
+                <Run
+                    FontWeight="Bold"
+                    Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
+                    Text="{x:Bind ViewModel.Data.Bitfields.Count}" />
+            </TextBlock>
+            <ScrollView Grid.Row="1" Margin="0,8,0,0">
                 <ItemsRepeater ItemsSource="{x:Bind ViewModel.Data.Bitfields, Mode=OneWay}">
                     <ItemsRepeater.Layout>
                         <UniformGridLayout
@@ -224,12 +235,8 @@
                                 Margin="3"
                                 Fill="{ThemeResource AccentAAFillColorDefaultBrush}"
                                 Opacity="{Binding}"
-                                Stroke="{ThemeResource AccentAAFillColorDisabledBrush}"
-                                StrokeThickness="1">
-                                <Rectangle.OpacityTransition>
-                                    <ScalarTransition />
-                                </Rectangle.OpacityTransition>
-                            </Rectangle>
+                                Stroke="{ThemeResource AccentAAFillColorDefaultBrush}"
+                                StrokeThickness="5" />
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>
