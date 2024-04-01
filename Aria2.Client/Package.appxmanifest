@@ -5,6 +5,7 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
   IgnorableNamespaces="uap rescap">
 
   <Identity
@@ -42,7 +43,12 @@
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
-    </Application>
+		<Extensions>
+			<uap5:Extension Category="windows.startupTask" EntryPoint="Aria2.App" Executable="Aria2.Client.exe">
+				<uap5:StartupTask DisplayName="Aria2" Enabled="true" TaskId="Aria2"/>
+			</uap5:Extension>
+		</Extensions>
+	</Application>
   </Applications>
 
   <Capabilities>

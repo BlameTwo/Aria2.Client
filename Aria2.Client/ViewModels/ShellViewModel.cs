@@ -20,7 +20,8 @@ public sealed partial class ShellViewModel : ObservableObject
         [FromKeyedServices(ServiceKey.HomeNavigationServiceKey)]
         INavigationService homeNavigationService,
         IDialogManager dialogManager,
-        IAria2cClient aria2CClient
+        IAria2cClient aria2CClient,
+        ITipShow tipShow
     )
     {
         ApplicationSetup = applicationSetup;
@@ -28,6 +29,7 @@ public sealed partial class ShellViewModel : ObservableObject
         HomeNavigationService = homeNavigationService;
         DialogManager = dialogManager;
         Aria2CClient = aria2CClient;
+        TipShow = tipShow;
         Aria2CClient.Aria2ConnectStateChanged += Aria2CClient_Aria2ConnectStateChanged;
     }
 
@@ -68,6 +70,7 @@ public sealed partial class ShellViewModel : ObservableObject
     public INavigationService HomeNavigationService { get; }
     public IDialogManager DialogManager { get; }
     public IAria2cClient Aria2CClient { get; }
+    public ITipShow TipShow { get; }
 
     [RelayCommand]
     void Loaded()

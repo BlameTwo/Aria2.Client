@@ -3,7 +3,10 @@ using Aria2.Client.Helpers;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;
 using Microsoft.UI.Xaml;
+using Microsoft.Windows.AppLifecycle;
 using System;
+using System.Diagnostics;
+using Windows.ApplicationModel;
 
 namespace Aria2.Client;
 
@@ -13,6 +16,7 @@ public sealed partial class App : ClientApplication
     {
         this.InitializeComponent();
         this.UnhandledException += App_UnhandledException;
+        
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -20,16 +24,26 @@ public sealed partial class App : ClientApplication
         e.Handled = true;
     }
 
+    
+
     public static string SearchPluginFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Aria2ClientPlugin";
+
+    public Microsoft.Windows.AppLifecycle.AppInstance Instance { get; protected set; }
 
     protected async override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
-        FileHelper.CheckFolder(SearchPluginFolder);
-        ProgramLife.GetService<IApplicationSetup<App>>().Launcher(this);
-        await ProgramLife.GetService<IAria2cClient>().LauncherAsync(new()
+        Instance = Microsoft.Windows.AppLifecycle.AppInstance.FindOrRegisterForKey("Aria2.Client");
+        Instance.Activated += Instance_Activated;
+        if (Instance.IsCurrent)
         {
-            SesionFilePath = "D:\\save.session",
-            BtTracker = new()
+            FileHelper.CheckFolder(SearchPluginFolder);
+            var application = ProgramLife.GetService<IApplicationSetup<App>>();
+            application.Launcher(this);
+
+            await ProgramLife.GetService<IAria2cClient>().LauncherAsync(new()
+            {
+                SesionFilePath = "D:\\save.session",
+                BtTracker = new()
             {
                 "http://93.158.213.92:1337/announce",
                 "udp://23.137.251.46:6969/announce",
@@ -44,7 +58,25 @@ public sealed partial class App : ClientApplication
                 "udp://23.157.120.14:6969/announce",
                 "udp://83.146.98.78:6969/announce"
             }
-        });
-        await ProgramLife.GetService<IAria2cClient>().ConnectAsync();
+            });
+            await ProgramLife.GetService<IAria2cClient>().ConnectAsync();
+        }
+        else
+        {
+            var eventargs = Microsoft.Windows.AppLifecycle.AppInstance
+            .GetCurrent()
+                .GetActivatedEventArgs();
+            await Instance.RedirectActivationToAsync(eventargs);
+            Process.GetCurrentProcess().Kill();
+        }
+        
+    }
+
+    private void Instance_Activated(object sender, AppActivationArguments e)
+    {
+        if(e.Kind == ExtendedActivationKind.StartupTask)
+        {
+            
+        }
     }
 }

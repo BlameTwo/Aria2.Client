@@ -6,6 +6,36 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Aria2.Client.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Margin="40,25,25,25"
     mc:Ignorable="d">
-    <Grid />
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <TextBlock
+            FontSize="15"
+            FontWeight="Bold"
+            Text="速率" />
+        <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="最大上传" />
+            <ComboBox
+                Margin="10,0,0,0"
+                ItemsSource="{x:Bind ViewModel.MaxUpload}"
+                SelectedItem="{x:Bind ViewModel.SelectUpload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center" Text="最大下载" />
+            <ComboBox
+                Margin="10,0,0,0"
+                ItemsSource="{x:Bind ViewModel.MaxDownload}"
+                SelectedItem="{x:Bind ViewModel.SelectDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        <TextBlock
+            Margin="0,10,0,0"
+            FontSize="15"
+            FontWeight="Bold"
+            Text="Trackers (重启生效)" />
+        <TextBox
+            Margin="0,6,0,0"
+            AcceptsReturn="True"
+            Text="fsdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafdsaaaaaaaaaaaaaaaaaaaaaaaaaaaaafdsaaaaaaaaaaaaaaaaaa"
+            TextWrapping="Wrap" />
+    </StackPanel>
 </Page>

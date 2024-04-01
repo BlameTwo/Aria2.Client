@@ -289,6 +289,7 @@
     <None Remove="Assets\Countries\flags\ZM.png" />
     <None Remove="Assets\Countries\flags\ZW.png" />
     <None Remove="Assets\logo.png" />
+    <None Remove="UI\Controls\PopupDialog.xaml" />
     <None Remove="UI\Styles\Button.xaml" />
     <None Remove="UI\Styles\TitleBar.xaml" />
     <None Remove="Views\DateTemplate\DownloadTellFileTemplate.xaml" />
@@ -426,6 +427,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="UI\Controls\PopupDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!-- 

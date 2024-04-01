@@ -35,6 +35,7 @@ public static class ProgramLife
             .AddKeyedScoped<INavigationService, HomeNavigationService>(ServiceKey.HomeNavigationServiceKey)
             .AddKeyedScoped<INavigationViewService, HomeNavigationViewService>(ServiceKey.HomeNavigationViewServiceKey)
             .AddKeyedSingleton<IBTSearchPlugin, FitgrilPlugin>("Fitgril")
+            .AddSingleton<ITipShow,TipShow>()
             .AddSingleton<IAria2cClient, Aria2cClient>()
             .AddTransient<IDataFactory, DataFactory>()
             .AddSingleton<IRssService, RssService>()

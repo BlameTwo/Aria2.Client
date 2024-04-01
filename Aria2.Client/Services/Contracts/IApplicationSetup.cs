@@ -9,4 +9,8 @@ public interface IApplicationSetup<App>
     public void Launcher(App app);
 
     public void TryEnqueue(Action action);
+
+    public bool IsSystemSetup { get; }
+
+    public void SetSystemSetup(string appPath, bool enable);
 }
