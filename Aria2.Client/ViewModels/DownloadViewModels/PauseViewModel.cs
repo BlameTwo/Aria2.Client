@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Aria2.Client.ViewModels.DownloadViewModels;
 
-public sealed partial class PauseViewModel : DownloadViewModelBase, IRecipient<PauseDownloadStateMessager>
+public sealed partial class PauseViewModel : DownloadViewModelBase, IRecipient<PauseDownloadStateMessager>,IRecipient<TellTaskStateAddRemoveItemMessager>
 {
     public PauseViewModel(
         IAria2cClient aria2CClient,
@@ -21,10 +21,12 @@ public sealed partial class PauseViewModel : DownloadViewModelBase, IRecipient<P
     public override void OnInitEnd()
     {
         this.Aria2CClient.Aria2DownloadStateEvent += Aria2CClient_Aria2DownloadStateEvent;
+        
     }
 
     public async override Task OnRefreshAsync()
     {
+        this.Downloads.Clear();
         var result = await Aria2CClient.GetWaitingTaskAsync(0,1,TokenSource.Token);
         if (result.Result == null)
             return;
@@ -49,16 +51,20 @@ public sealed partial class PauseViewModel : DownloadViewModelBase, IRecipient<P
         }
     }
 
+    public void Receive(TellTaskStateAddRemoveItemMessager message)
+    {
+        if (message.IsRemove)
+            this.Downloads.Remove(message.Value);
+    }
+
     private void Aria2CClient_Aria2DownloadStateEvent(
         Net.Enums.WebSocketEventType eventType,
         Net.Models.WebSocketResultCode state
     )
     {
-        if (eventType == Net.Enums.WebSocketEventType.Pause)
+        ApplicationSetup.TryEnqueue(async () =>
         {
-            this.AddDownload(state.Params);
-            return;
-        }
-        this.RemoveDownload(state.Params);
+            await OnRefreshAsync();
+        });
     }
 }

@@ -138,7 +138,7 @@ public sealed partial class DownloadDetailsViewModel : ObservableRecipient
     [RelayCommand]
     async Task EditerTask()
     {
-        var pauseResult = await Aria2CClient.PauseTask(Gid, _source.Token);
+        var pauseResult = await Aria2CClient.ForcePaush(Gid, _source.Token);
         if (pauseResult == null)
             return;
         string numbers = "";

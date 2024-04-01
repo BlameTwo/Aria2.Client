@@ -12,7 +12,27 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <Platform>x64</Platform>
     <Platforms>x86;x64;arm64</Platforms>
-    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+	  
+	  <!--打包-->
+	  <!--
+	  <Platform>x64</Platform>
+	  <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+	  <SelfContained>true</SelfContained>
+	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+	  <PublishSingleFile>False</PublishSingleFile>
+	  <PublishTrimmed>True</PublishTrimmed>
+	  -->
+	  
+	  <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+	  <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+	  <PackageCertificateKeyFile>Aria2.Client_TemporaryKey.pfx</PackageCertificateKeyFile>
+	  <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+	  <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+	  <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+	  <GenerateTestArtifacts>True</GenerateTestArtifacts>
+	  <AppxBundle>Auto</AppxBundle>
+	  <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+	  <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\background.png" />
@@ -403,6 +423,9 @@
     <Page Update="Views\FramePages\AnimePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
   <!-- 

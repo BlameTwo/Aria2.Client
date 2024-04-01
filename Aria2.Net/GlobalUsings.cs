@@ -32,6 +32,8 @@ public static class GlobalUsings
     public const string ForcePause = "aria2.forcePause";
 
     public const string ForcePauseAll = "aria2.forcePauseAll";
+
+    public const string ForceRemove = "aria2.forceRemove";
 }
 
 public static class Aria2Socket_Method

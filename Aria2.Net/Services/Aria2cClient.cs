@@ -207,17 +207,22 @@ public partial class Aria2cClient : IAria2cClient
         return await RequestAsync<string>(GlobalUsings.Pause_Method, token, gid);
     }
 
-    public async Task<ResultCode<List<string>>> ForcePaush(
+    public async Task<ResultCode<string>> ForcePaush(
         string gid,
         CancellationToken token = default
     )
     {
-        return await RequestAsync<List<string>>(GlobalUsings.ForcePause, token, gid);
+        return await RequestAsync<string>(GlobalUsings.ForcePause, token, gid);
     }
 
     public async Task<ResultCode<List<string>>> ForcePauseAll(CancellationToken token = default)
     {
         return await RequestAsync<List<string>>(GlobalUsings.PauseAll_Method, token);
+    }
+
+    public async Task<ResultCode<string>> ForceRemove(string gid,CancellationToken token = default)
+    {
+        return await RequestAsync<string>(GlobalUsings.ForcePause, token, gid);
     }
 
     public Task<ResultCode<string>> ChangGlobalOption(
@@ -250,6 +255,8 @@ public partial class Aria2cClient : IAria2cClient
         }
         return true;
     }
+
+
 
     public async Task<ResultCode<string>> AddTorrentAsync(
         string torrentPath,

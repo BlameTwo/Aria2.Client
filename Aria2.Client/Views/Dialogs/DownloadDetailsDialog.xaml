@@ -214,7 +214,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Center">
-                <Run Text="Sharding" />
+                <Run x:Uid="Dialog_DownloadDetils_Sharding" />
                 <Run
                     FontWeight="Bold"
                     Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"

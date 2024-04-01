@@ -129,6 +129,9 @@
   <data name="Dialog_DownloadDetils_Link.Text" xml:space="preserve">
     <value>连接</value>
   </data>
+  <data name="Dialog_DownloadDetils_Sharding.Text" xml:space="preserve">
+    <value>文件分块</value>
+  </data>
   <data name="Dialog_DownloadDetils_Task.Text" xml:space="preserve">
     <value>任务详情</value>
   </data>

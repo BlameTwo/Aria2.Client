@@ -115,7 +115,7 @@ public interface IAria2cClient
     /// <param name="gid">gid</param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public Task<ResultCode<List<string>>> ForcePaush(string gid, CancellationToken token = default);
+    public Task<ResultCode<string>> ForcePaush(string gid, CancellationToken token = default);
 
     /// <summary>
     /// 立即暂停所有下载
@@ -232,7 +232,7 @@ public interface IAria2cClient
 
     public Task<ResultCode<string>> ChangeTellOption(string gid,Dictionary<string,object> values,CancellationToken token = default);
 
-
+    public Task<ResultCode<string>> ForceRemove(string gid, CancellationToken token = default);
 
     public event Aria2DownloadStateChangedDelegate Aria2DownloadStateEvent;
 }
