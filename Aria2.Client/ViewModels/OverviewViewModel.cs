@@ -1,4 +1,6 @@
-﻿using Aria2.Net.Models.Enums;
+﻿using Aria2.Client.Services.Contracts;
+using Aria2.Net;
+using Aria2.Net.Models.Enums;
 using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -8,16 +10,15 @@ namespace Aria2.Client.ViewModels;
 
 public sealed partial class OverviewViewModel : ObservableRecipient
 {
-    public OverviewViewModel(IAria2cClient aria2CClient)
+    public OverviewViewModel(IAria2cClient aria2CClient,ITipShow tipShow)
     {
         Aria2CClient = aria2CClient;
+        TipShow = tipShow;
     }
 
     [ObservableProperty]
-    List<string> _MaxUpload = new() { "50K", "100K", "5M", "20M", };
+    List<string> _SpiltSource = new() { "K", "M", "G", };
 
-    [ObservableProperty]
-    List<string> _MaxDownload = new() { "500K", "2M", "10M", "60M", };
 
     [ObservableProperty]
     string _SelectUpload;
@@ -25,15 +26,33 @@ public sealed partial class OverviewViewModel : ObservableRecipient
     [ObservableProperty]
     string _SelectDownload;
 
-    async partial void OnSelectDownloadChanged(string value)
+    [ObservableProperty]
+    double _InputDownload;
+
+    [ObservableProperty]
+    double _InputUpload;
+
+    async partial void OnInputDownloadChanged(double oldValue, double newValue)
     {
-       var downloadResult = await this.Aria2CClient.ChangGlobalOption(Aria2GlobalOptionEnum.MaxAllDownloadLimit, value);
+        var downloadResult = await this.Aria2CClient.ChangGlobalOption(Aria2GlobalOptionEnum.MaxAllDownloadLimit, $"{newValue}{SelectDownload}");
+        if (oldValue == default) return;
+        if (downloadResult.Result == GlobalUsings.RequestOK)
+        {
+            TipShow.ShowMessage("修改配置成功", Microsoft.UI.Xaml.Controls.Symbol.Accept);
+        }
     }
 
-    async partial void OnSelectUploadChanged(string value)
+
+    async partial void OnInputUploadChanged(double oldValue, double newValue)
     {
-        var uploadResult = await this.Aria2CClient.ChangGlobalOption(Aria2GlobalOptionEnum.MaxAllUploadLimit, value);
+        var downloadResult = await this.Aria2CClient.ChangGlobalOption(Aria2GlobalOptionEnum.MaxAllDownloadLimit, $"{newValue}{SelectDownload}");
+        if (oldValue == default) return;
+        if (downloadResult.Result == GlobalUsings.RequestOK)
+        {
+            TipShow.ShowMessage("修改配置成功", Microsoft.UI.Xaml.Controls.Symbol.Accept);
+        }
     }
 
     public IAria2cClient Aria2CClient { get; }
+    public ITipShow TipShow { get; }
 }

@@ -15,6 +15,7 @@ using Aria2.Net.Contracts;
 using Aria2.Net.Services;
 using Aria2.Net.Services.Contracts;
 using BtSearch.Fitgril;
+using BTSearch._1337X;
 using IBtSearch;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
@@ -35,6 +36,7 @@ public static class ProgramLife
             .AddKeyedScoped<INavigationService, HomeNavigationService>(ServiceKey.HomeNavigationServiceKey)
             .AddKeyedScoped<INavigationViewService, HomeNavigationViewService>(ServiceKey.HomeNavigationViewServiceKey)
             .AddKeyedSingleton<IBTSearchPlugin, FitgrilPlugin>("Fitgril")
+            .AddKeyedSingleton<IBTSearchPlugin, X1337Plugin>("1337x")
             .AddSingleton<ITipShow,TipShow>()
             .AddSingleton<IAria2cClient, Aria2cClient>()
             .AddTransient<IDataFactory, DataFactory>()

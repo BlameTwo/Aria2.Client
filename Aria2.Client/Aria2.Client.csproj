@@ -318,7 +318,9 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.240109" />
     <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.240109" />
+    <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.124" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240311000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
@@ -339,6 +341,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Aria2.Net\Aria2.Net.csproj" />
+    <ProjectReference Include="..\BtSearchs\BTSearch.1337X\BTSearch.1337X.csproj" />
     <ProjectReference Include="..\BtSearchs\BtSearch.Fitgril\BtSearch.Fitgril.csproj" />
     <ProjectReference Include="..\IBtSearch\IBtSearch.csproj" />
   </ItemGroup>

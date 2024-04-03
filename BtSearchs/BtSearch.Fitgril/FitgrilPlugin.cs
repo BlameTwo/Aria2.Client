@@ -25,17 +25,25 @@ public class FitgrilPlugin : IBTSearchPlugin
     public string Name => "Fitgril Repacks";
     public string Orgin => "https://fitgirl-repacks.site/";
 
-    public async IAsyncEnumerable<BTSearchResult> SearchAsync(string query, [EnumeratorCancellation] CancellationToken token = default)
+    public async IAsyncEnumerable<BTSearchResult> SearchAsync(
+        string query,
+        [EnumeratorCancellation] CancellationToken token = default
+    )
     {
         List<BTSearchResult> list = new List<BTSearchResult>();
-        var http = await HttpClientProvider.Client.GetAsync($"https://fitgirl-repacks.site/?s={query}",token);
+        var http = await HttpClientProvider.Client.GetAsync(
+            $"https://fitgirl-repacks.site/?s={query}",
+            token
+        );
         var content = await http.Content.ReadAsStringAsync();
         HtmlDocument doc = new HtmlDocument();
         doc.LoadHtml(content);
         int page = 1;
         int nowpage = 1;
-        var last = doc.DocumentNode.SelectSingleNode("//span[@class='page-numbers dots']/following-sibling::a[1]");
-        if(last != null)
+        var last = doc.DocumentNode.SelectSingleNode(
+            "//span[@class='page-numbers dots']/following-sibling::a[1]"
+        );
+        if (last != null)
         {
             var pageResult = last.InnerText;
             page += Convert.ToInt32(pageResult);
@@ -46,8 +54,12 @@ public class FitgrilPlugin : IBTSearchPlugin
             if (nowpage > 1)
             {
                 //说明不是请求的第一页
-                var pageHttp = await HttpClientProvider.Client.GetAsync($"https://fitgirl-repacks.site/page/{nowpage}/?s={query}", token);
-                var pageContent = await http.Content.ReadAsStringAsync();
+                var pageHttp = await HttpClientProvider.Client.GetAsync(
+                    $"https://fitgirl-repacks.site/page/{nowpage}/?s={query}",
+                    token
+                );
+                var pageContent = await pageHttp.Content.ReadAsStringAsync();
+                doc.LoadHtml(pageContent);
                 nodes = doc.DocumentNode.SelectNodes("//article");
             }
             else
@@ -74,10 +86,12 @@ public class FitgrilPlugin : IBTSearchPlugin
                 result.Description = HttpUtility.HtmlDecode(des.InnerText);
                 var time = node.SelectSingleNode(".//div[2]/span/a/time");
                 if (time != null)
-                    result.CreateTime = DateTime.Parse(time.GetAttributeValue<string>("datetime", null));
+                    result.CreateTime = DateTime.Parse(
+                        time.GetAttributeValue<string>("datetime", null)
+                    );
                 var href = title.GetAttributeValue<string>("href", null);
                 result.WebUrl = href;
-                var session = await HttpClientProvider.Client.GetAsync(href,token);
+                var session = await HttpClientProvider.Client.GetAsync(href, token);
                 #region 获取图片
                 var articledoc = new HtmlDocument();
                 articledoc.LoadHtml(await session.Content.ReadAsStringAsync());
@@ -103,8 +117,6 @@ public class FitgrilPlugin : IBTSearchPlugin
                 #endregion
                 yield return result;
             }
-        } while
-        (!(nowpage > page));
-        
+        } while (!(nowpage > page));
     }
 }

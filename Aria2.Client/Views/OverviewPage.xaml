@@ -6,36 +6,53 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Aria2.Client.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:setting="using:CommunityToolkit.WinUI.Controls"
     Margin="40,25,25,25"
     mc:Ignorable="d">
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <TextBlock
             FontSize="15"
             FontWeight="Bold"
-            Text="速率" />
-        <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
-            <TextBlock VerticalAlignment="Center" Text="最大上传" />
-            <ComboBox
-                Margin="10,0,0,0"
-                ItemsSource="{x:Bind ViewModel.MaxUpload}"
-                SelectedItem="{x:Bind ViewModel.SelectUpload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        </StackPanel>
-        <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
-            <TextBlock VerticalAlignment="Center" Text="最大下载" />
-            <ComboBox
-                Margin="10,0,0,0"
-                ItemsSource="{x:Bind ViewModel.MaxDownload}"
-                SelectedItem="{x:Bind ViewModel.SelectDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        </StackPanel>
-        <TextBlock
-            Margin="0,10,0,0"
-            FontSize="15"
-            FontWeight="Bold"
-            Text="Trackers (重启生效)" />
-        <TextBox
-            Margin="0,6,0,0"
-            AcceptsReturn="True"
-            Text="fsdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafdsaaaaaaaaaaaaaaaaaaaaaaaaaaaaafdsaaaaaaaaaaaaaaaaaa"
-            TextWrapping="Wrap" />
+            Text="Aria2全局设置" />
+        <setting:SettingsExpander
+            Margin="0,5,0,0"
+            Description="修改全局速率"
+            Header="速率">
+            <setting:SettingsExpander.HeaderIcon>
+                <SymbolIcon Symbol="Clock" />
+            </setting:SettingsExpander.HeaderIcon>
+            <setting:SettingsExpander.Items>
+                <setting:SettingsCard Description="修改全局最大上传" Header="最大上传">
+                    <setting:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE898;" />
+                    </setting:SettingsCard.HeaderIcon>
+                    <StackPanel Orientation="Horizontal">
+                        <NumberBox Margin="5,0,0,0" Value="{x:Bind ViewModel.InputUpload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <ComboBox
+                            Margin="5,0,0,0"
+                            ItemsSource="{x:Bind ViewModel.SpiltSource}"
+                            SelectedItem="{x:Bind ViewModel.SelectUpload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </setting:SettingsCard>
+                <setting:SettingsCard Description="修改全局最大上传" Header="最大上传">
+                    <setting:SettingsCard.HeaderIcon>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE896;" />
+                    </setting:SettingsCard.HeaderIcon>
+                    <StackPanel Orientation="Horizontal">
+                        <NumberBox Value="{x:Bind ViewModel.InputDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <ComboBox
+                            Margin="5,0,0,0"
+                            ItemsSource="{x:Bind ViewModel.SpiltSource}"
+                            SelectedItem="{x:Bind ViewModel.SelectDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </setting:SettingsCard>
+            </setting:SettingsExpander.Items>
+            <Button Style="{ThemeResource TransparentButtonStyle}">
+                <FontIcon
+                    FontFamily="Segoe Fluent Icons"
+                    FontSize="10"
+                    Glyph="&#xE72C;" />
+            </Button>
+        </setting:SettingsExpander>
     </StackPanel>
 </Page>

@@ -7,6 +7,7 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:Aria2.Client.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tb="using:H.NotifyIcon"
     xmlns:ui="using:Aria2.Client.UI.Controls"
     mc:Ignorable="d">
     <i:Interaction.Behaviors>
@@ -19,6 +20,16 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <tb:TaskbarIcon ContextMenuMode="SecondWindow" ToolTipText="Aria2.Client">
+            <tb:TaskbarIcon.IconSource>
+                <tb:GeneratedIconSource
+                    FontFamily="Segoe UI Emoji"
+                    FontSize="57"
+                    FontWeight="Bold"
+                    Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
+                    Text="&#x1F447;" />
+            </tb:TaskbarIcon.IconSource>
+        </tb:TaskbarIcon>
         <Image
             Grid.RowSpan="2"
             Opacity="0.5"

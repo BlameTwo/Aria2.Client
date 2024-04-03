@@ -19,11 +19,13 @@ public sealed partial class SearchViewModel : ObservableRecipient
 {
     public SearchViewModel(
         [FromKeyedServices("Fitgril")] IBTSearchPlugin bTSearchPlugin,
+        [FromKeyedServices("1337x")]IBTSearchPlugin X1337plugin,
         IAria2cClient aria2CClient,
         IDataFactory dataFactory
     )
     {
         FitgrilSearchPlugin = bTSearchPlugin;
+        X1337Plugin = X1337plugin;
         Aria2CClient = aria2CClient;
         DataFactory = dataFactory;
     }
@@ -40,6 +42,12 @@ public sealed partial class SearchViewModel : ObservableRecipient
                     "https://fitgirl-repacks.site/wp-content/uploads/2016/08/cropped-icon-270x270.jpg",
                 Name = "Fitgril",
                 Tag = "Fitgril"
+            },
+            new()
+            {
+                Icon="https://www.1337xx.to/favicon.ico",
+                Name="1337X",
+                Tag="1337X"
             }
         };
 
@@ -50,6 +58,7 @@ public sealed partial class SearchViewModel : ObservableRecipient
     ObservableCollection<BTSearchRresultItem> _Result = new();
 
     public IBTSearchPlugin FitgrilSearchPlugin { get; }
+    public IBTSearchPlugin X1337Plugin { get; }
     public IAria2cClient Aria2CClient { get; }
     public IDataFactory DataFactory { get; }
 
@@ -72,7 +81,18 @@ public sealed partial class SearchViewModel : ObservableRecipient
             IsRun = true;
             this.RunTip = "正在检索";
             this.Result.Clear();
-            await foreach (var item in FitgrilSearchPlugin.SearchAsync(Query, cts.Token))
+            IBTSearchPlugin _searchPlugin = default;
+            if (this.SearchTag.Tag == "Fitgril")
+            {
+                _searchPlugin = FitgrilSearchPlugin;
+            }
+            else if(this.SearchTag.Tag == "1337X")
+            {
+                _searchPlugin = X1337Plugin;
+            }
+            if (_searchPlugin == null)
+                return;
+            await foreach (var item in _searchPlugin.SearchAsync(Query, cts.Token))
             {
                 if (item == null)
                     continue;

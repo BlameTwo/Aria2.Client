@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBtSearch", "IBtSearch\IBtS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BtSearch.Fitgril", "BtSearchs\BtSearch.Fitgril\BtSearch.Fitgril.csproj", "{3D4FE130-DACE-40BB-B287-C3934814CC2E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTSearch.1337X", "BtSearchs\BTSearch.1337X\BTSearch.1337X.csproj", "{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,22 @@ Global
 		{3D4FE130-DACE-40BB-B287-C3934814CC2E}.Release|x64.Build.0 = Release|Any CPU
 		{3D4FE130-DACE-40BB-B287-C3934814CC2E}.Release|x86.ActiveCfg = Release|Any CPU
 		{3D4FE130-DACE-40BB-B287-C3934814CC2E}.Release|x86.Build.0 = Release|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Debug|x64.Build.0 = Debug|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Debug|x86.Build.0 = Debug|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Release|ARM64.Build.0 = Release|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Release|x64.ActiveCfg = Release|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Release|x64.Build.0 = Release|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Release|x86.ActiveCfg = Release|Any CPU
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,6 +158,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D8ECE7D1-BF86-43EF-917A-8445E4C0FE48} = {05885A1D-5271-4061-A459-2A2F76BECC7E}
 		{3D4FE130-DACE-40BB-B287-C3934814CC2E} = {05885A1D-5271-4061-A459-2A2F76BECC7E}
+		{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027} = {05885A1D-5271-4061-A459-2A2F76BECC7E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7271FED1-336C-46F8-89B8-A19F54C1DBC5}
