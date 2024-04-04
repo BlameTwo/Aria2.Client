@@ -39,6 +39,7 @@ public static class ProgramLife
             .AddKeyedSingleton<IBTSearchPlugin, X1337Plugin>("1337x")
             .AddSingleton<ITipShow,TipShow>()
             .AddSingleton<IAria2cClient, Aria2cClient>()
+            .AddSingleton<IPickersService, PickersService>()
             .AddTransient<IDataFactory, DataFactory>()
             .AddSingleton<IRssService, RssService>()
             .AddTransient<ShellPage>()
