@@ -7,18 +7,14 @@
       1. 搜索插件`IBTSearchPlugin`
 
 2. 实现接口IBtSearchPlugin
-   
    `Guid`:插件UUIID
-   
    `Name`:插件名称
-   
    `Orgin`:搜索插件的源地址
-   
    `IAsyncEnumerable<BTSearchResult> SearchAsync`:搜索方法实现，异步迭代
 
 3. 开发脚本
 
-4. 调试脚本：Aria2.Text
+4. 调试脚本：Aria2.Test
    
    1. `测试`新建测试进行调试
 
