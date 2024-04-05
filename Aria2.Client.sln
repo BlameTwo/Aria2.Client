@@ -3,21 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aria2.Client", "Aria2.Client\Aria2.Client.csproj", "{7E181B07-BFF1-4190-AC84-8D4312B685F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aria2.Client", "src\Aria2.Client\Aria2.Client.csproj", "{7E181B07-BFF1-4190-AC84-8D4312B685F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aria2.Console", "Aria2.Console\Aria2.Console.csproj", "{11E0546A-848B-4CBE-A6A5-76F58F42BAA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aria2.Console", "src\Aria2.Console\Aria2.Console.csproj", "{11E0546A-848B-4CBE-A6A5-76F58F42BAA7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aria2.Net", "Aria2.Net\Aria2.Net.csproj", "{95B65BA2-9D42-48DB-9B11-553211DF3202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aria2.Net", "src\Aria2.Net\Aria2.Net.csproj", "{95B65BA2-9D42-48DB-9B11-553211DF3202}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aria2.Test", "Aria2.Test\Aria2.Test.csproj", "{2DACF430-F20A-4246-A1CA-646CA5820B6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aria2.Test", "src\Aria2.Test\Aria2.Test.csproj", "{2DACF430-F20A-4246-A1CA-646CA5820B6D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BTSearch", "BTSearch", "{05885A1D-5271-4061-A459-2A2F76BECC7E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBtSearch", "IBtSearch\IBtSearch.csproj", "{D8ECE7D1-BF86-43EF-917A-8445E4C0FE48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBtSearch", "src\IBtSearch\IBtSearch.csproj", "{D8ECE7D1-BF86-43EF-917A-8445E4C0FE48}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BtSearch.Fitgril", "BtSearchs\BtSearch.Fitgril\BtSearch.Fitgril.csproj", "{3D4FE130-DACE-40BB-B287-C3934814CC2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BtSearch.Fitgril", "src\BtSearchs\BtSearch.Fitgril\BtSearch.Fitgril.csproj", "{3D4FE130-DACE-40BB-B287-C3934814CC2E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTSearch.1337X", "BtSearchs\BTSearch.1337X\BTSearch.1337X.csproj", "{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTSearch.1337X", "src\BtSearchs\BTSearch.1337X\BTSearch.1337X.csproj", "{FBA827D4-06D0-43D6-A66B-1B1F4A2BF027}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{ADF11C56-13CA-4799-87E8-DBE12BE10FAC}"
+	ProjectSection(SolutionItems) = preProject
+		docs\Plugins.md = docs\Plugins.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
