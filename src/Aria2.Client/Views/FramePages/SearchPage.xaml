@@ -33,8 +33,8 @@
                             <Image
                                 Width="15"
                                 Height="15"
-                                Source="{Binding Icon, Mode=OneWay}" />
-                            <TextBlock Margin="5,0,0,0" Text="{Binding Name, Mode=OneWay}" />
+                                Source="{Binding Item2.Icon, Mode=OneWay}" />
+                            <TextBlock Margin="5,0,0,0" Text="{Binding Item2.Name, Mode=OneWay}" />
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>

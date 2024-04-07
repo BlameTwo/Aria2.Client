@@ -1,21 +1,16 @@
-﻿using IBtSearch.Models;
+﻿using IBtSearch.Bases;
+using IBtSearch.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace IBtSearch;
 
-public interface IBTSearchPlugin
+public interface IBTSearchPlugin: IAria2Plugin
 {
-    public string Guid { get; }
-
-    public string Name { get; }
-
     public IAsyncEnumerable<BTSearchResult> SearchAsync(string query, CancellationToken token = default);
 
     public string Orgin { get; }
-
 }
 
 public class AsyncEnumerable<T> : IAsyncEnumerable<T>

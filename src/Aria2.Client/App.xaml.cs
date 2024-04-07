@@ -1,12 +1,11 @@
 ﻿using Aria2.Client.Common;
+using Aria2.Client.Extentions;
 using Aria2.Client.Helpers;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;
-using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Diagnostics;
-using Windows.ApplicationModel;
 
 namespace Aria2.Client;
 
@@ -28,18 +27,17 @@ public sealed partial class App : ClientApplication
 
     public static string SearchPluginFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Aria2ClientPlugin";
 
-    public Microsoft.Windows.AppLifecycle.AppInstance Instance { get; protected set; }
+    public Microsoft.Windows.AppLifecycle.AppInstance Instance { get; private set; }
 
     protected async override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
-        Instance = Microsoft.Windows.AppLifecycle.AppInstance.FindOrRegisterForKey("Aria2.Client");
+        Instance = AppInstance.FindOrRegisterForKey("Aria2.Client");
         Instance.Activated += Instance_Activated;
         if (Instance.IsCurrent)
         {
             FileHelper.CheckFolder(SearchPluginFolder);
             var application = ProgramLife.GetService<IApplicationSetup<App>>();
             application.Launcher(this);
-
             await ProgramLife.GetService<IAria2cClient>().LauncherAsync(new()
             {
                 SesionFilePath = "D:\\save.session",
@@ -80,3 +78,4 @@ public sealed partial class App : ClientApplication
         }
     }
 }
+

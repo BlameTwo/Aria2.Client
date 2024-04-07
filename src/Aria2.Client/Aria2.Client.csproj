@@ -303,6 +303,7 @@
     <None Remove="Views\FramePages\SearchPage.xaml" />
     <None Remove="Views\HomePage.xaml" />
     <None Remove="Views\OverviewPage.xaml" />
+    <None Remove="Views\PluginPage.xaml" />
     <None Remove="Views\ShellPage.xaml" />
   </ItemGroup>
 
@@ -340,9 +341,8 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BtSearch.Loader\BtSearch.Loader.csproj" />
     <ProjectReference Include="..\Aria2.Net\Aria2.Net.csproj" />
-    <ProjectReference Include="..\BtSearchs\BTSearch.1337X\BTSearch.1337X.csproj" />
-    <ProjectReference Include="..\BtSearchs\BtSearch.Fitgril\BtSearch.Fitgril.csproj" />
     <ProjectReference Include="..\IBtSearch\IBtSearch.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -430,6 +430,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\PluginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="UI\Controls\PopupDialog.xaml">

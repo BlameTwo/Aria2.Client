@@ -74,6 +74,10 @@ public sealed partial class HomeViewModel : ObservableObject
         {
             this.Title = "搜索种子";
         }
+        if(e.SourcePageType == typeof(PluginPage))
+        {
+            this.Title = "插件管理";
+        }
     }
 
 }

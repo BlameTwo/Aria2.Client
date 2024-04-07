@@ -25,6 +25,8 @@ public class FitgrilPlugin : IBTSearchPlugin
     public string Name => "Fitgril Repacks";
     public string Orgin => "https://fitgirl-repacks.site/";
 
+    public string Icon => "https://fitgirl-repacks.site/wp-content/uploads/2016/08/cropped-icon-270x270.jpg";
+
     public async IAsyncEnumerable<BTSearchResult> SearchAsync(
         string query,
         [EnumeratorCancellation] CancellationToken token = default

@@ -14,11 +14,8 @@ using Aria2.Client.Views.FramePages;
 using Aria2.Net.Contracts;
 using Aria2.Net.Services;
 using Aria2.Net.Services.Contracts;
-using BtSearch.Fitgril;
-using BTSearch._1337X;
-using IBtSearch;
+using BtSearch.Loader.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.CompilerServices;
 
 namespace Aria2.Client;
 
@@ -31,12 +28,13 @@ public static class ProgramLife
             .AddSingleton<IPageService, PageService>()
             .AddSingleton<IDialogManager, DialogManager>()
             .AddSingleton<IAria2cClient, Aria2cClient>()
+            .AddSingleton<IPluginManager,PluginManager>()
             .AddSingleton<IAria2cOptionService, Aria2cOptionService>()
             .AddKeyedScoped<INavigationService, ShellNavigationService>(ServiceKey.ShellNavigationServiceKey)
             .AddKeyedScoped<INavigationService, HomeNavigationService>(ServiceKey.HomeNavigationServiceKey)
             .AddKeyedScoped<INavigationViewService, HomeNavigationViewService>(ServiceKey.HomeNavigationViewServiceKey)
-            .AddKeyedSingleton<IBTSearchPlugin, FitgrilPlugin>("Fitgril")
-            .AddKeyedSingleton<IBTSearchPlugin, X1337Plugin>("1337x")
+            //.AddKeyedSingleton<IBTSearchPlugin, FitgrilPlugin>("Fitgril")
+            //.AddKeyedSingleton<IBTSearchPlugin, X1337Plugin>("1337x")
             .AddSingleton<ITipShow,TipShow>()
             .AddSingleton<IAria2cClient, Aria2cClient>()
             .AddSingleton<IPickersService, PickersService>()
@@ -56,6 +54,7 @@ public static class ProgramLife
             .AddTransient<AddTorrentViewModel>()
             .AddTransient<DownloadDetailsViewModel>()
             .AddTransient<DownloadDetailsDialog>()
+            .AddTransient<PluginViewModel>()
         #region 注册下载页面
             .AddTransient<ActivePage>()
             .AddTransient<ActiveViewModel>()

@@ -43,7 +43,14 @@
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE71A;" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
+            <NavigationViewItemSeparator />
+            <NavigationViewItem property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.PluginViewModel" Content="插件">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEBD2;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
         </NavigationView.MenuItems>
+
         <Grid>
             <Grid.ChildrenTransitions>
                 <TransitionCollection>

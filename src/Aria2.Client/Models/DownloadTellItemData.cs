@@ -1,4 +1,5 @@
 ﻿using Aria2.Client.Common;
+using Aria2.Client.Extentions;
 using Aria2.Client.Helpers;
 using Aria2.Client.Models.Bases;
 using Aria2.Client.Models.Messagers;

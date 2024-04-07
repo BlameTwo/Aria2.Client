@@ -11,8 +11,7 @@ public class PluginTest
     public async Task FitgrilSearchAsync()
     {
         FitgrilPlugin plugin = new();
-        var result =  await plugin.SearchAsync("warm snow");
-        foreach (var item in result)
+        await foreach (var item in plugin.SearchAsync("Warm Snow"))
         {
             Debug.WriteLine(item.Name + "        " + item.BTUrl);
         }

@@ -21,6 +21,9 @@ public class X1337Plugin : IBTSearchPlugin
     public string Name => "1337X";
 
     public string Orgin => "https://www.1337xx.to/";
+
+    public string Icon => "https://www.1337xx.to/favicon.ico";
+
     HttpClientProvider HttpClientProvider { get; set; }
 
     public X1337Plugin()

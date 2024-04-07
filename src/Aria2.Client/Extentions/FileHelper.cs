@@ -1,13 +1,12 @@
-using Microsoft.UI.Xaml.Media.Imaging;
-using System;
-using System.Collections.Generic;
+ï»¿using Microsoft.UI.Xaml.Media.Imaging;
 using System.Drawing;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 
-namespace Aria2.Client.Helpers;
+namespace Aria2.Client.Extentions;
 
 public static class FileHelper
 {
@@ -27,17 +26,17 @@ public static class FileHelper
         }
     }
 
-    // ¶¨ÒåSHFILEINFO½á¹¹Ìå
+    // å®šä¹‰SHFILEINFOç»“æ„ä½“
     [StructLayout(LayoutKind.Sequential)]
     public struct SHFILEINFO
     {
-        public IntPtr hIcon;        // Í¼±êµÄ¾ä±ú
-        public int iIcon;           // Í¼±êË÷Òı£¨Èç¹û´ÓÍ¼±ê¿âÖĞ»ñÈ¡£©
-        public uint dwAttributes;   // ÎÄ¼şÊôĞÔ
+        public IntPtr hIcon;        // å›¾æ ‡çš„å¥æŸ„
+        public int iIcon;           // å›¾æ ‡ç´¢å¼•ï¼ˆå¦‚æœä»å›¾æ ‡åº“ä¸­è·å–ï¼‰
+        public uint dwAttributes;   // æ–‡ä»¶å±æ€§
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-        public string szDisplayName; // ÎÄ¼şÃû»òÏÔÊ¾Ãû³Æ
+        public string szDisplayName; // æ–‡ä»¶åæˆ–æ˜¾ç¤ºåç§°
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
-        public string szTypeName;    // ÀàĞÍÃû³Æ
+        public string szTypeName;    // ç±»å‹åç§°
     }
 
     [DllImport("shell32.dll")]
@@ -49,9 +48,9 @@ public static class FileHelper
         uint uFlags
     );
 
-    const uint SHGFI_ICON = 0x000000100; // ÇëÇó»ñÈ¡Í¼±ê
-    const uint SHGFI_SMALLICON = 0x000000001; // ÇëÇóĞ¡Í¼±ê
-    const uint SHGFI_LARGEICON = 0x000000000; // ÇëÇó´óÍ¼±ê
+    const uint SHGFI_ICON = 0x000000100; // è¯·æ±‚è·å–å›¾æ ‡
+    const uint SHGFI_SMALLICON = 0x000000001; // è¯·æ±‚å°å›¾æ ‡
+    const uint SHGFI_LARGEICON = 0x000000000; // è¯·æ±‚å¤§å›¾æ ‡
 
     public static Icon GetIcon(string folderPath, bool largeIcon)
     {
@@ -60,11 +59,11 @@ public static class FileHelper
 
         IntPtr hImg = SHGetFileInfo(folderPath, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), flags);
 
-        // ´Ó¾ä±ú´´½¨Icon¶ÔÏó
+        // ä»å¥æŸ„åˆ›å»ºIconå¯¹è±¡
         if (hImg != IntPtr.Zero)
         {
             Icon icon = (Icon)System.Drawing.Icon.FromHandle(shinfo.hIcon).Clone();
-            DestroyIcon(shinfo.hIcon); // ÊÍ·ÅÏµÍ³·ÖÅäµÄ×ÊÔ´
+            DestroyIcon(shinfo.hIcon); // é‡Šæ”¾ç³»ç»Ÿåˆ†é…çš„èµ„æº
             return icon;
         }
         else
@@ -74,15 +73,16 @@ public static class FileHelper
     }
 
     [DllImport("user32.dll")]
-    private static extern bool DestroyIcon(IntPtr hIcon); // ÓÃÀ´ÊÍ·ÅÍ¼±ê×ÊÔ´
+    private static extern bool DestroyIcon(IntPtr hIcon); // ç”¨æ¥é‡Šæ”¾å›¾æ ‡èµ„æº
 
-    public static bool CheckFolder(string folder)
+
+    public static bool CheckFolder(this string value)
     {
-        if (Directory.Exists(folder)) 
+        if (Directory.Exists(value))
         {
             return true;
         }
-        Directory.CreateDirectory(folder);
-        return Directory.Exists(folder);
+        Directory.CreateDirectory(value);
+        return Directory.Exists(value);
     }
 }
