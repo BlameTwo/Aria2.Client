@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace Aria2.Client.Common.ViewModelBase;
 
-public abstract partial class DownloadViewModelBase: ObservableRecipient
+public abstract partial class DownloadViewModelBase: PageViewModelBase
 {
-    public DownloadViewModelBase(IAria2cClient aria2CClient, IDataFactory dataFactory, IApplicationSetup<App> applicationSetup)
+    public DownloadViewModelBase(IAria2cClient aria2CClient, IDataFactory dataFactory, IApplicationSetup<App> applicationSetup):base("下载")
     {
         Aria2CClient = aria2CClient;
         DataFactory = dataFactory;

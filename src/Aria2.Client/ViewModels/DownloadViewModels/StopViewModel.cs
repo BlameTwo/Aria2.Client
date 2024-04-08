@@ -23,6 +23,16 @@ public sealed partial class StopViewModel : DownloadViewModelBase, IRecipient<Te
         this.Aria2CClient.Aria2DownloadStateEvent += Aria2CClient_Aria2DownloadStateEvent;
     }
 
+    public override void Unregister()
+    {
+        foreach (var item in Downloads)
+        {
+            item.Disponse();
+        }
+        Downloads.Clear();
+        this.Aria2CClient.Aria2DownloadStateEvent -= Aria2CClient_Aria2DownloadStateEvent;
+        base.Unregister();
+    }
     public async override Task OnRefreshAsync()
     {
         var result = await Aria2CClient.GetStopedTaskAsync(0,1,TokenSource.Token);

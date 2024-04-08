@@ -1,6 +1,7 @@
 ﻿using Aria2.Client.Models;
 using Aria2.Client.Models.Anime;
 using Aria2.Net.Models.ClientModel;
+using IBtSearch.Bases;
 using IBtSearch.Models;
 using System.Collections.Generic;
 
@@ -23,4 +24,6 @@ public interface IDataFactory
     public List<AnimeItemData> CreateAnimeItemDatas(List<AnimeResource> values);
 
     public BTSearchRresultItem CreateBTSearchRresultItem(BTSearchResult value);
+
+    public BTPluginItemData CreatePluginItem(IAria2Plugin value);
 }

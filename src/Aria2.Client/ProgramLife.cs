@@ -38,6 +38,7 @@ public static class ProgramLife
             .AddSingleton<ITipShow,TipShow>()
             .AddSingleton<IAria2cClient, Aria2cClient>()
             .AddSingleton<IPickersService, PickersService>()
+            .AddSingleton<ILocalSettingsService,LocalSettingsService>()
             .AddTransient<IDataFactory, DataFactory>()
             .AddSingleton<IRssService, RssService>()
             .AddTransient<ShellPage>()
@@ -67,6 +68,7 @@ public static class ProgramLife
             .AddTransient<DownloadTellItemData>()
             .AddTransient<AnimeItemData>()
             .AddTransient<BTSearchRresultItem>()
+            .AddTransient<BTPluginItemData>()
         #endregion
         #region RSS
             .AddTransient<AnimePage>()

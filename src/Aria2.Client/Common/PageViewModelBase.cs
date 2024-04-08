@@ -11,4 +11,9 @@ public partial class PageViewModelBase:ObservableRecipient
         Title = title;
     }
 
+
+    public virtual void Unregister()
+    {
+        
+    }
 }

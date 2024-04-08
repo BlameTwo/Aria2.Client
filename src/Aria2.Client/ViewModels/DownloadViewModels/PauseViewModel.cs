@@ -24,6 +24,17 @@ public sealed partial class PauseViewModel : DownloadViewModelBase, IRecipient<P
         
     }
 
+    public override void Unregister()
+    {
+        foreach (var item in Downloads)
+        {
+            item.Disponse();
+        }
+        Downloads.Clear();
+        this.Aria2CClient.Aria2DownloadStateEvent -= Aria2CClient_Aria2DownloadStateEvent;
+        base.Unregister();
+    }
+
     public async override Task OnRefreshAsync()
     {
         this.Downloads.Clear();

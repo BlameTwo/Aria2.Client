@@ -13,6 +13,22 @@ public static class Aria2Config
         }
     }
 
+    public static string SessionPath
+    {
+        get
+        {
+            return PluginPath + "\\aria2.session";
+        }
+    }
+
+    public static string LogPath
+    {
+        get
+        {
+            return PluginPath + "\\logs.log";
+        }
+    }
+
     internal static bool CheckFolder(this string value)
     {
         if (Directory.Exists(value))

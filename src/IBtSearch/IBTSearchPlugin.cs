@@ -10,7 +10,11 @@ public interface IBTSearchPlugin: IAria2Plugin
 {
     public IAsyncEnumerable<BTSearchResult> SearchAsync(string query, CancellationToken token = default);
 
+    
     public string Orgin { get; }
+
+
+
 }
 
 public class AsyncEnumerable<T> : IAsyncEnumerable<T>

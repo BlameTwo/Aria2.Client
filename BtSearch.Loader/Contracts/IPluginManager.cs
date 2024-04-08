@@ -7,5 +7,5 @@ namespace Aria2.Client.Services.Contracts;
 
 public interface IPluginManager
 {
-    public IList<Tuple<PluginContextLoader, IBTSearchPlugin>> Plugins { get;  }
+    public IAsyncEnumerable<IBTSearchPlugin> GetSearchPlugins(CancellationToken token = default);
 }

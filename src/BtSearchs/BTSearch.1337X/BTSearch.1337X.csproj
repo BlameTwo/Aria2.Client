@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>BTSearch._1337X</RootNamespace>
     <Nullable>enable</Nullable>
 	  <LangVersion>11.0</LangVersion>
@@ -9,7 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <ProjectReference Include="..\..\IBtSearch\IBtSearch.csproj" >
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\..\IBtSearch\IBtSearch.csproj">
 		  <Private>false</Private>
 		  <ExcludeAssets>runtime</ExcludeAssets>
 	  </ProjectReference>

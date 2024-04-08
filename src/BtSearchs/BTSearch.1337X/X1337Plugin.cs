@@ -1,21 +1,31 @@
 ﻿using BTSearch._1337X.Providers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using HtmlAgilityPack;
 using IBtSearch;
+using IBtSearch.Bases;
 using IBtSearch.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
-using static System.Net.WebRequestMethods;
+using System.Threading.Tasks;
 
 namespace BTSearch._1337X;
 
-public class X1337Plugin : IBTSearchPlugin
+public partial class X1337Plugin : ObservableObject, IBTSearchPlugin
 {
+    /// <summary>
+    /// 是否支持编辑
+    /// </summary>
+    public bool IsEditerConfig { get; private set; }
+
     public string Guid => "BAA7032E-0DB0-2454-124F-E829283C1FA0";
 
     public string Name => "1337X";
@@ -25,6 +35,8 @@ public class X1337Plugin : IBTSearchPlugin
     public string Icon => "https://www.1337xx.to/favicon.ico";
 
     HttpClientProvider HttpClientProvider { get; set; }
+
+    public string Version => "0.1 Bate";
 
     public X1337Plugin()
     {
@@ -41,7 +53,7 @@ public class X1337Plugin : IBTSearchPlugin
         var nowPage = 1;
         var searchUrl = $"https://www.1337xx.to/search/{query}/{nowPage}/";
         HtmlDocument doc = new();
-        var content = await (await client.GetAsync(searchUrl,token)).Content.ReadAsStringAsync();
+        var content = await (await client.GetAsync(searchUrl, token)).Content.ReadAsStringAsync();
         doc.LoadHtml(content);
         #region  页数
         var pages = doc.DocumentNode.SelectNodes("//div[@class='pagination']/ul//li");
@@ -79,7 +91,7 @@ public class X1337Plugin : IBTSearchPlugin
                 var url = titletd.GetAttributeValue<string>("href", "");
                 bTSearchResult.WebUrl = url;
                 var tdContent = await (
-                    await client.GetAsync($"https://www.1337xx.to{url}",token)
+                    await client.GetAsync($"https://www.1337xx.to{url}", token)
                 ).Content.ReadAsStringAsync();
                 HtmlDocument htl = new();
                 if (tdContent == "error code: 521")
@@ -100,7 +112,7 @@ public class X1337Plugin : IBTSearchPlugin
                 bTSearchResult.BTUrl = bt.GetAttributeValue<string>("href", "");
                 yield return bTSearchResult;
             }
-        } while (!(nowPage>page));
+        } while (!(nowPage > page));
         #region 列表数据
 
         #endregion
@@ -117,5 +129,41 @@ public class X1337Plugin : IBTSearchPlugin
         DateTime dateTime = DateTime.ParseExact(dateString, format, new CultureInfo("en-US"));
         Console.WriteLine(dateTime); // 输出: 2018-09-01 00:00:00
         return dateTime;
+    }
+
+    public string JsonPath { get; private set; }
+
+    public PluginConfig Config { get; set; }
+
+    public async Task SetEnabledAsync()
+    {
+        await File.WriteAllTextAsync(JsonPath, JsonSerializer.Serialize(Config));
+    }
+
+
+    public async Task LoadConfig(string folderPath)
+    {
+        if (!Directory.Exists(folderPath))
+        {
+            this.IsEditerConfig = false;
+            return;
+        }
+
+        JsonPath = folderPath + $"\\{Name}_Config.json";
+        if (File.Exists(JsonPath))
+        {
+            this.Config =
+                JsonSerializer.Deserialize<PluginConfig>(await File.ReadAllTextAsync(JsonPath))
+                ?? new();
+            return;
+        }
+        PluginConfig pluginConfig = new PluginConfig();
+        pluginConfig.IsEnabled = true;
+        pluginConfig.LastActive = DateTime.Now;
+        using (var writer = File.CreateText(JsonPath))
+        {
+            await writer.WriteLineAsync(JsonSerializer.Serialize(pluginConfig) ?? "");
+        }
+        this.Config = pluginConfig;
     }
 }

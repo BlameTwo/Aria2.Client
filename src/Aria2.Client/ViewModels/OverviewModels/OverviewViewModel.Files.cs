@@ -1,6 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Aria2.Client.Extentions;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.System;
 
 namespace Aria2.Client.ViewModels;
 
@@ -17,21 +21,17 @@ partial class OverviewViewModel
     [RelayCommand]
     async Task SelectLogPath()
     {
-        var logpath = await PickersService.GetFolderPicker();
-        if (logpath == null) return;
-        this.LogPath = logpath.Path+"aria2.log"; 
-        var result =  await Aria2CClient.ChangGlobalOption(Net.Models.Enums.Aria2GlobalOptionEnum.LogFilePath, SessionPath);
-        ShowResult(result.Result);
+        var folder = System.IO.Path.GetDirectoryName(LogPath);
+        folder.CheckFolder();
+        await Launcher.LaunchFolderPathAsync(folder);
     }
 
 
     [RelayCommand]
     async Task SelectSessionPath() 
     {
-        var logpath = await PickersService.GetFolderPicker();
-        if (logpath == null) return;
-        this.SessionPath = logpath.Path+"save.session";
-        var result =  await Aria2CClient.ChangGlobalOption(Net.Models.Enums.Aria2GlobalOptionEnum.SaveSession, SessionPath);
-        ShowResult(result.Result);
+        var folder = System.IO.Path.GetDirectoryName(SessionPath);
+        folder.CheckFolder();
+        await Launcher.LaunchFolderPathAsync(folder);
     }
 }

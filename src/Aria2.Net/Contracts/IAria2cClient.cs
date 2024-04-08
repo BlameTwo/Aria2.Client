@@ -23,7 +23,7 @@ public interface IAria2cClient
     /// </summary>
     /// <param name="config">带配置启动</param>
     /// <returns></returns>
-    public Task LauncherAsync(Aria2Config config);
+    public Task LauncherAsync(Aria2LauncherConfig config);
     
     public Task LauncherAsync();
 

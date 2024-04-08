@@ -1,5 +1,7 @@
 using Aria2.Client.ViewModels.FrameViewModels;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
+using System;
 namespace Aria2.Client.Views.FramePages
 {
     /// <summary>
@@ -13,6 +15,14 @@ namespace Aria2.Client.Views.FramePages
             this.ViewModel = ProgramLife.GetService<SearchViewModel>();
         }
 
-        public SearchViewModel ViewModel { get; }
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            this.ViewModel.Unregister();
+            this.ViewModel = null;
+            GC.Collect();
+            base.OnNavigatingFrom(e);
+        }
+
+        public SearchViewModel ViewModel { get; private set; }
     }
 }

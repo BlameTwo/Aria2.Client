@@ -1,31 +1,48 @@
 ﻿using BtSearch.Fitgril.Providers;
+using CommunityToolkit.Mvvm.Input;
 using HtmlAgilityPack;
 using IBtSearch;
+using IBtSearch.Bases;
 using IBtSearch.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
 namespace BtSearch.Fitgril;
 
-public class FitgrilPlugin : IBTSearchPlugin
+public partial class FitgrilPlugin : IBTSearchPlugin
 {
     #region 声明
     public HttpClientProvider HttpClientProvider { get; private set; }
     #endregion
     public FitgrilPlugin()
     {
-        HttpClientProvider = new(false);
+        HttpClientProvider = new(true);
     }
+
+    public string Version => "0.1 Bate";
 
     public string Guid => "7FABBD92-0003-240B-6CCD-B39EBFCD2D49";
     public string Name => "Fitgril Repacks";
     public string Orgin => "https://fitgirl-repacks.site/";
 
     public string Icon => "https://fitgirl-repacks.site/wp-content/uploads/2016/08/cropped-icon-270x270.jpg";
+
+    public PluginConfig Config { get; set; }
+
+    public bool IsEditerConfig { get; private set; }
+
+    public async Task SetEnabledAsync()
+    {
+        await File.WriteAllTextAsync(JsonPath, JsonSerializer.Serialize(Config));
+    }
+
+    public string JsonPath { get; private set; }
 
     public async IAsyncEnumerable<BTSearchResult> SearchAsync(
         string query,
@@ -121,4 +138,32 @@ public class FitgrilPlugin : IBTSearchPlugin
             }
         } while (!(nowpage > page));
     }
+
+    public async Task LoadConfig(string folderPath)
+    {
+        if (!Directory.Exists(folderPath))
+        {
+            this.IsEditerConfig = false;
+            return;
+        }
+
+        JsonPath = folderPath + $"\\{Name}_Config.json";
+        if (File.Exists(JsonPath))
+        {
+            this.Config =
+                JsonSerializer.Deserialize<PluginConfig>(await File.ReadAllTextAsync(JsonPath))
+                ?? new();
+            return;
+        }
+        PluginConfig pluginConfig = new PluginConfig();
+        pluginConfig.IsEnabled = true;
+        pluginConfig.LastActive = DateTime.Now;
+        using (var writer = File.CreateText(JsonPath))
+        {
+            await writer.WriteLineAsync(JsonSerializer.Serialize(pluginConfig) ?? "");
+        }
+        this.Config = pluginConfig;
+    }
+
+
 }

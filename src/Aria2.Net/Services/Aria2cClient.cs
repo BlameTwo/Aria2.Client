@@ -151,7 +151,7 @@ public partial class Aria2cClient : IAria2cClient
         });
     }
     
-    public async Task LauncherAsync(Aria2Config config= null)
+    public async Task LauncherAsync(Aria2LauncherConfig config= null)
     {
         await Task.Run(async() =>
         {
@@ -177,9 +177,21 @@ public partial class Aria2cClient : IAria2cClient
                 {
                     argument += $" --input-file=\"{config.SesionFilePath}\"";
                 }
+                argument += $" --save-session-interval=30";
                 info.WorkingDirectory = Path.GetDirectoryName(config.SesionFilePath);
             }
-
+            if (!string.IsNullOrWhiteSpace(config.LogFilePath))
+            {
+                argument += $" --log=\"{config.LogFilePath}\"";
+            }
+            if (!string.IsNullOrWhiteSpace(config.MaxDownloadSpeed))
+            {
+                argument += $" --max-download-limit=\"{config.MaxDownloadSpeed}\"";
+            }
+            if (!string.IsNullOrWhiteSpace(config.MaxUploadSpeed))
+            {
+                argument += $" --max-upload-limit=\"{config.MaxDownloadSpeed}\"";
+            }
             info.UseShellExecute = false;
             info.RedirectStandardOutput = true;
             info.RedirectStandardError = true;

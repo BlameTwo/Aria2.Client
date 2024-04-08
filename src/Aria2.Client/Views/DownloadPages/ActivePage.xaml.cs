@@ -1,5 +1,7 @@
 using Aria2.Client.ViewModels.DownloadViewModels;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
+using System;
 
 namespace Aria2.Client.Views.DownloadPages
 {
@@ -11,11 +13,15 @@ namespace Aria2.Client.Views.DownloadPages
             this.ViewModel = ProgramLife.GetService<ActiveViewModel>();
         }
 
-        public ActiveViewModel ViewModel { get; }
+        public ActiveViewModel ViewModel { get; private set; }
 
-        private void Page_Unloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            this.ViewModel.OnUnLoad();
+            ViewModel.Unregister();
+            this.ViewModel = null;
+            GC.Collect();
+            base.OnNavigatingFrom(e);
         }
+
     }
 }

@@ -15,6 +15,7 @@ namespace Aria2.Client.ViewModels.DownloadViewModels;
 
 public sealed partial class ActiveViewModel : DownloadViewModelBase,IRecipient<TellTaskStateAddRemoveItemMessager>
 {
+    
     public ActiveViewModel(
         IAria2cClient aria2CClient,
         IDataFactory dataFactory,
@@ -26,6 +27,21 @@ public sealed partial class ActiveViewModel : DownloadViewModelBase,IRecipient<T
         object source,
         Net.Models.WebSocketResultCode result
     ) { }
+
+    public override void Unregister()
+    {
+        foreach (var item in Downloads)
+        {
+            item.Disponse();
+        }
+        Downloads.Clear();
+
+        Aria2CClient.Aria2WebSocketMessage -= Aria2CClient_Aria2WebSocketMessage;
+        Aria2CClient.Aria2DownloadStateEvent -= Aria2CClient_Aria2DownloadStateEvent;
+        base.Unregister();
+    }
+
+
 
     public override void OnInitEnd()
     {
@@ -47,15 +63,9 @@ public sealed partial class ActiveViewModel : DownloadViewModelBase,IRecipient<T
             RemoveDownload(state.Params);
         }
     }
-
-    public override void OnUnLoad()
-    {
-        base.OnUnLoad();
-    }
-
     public async override Task OnRefreshAsync()
     {
-        var result = await Aria2CClient.GetAllTellActiveAsync();
+        var result = await Aria2CClient.GetAllTellActiveAsync(TokenSource.Token);
         if (result == null || result.Result == null)
             return;
         foreach (var item in result.Result)

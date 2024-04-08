@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
 using CommunityToolkit.Mvvm.Input;
 using System.Threading.Tasks;
+using Aria2.Net.Common;
 
 namespace Aria2.Client.ViewModels;
 
@@ -28,6 +29,8 @@ public partial class OverviewViewModel
     async partial void OnInputDownloadChanged(double oldValue, double newValue)
     {
         var downloadResult = await this.Aria2CClient.ChangGlobalOption(Aria2GlobalOptionEnum.MaxAllUploadLimit, $"{newValue}{SelectDownload}");
+        this.Config.MaxDownloadSpeed = $"{newValue}{SelectDownload}";
+        await LocalSettingsService.SaveConfig<Aria2LauncherConfig>("LauncherConfig", Config);
         if (oldValue == default) return;
         ShowResult(downloadResult.Result);
     }
@@ -36,6 +39,8 @@ public partial class OverviewViewModel
     async partial void OnInputUploadChanged(double oldValue, double newValue)
     {
         var downloadResult = await this.Aria2CClient.ChangGlobalOption(Aria2GlobalOptionEnum.MaxAllDownloadLimit, $"{newValue}{SelectUpload}");
+        this.Config.MaxUploadSpeed = $"{newValue}{SelectUpload}";
+        await LocalSettingsService.SaveConfig<Aria2LauncherConfig>("LauncherConfig", Config);
         if (oldValue == default) return;
         ShowResult(downloadResult.Result);
     }

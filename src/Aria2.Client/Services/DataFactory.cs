@@ -2,6 +2,7 @@
 using Aria2.Client.Models.Anime;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Models.ClientModel;
+using IBtSearch.Bases;
 using IBtSearch.Models;
 using System.Collections.Generic;
 
@@ -45,5 +46,10 @@ public class DataFactory : IDataFactory
     public List<DownloadTellItemData> CreateownloadTellItemDatas(List<FileDownloadTell> tellValue)
     {
         return CreateItemDatas<DownloadTellItemData, FileDownloadTell>(tellValue);
+    }
+
+    public BTPluginItemData CreatePluginItem(IAria2Plugin value)
+    {
+        return CreateItemData<BTPluginItemData,IAria2Plugin>(value);
     }
 }

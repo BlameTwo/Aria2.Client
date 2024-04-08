@@ -13,15 +13,14 @@
     <Platform>x64</Platform>
     <Platforms>x86;x64;arm64</Platforms>
 	  
-	  <!--打包-->
-	  <!--
-	  <Platform>x64</Platform>
+	  
+	  <!--<Platform>x64</Platform>
 	  <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
 	  <SelfContained>true</SelfContained>
 	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 	  <PublishSingleFile>False</PublishSingleFile>
-	  <PublishTrimmed>True</PublishTrimmed>
-	  -->
+	  <PublishTrimmed>True</PublishTrimmed>-->
+	  
 	  
 	  <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
 	  <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
@@ -293,6 +292,7 @@
     <None Remove="UI\Styles\Button.xaml" />
     <None Remove="UI\Styles\TitleBar.xaml" />
     <None Remove="Views\DateTemplate\DownloadTellFileTemplate.xaml" />
+    <None Remove="Views\DateTemplate\PluginItemTemplate.xaml" />
     <None Remove="Views\Dialogs\AddTorrentDialog.xaml" />
     <None Remove="Views\Dialogs\AddUriDialog.xaml" />
     <None Remove="Views\Dialogs\DownloadDetailsDialog.xaml" />
@@ -430,6 +430,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DateTemplate\PluginItemTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\PluginPage.xaml">

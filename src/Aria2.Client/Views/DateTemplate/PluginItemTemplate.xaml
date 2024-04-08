@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl
+    x:Class="Aria2.Client.Views.DateTemplate.PluginItemTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:cui="using:CommunityToolkit.WinUI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:Aria2.Client.Views.DateTemplate"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <cui:SettingsCard
+            Margin="0,8,0,0"
+            Description="{x:Bind Data.Orgin, Mode=OneWay}"
+            Header="{x:Bind Data.Name, Mode=OneWay}">
+            <cui:SettingsCard.HeaderIcon>
+                <ImageIcon Source="{x:Bind Data.Icon, Mode=OneWay}" />
+            </cui:SettingsCard.HeaderIcon>
+            <ToggleSwitch IsOn="{x:Bind Data.Config.IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Toggled="ToggleSwitch_Toggled" />
+        </cui:SettingsCard>
+    </Grid>
+</UserControl>

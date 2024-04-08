@@ -291,6 +291,12 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
         }
     }
 
+    public void Disponse()
+    {
+        cts.Cancel();
+        _timer.Stop();
+    }
+
     [RelayCommand]
     void OpenDetailsDialog()
     {
