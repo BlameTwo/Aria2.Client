@@ -21,4 +21,9 @@ public sealed partial class ShellPage : Page
     }
 
     public ShellViewModel ViewModel { get; }
+
+    private void Button_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        splitView.IsPaneOpen = !splitView.IsPaneOpen;
+    }
 }

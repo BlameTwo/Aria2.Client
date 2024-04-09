@@ -101,7 +101,6 @@
                     </Button>
                 </StackPanel>
             </Border>
-
             <Frame x:Name="frame" Margin="20,0" />
         </Grid>
 

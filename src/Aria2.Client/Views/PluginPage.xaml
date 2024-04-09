@@ -62,13 +62,29 @@
                             <cui:SettingsCard.HeaderIcon>
                                 <ImageIcon Source="{Binding Data.Icon, Mode=OneWay}" />
                             </cui:SettingsCard.HeaderIcon>
-                            <ToggleSwitch IsOn="{Binding Data.Config.IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <i:Interaction.Behaviors>
-                                    <core:EventTriggerBehavior EventName="Toggled">
-                                        <core:InvokeCommandAction Command="{Binding SetEnableCommand, Mode=OneWay}" />
-                                    </core:EventTriggerBehavior>
-                                </i:Interaction.Behaviors>
-                            </ToggleSwitch>
+                            <StackPanel Orientation="Horizontal">
+                                <ToggleSwitch IsOn="{Binding Data.Config.IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <i:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="Toggled">
+                                            <core:InvokeCommandAction Command="{Binding SetEnableCommand, Mode=OneWay}" />
+                                        </core:EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
+                                </ToggleSwitch>
+                                <ToggleButton
+                                    Margin="5,0,0,0"
+                                    Command="{Binding SetUninstallCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Content="卸载"
+                                    IsChecked="{Binding Data.Config.IsUninstall, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <i:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="Checked">
+                                            <core:InvokeCommandAction Command="{Binding SetUninstallCommand}" />
+                                        </core:EventTriggerBehavior>
+                                        <core:EventTriggerBehavior EventName="Unchecked">
+                                            <core:InvokeCommandAction Command="{Binding SetUninstallCommand}" />
+                                        </core:EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
+                                </ToggleButton>
+                            </StackPanel>
                         </cui:SettingsCard>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>

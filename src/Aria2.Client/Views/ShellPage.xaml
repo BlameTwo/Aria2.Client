@@ -36,6 +36,7 @@
             Source="ms-appx:///Aria2.Client/Assets/background.png" />
         <ui:TitleBar
             x:Name="TitleBar"
+            FooterVerticalAlignment="Center"
             IsExtendsContentIntoTitleBar="True"
             TitleMode="Tall"
             TitleVerticalAlignment="Center">
@@ -73,6 +74,22 @@
                     <MenuBarItem Title="关于" />
                 </MenuBar>
             </ui:TitleBar.Header>
+            <ui:TitleBar.Footer>
+                <Button
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="Button_Click"
+                    Style="{ThemeResource TransparentButtonStyle}">
+                    <Grid>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8BD;" />
+                        <InfoBadge
+                            Margin="0,-7,-7,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Value="5" />
+                    </Grid>
+                </Button>
+            </ui:TitleBar.Footer>
         </ui:TitleBar>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
             <Rectangle
@@ -86,9 +103,25 @@
                 VerticalAlignment="Center"
                 Text="{x:Bind ViewModel.ConnectText, Mode=OneWay}" />
         </StackPanel>
-        <Frame
-            x:Name="frame"
-            Grid.Row="1"
-            Margin="0" />
+        <Grid Grid.Row="1">
+            <Frame x:Name="frame" Margin="0" />
+            <SplitView
+                x:Name="splitView"
+                CompactPaneLength="48"
+                DisplayMode="Overlay"
+                OpenPaneLength="300"
+                PaneBackground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                PanePlacement="Right">
+                <SplitView.Pane>
+                    <TextBlock
+                        Margin="25"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource SystemChromeGrayColor}"
+                        Text="无消息" />
+                </SplitView.Pane>
+            </SplitView>
+        </Grid>
+
     </Grid>
 </Page>

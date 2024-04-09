@@ -6,14 +6,11 @@ namespace IBtSearch.Models;
 public class PluginConfig
 {
     [JsonPropertyName("IsEnabled")]
-    public bool IsEnabled 
-    { 
-        get; 
-        set; 
-    }
+    public bool IsEnabled { get; set; }
 
     [JsonPropertyName("LastRunTime")]
     public DateTime LastActive { get; set; }
 
-    
+    [JsonPropertyName("UninstallFlage")]
+    public bool IsUninstall { get; set; }
 }

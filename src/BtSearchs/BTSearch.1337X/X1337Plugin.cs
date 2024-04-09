@@ -137,7 +137,17 @@ public partial class X1337Plugin : ObservableObject, IBTSearchPlugin
 
     public async Task SetEnabledAsync()
     {
+        await SaveAsync();
+    }
+
+    async Task SaveAsync()
+    {
         await File.WriteAllTextAsync(JsonPath, JsonSerializer.Serialize(Config));
+    }
+
+    public async Task SetUninstall()
+    {
+        await SaveAsync();
     }
 
 
@@ -166,4 +176,5 @@ public partial class X1337Plugin : ObservableObject, IBTSearchPlugin
         }
         this.Config = pluginConfig;
     }
+
 }

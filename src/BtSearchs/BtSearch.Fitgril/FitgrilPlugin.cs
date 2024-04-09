@@ -39,6 +39,12 @@ public partial class FitgrilPlugin : IBTSearchPlugin
 
     public async Task SetEnabledAsync()
     {
+        await SaveAsync();
+    }
+
+    async Task SaveAsync()
+    {
+
         await File.WriteAllTextAsync(JsonPath, JsonSerializer.Serialize(Config));
     }
 
@@ -146,7 +152,6 @@ public partial class FitgrilPlugin : IBTSearchPlugin
             this.IsEditerConfig = false;
             return;
         }
-
         JsonPath = folderPath + $"\\{Name}_Config.json";
         if (File.Exists(JsonPath))
         {
@@ -165,5 +170,8 @@ public partial class FitgrilPlugin : IBTSearchPlugin
         this.Config = pluginConfig;
     }
 
-
+    public async Task SetUninstall()
+    {
+        await SaveAsync();
+    }
 }

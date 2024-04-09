@@ -40,7 +40,6 @@ public sealed partial class ShellViewModel : ObservableObject
     {
         try
         {
-            if (ApplicationSetup.Application.MainWindow.DispatcherQueue == null) return;
             ApplicationSetup.Application.MainWindow.DispatcherQueue.TryEnqueue(async () =>
             {
                 if (state == System.Net.WebSockets.WebSocketState.Open)
@@ -49,6 +48,7 @@ public sealed partial class ShellViewModel : ObservableObject
                     ConnectText = "连接";
                     return;
                 }
+                if (ApplicationSetup.Application.MainWindow.DispatcherQueue == null) return;
                 ConnectState = new SolidColorBrush(Colors.Red);
                 ConnectText = "断开";
                 await Aria2CClient.ReconnectionSocket();

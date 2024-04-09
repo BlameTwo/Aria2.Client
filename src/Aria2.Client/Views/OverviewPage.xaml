@@ -84,10 +84,13 @@
                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC50;" />
             </setting:SettingsExpander.HeaderIcon>
             <setting:SettingsExpander.Items>
-                <setting:SettingsCard
-                    CornerRadius="5"
-                    Description="{x:Bind ViewModel.SessionPath, Mode=OneWay}"
-                    Header="会话文件">
+                <setting:SettingsCard CornerRadius="5" Header="会话文件">
+                    <setting:SettingsCard.Description>
+                        <TextBlock
+                            Foreground="{ThemeResource SystemChromeGrayColor}"
+                            IsTextSelectionEnabled="True"
+                            Text="{x:Bind ViewModel.SessionPath, Mode=OneWay}" />
+                    </setting:SettingsCard.Description>
                     <Button Command="{x:Bind ViewModel.SelectSessionPathCommand}" Style="{ThemeResource TransparentButtonStyle}">
                         <FontIcon
                             FontFamily="Segoe Fluent Icons"
@@ -95,10 +98,13 @@
                             Glyph="&#xE8A7;" />
                     </Button>
                 </setting:SettingsCard>
-                <setting:SettingsCard
-                    CornerRadius="5"
-                    Description="{x:Bind ViewModel.LogPath, Mode=OneWay}"
-                    Header="日志文件">
+                <setting:SettingsCard CornerRadius="5" Header="日志文件">
+                    <setting:SettingsCard.Description>
+                        <TextBlock
+                            Foreground="{ThemeResource SystemChromeGrayColor}"
+                            IsTextSelectionEnabled="True"
+                            Text="{x:Bind ViewModel.LogPath, Mode=OneWay}" />
+                    </setting:SettingsCard.Description>
                     <StackPanel Orientation="Horizontal">
                         <Button Command="{x:Bind ViewModel.SelectLogPathCommand}" Style="{ThemeResource TransparentButtonStyle}">
                             <FontIcon

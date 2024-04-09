@@ -1,7 +1,9 @@
 ﻿using Aria2.Client.Services.Contracts;
 using BtSearch.Loader.Models;
 using IBtSearch;
+using IBtSearch.Models;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 namespace BtSearch.Loader.Services;
 
@@ -30,9 +32,13 @@ public class PluginManager : IPluginManager
             var folders = folder.GetDirectories();
             for (int i = 0; i < folders.Length; i++)
             {
+                if (!Directory.Exists(folders[i].FullName))
+                    continue;
                 foreach (var path in folders[i].GetFiles("*.dll"))
                 {
                     var result = await LoadSingleSearchAsync(path.FullName);
+                    if (result == null)
+                        continue;
                     this.SearchPlugins.Add(result);
                     GC.Collect();
 
@@ -44,6 +50,32 @@ public class PluginManager : IPluginManager
 
     async Task<IBTSearchPlugin> LoadSingleSearchAsync(string path, CancellationToken token = default)
     {
+        PluginConfig config = null;
+        var folderName = System.IO.Path.GetDirectoryName(path);
+        if (!Directory.Exists(folderName))
+            return null;
+        foreach (var item in new DirectoryInfo(folderName).GetFiles("*.json"))
+        {
+            try
+            {
+                var jsonstr = JsonSerializer.Deserialize<PluginConfig>(await File.ReadAllTextAsync(item.FullName));
+                if (jsonstr.LastActive == DateTime.MinValue && jsonstr.IsEnabled == false)
+                {
+                    config = new();
+                    continue;
+                }
+                config = jsonstr;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        if (config.IsUninstall)
+        {
+            Directory.Delete(System.IO.Path.GetDirectoryName(path)!, true);
+            return null;
+        }
         using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
         {
             PluginContextLoader loader = new(path);

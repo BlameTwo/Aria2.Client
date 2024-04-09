@@ -3,6 +3,7 @@ using Aria2.Client.Views;
 using Aria2.Net.Services.Contracts;
 using Microsoft.Win32;
 using System;
+using System.Threading.Tasks;
 
 namespace Aria2.Client.Services;
 
@@ -67,5 +68,8 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
     }
 
     public void TryEnqueue(Action action)
-        => this.Application.MainWindow.DispatcherQueue.TryEnqueue(() => action());
+    {
+          this.Application.MainWindow.DispatcherQueue.TryEnqueue(new Microsoft.UI.Dispatching.DispatcherQueueHandler(()=> action()));
+    }
+
 }

@@ -24,5 +24,7 @@ public interface IAria2Plugin
 
     public Task LoadConfig(string folderPath);
 
-    public Task SetEnabledAsync(); 
+    public Task SetEnabledAsync();
+
+    public Task SetUninstall();
 }
