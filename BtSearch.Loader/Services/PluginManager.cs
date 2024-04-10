@@ -65,6 +65,7 @@ public class PluginManager : IPluginManager
                     continue;
                 }
                 config = jsonstr;
+                break;
             }
             catch (Exception)
             {

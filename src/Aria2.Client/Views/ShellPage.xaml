@@ -7,6 +7,7 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:Aria2.Client.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:settings="using:CommunityToolkit.WinUI.Controls"
     xmlns:tb="using:H.NotifyIcon"
     xmlns:ui="using:Aria2.Client.UI.Controls"
     mc:Ignorable="d">
@@ -81,12 +82,16 @@
                     Click="Button_Click"
                     Style="{ThemeResource TransparentButtonStyle}">
                     <Grid>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8BD;" />
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="15"
+                            Glyph="&#xE8BD;" />
                         <InfoBadge
                             Margin="0,-7,-7,0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
-                            Value="5" />
+                            Visibility="{x:Bind ViewModel.MessageInfoVisibility, Mode=OneWay}"
+                            Value="{x:Bind ViewModel.MessageCount, Mode=OneWay}" />
                     </Grid>
                 </Button>
             </ui:TitleBar.Footer>
@@ -110,15 +115,82 @@
                 CompactPaneLength="48"
                 DisplayMode="Overlay"
                 OpenPaneLength="300"
-                PaneBackground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                PaneBackground="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
                 PanePlacement="Right">
                 <SplitView.Pane>
-                    <TextBlock
-                        Margin="25"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource SystemChromeGrayColor}"
-                        Text="无消息" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Margin="8,8,0,0"
+                            HorizontalAlignment="Left"
+                            Text="消息" />
+                        <Button
+                            Margin="0,5,5,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Command="{x:Bind ViewModel.ClearMessageCommand, Mode=OneWay}"
+                            Style="{ThemeResource TransparentButtonStyle}"
+                            ToolTipService.ToolTip="清空消息">
+                            <FontIcon
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="10"
+                                Glyph="&#xE894;" />
+                        </Button>
+                        <ScrollView Grid.Row="1">
+                            <ItemsControl ItemsSource="{x:Bind ViewModel.MessageList, Mode=OneWay}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid
+                                            Margin="5"
+                                            Padding="5"
+                                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                            CornerRadius="5">
+                                            <Grid.ChildrenTransitions>
+                                                <TransitionCollection>
+
+                                                    <RepositionThemeTransition />
+                                                </TransitionCollection>
+                                            </Grid.ChildrenTransitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock
+                                                Margin="5"
+                                                FontSize="12"
+                                                Text="{Binding Data.Title, Mode=OneWay}" />
+                                            <TextBlock
+                                                Grid.Row="1"
+                                                Margin="5,8,5,5"
+                                                FontSize="10"
+                                                Foreground="{ThemeResource SystemColorGrayTextBrush}"
+                                                Text="{Binding Data.Message, Mode=OneWay}" />
+                                            <Button
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Top"
+                                                Command="{Binding CloseCommand, Mode=OneWay}"
+                                                IsEnabled="{Binding Data.IsClear, Mode=OneWay}"
+                                                Style="{ThemeResource TransparentButtonStyle}">
+                                                <FontIcon
+                                                    FontFamily="Segoe Fluent Icons"
+                                                    FontSize="10"
+                                                    Glyph="&#xE894;" />
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemContainerTransitions>
+                                    <TransitionCollection>
+                                        <RepositionThemeTransition />
+                                    </TransitionCollection>
+                                </ItemsControl.ItemContainerTransitions>
+                            </ItemsControl>
+                        </ScrollView>
+                    </Grid>
                 </SplitView.Pane>
             </SplitView>
         </Grid>

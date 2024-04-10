@@ -9,6 +9,7 @@
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
+	  <LangVersion>12.0</LangVersion>
     <EnableMsixTooling>true</EnableMsixTooling>
     <Platform>x64</Platform>
     <Platforms>x86;x64;arm64</Platforms>
@@ -429,6 +430,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\Handler\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>

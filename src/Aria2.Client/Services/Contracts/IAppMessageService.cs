@@ -4,5 +4,7 @@ namespace Aria2.Client.Services.Contracts;
 
 public interface IAppMessageService
 {
-    void SendMessage(string message, string title, MessageLevel level);
+    string SendMessage(string message, string title, MessageLevel level, bool IsClear);
+
+    void ClearMessage(string guid);
 }

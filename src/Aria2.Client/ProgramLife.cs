@@ -29,6 +29,7 @@ public static class ProgramLife
             .AddSingleton<IDialogManager, DialogManager>()
             .AddSingleton<IAria2cClient, Aria2cClient>()
             .AddSingleton<IPluginManager,PluginManager>()
+            .AddSingleton<IAppMessageService,AppMessageService>()
             .AddSingleton<IAria2cOptionService, Aria2cOptionService>()
             .AddKeyedScoped<INavigationService, ShellNavigationService>(ServiceKey.ShellNavigationServiceKey)
             .AddKeyedScoped<INavigationService, HomeNavigationService>(ServiceKey.HomeNavigationServiceKey)
@@ -69,6 +70,7 @@ public static class ProgramLife
             .AddTransient<AnimeItemData>()
             .AddTransient<BTSearchRresultItem>()
             .AddTransient<BTPluginItemData>()
+            .AddTransient<AppMessageItemData>()
         #endregion
         #region RSS
             .AddTransient<AnimePage>()
