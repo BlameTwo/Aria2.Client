@@ -31,7 +31,7 @@
 	  <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
 	  <GenerateTestArtifacts>True</GenerateTestArtifacts>
 	  <AppxBundle>Auto</AppxBundle>
-	  <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+	  <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
 	  <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <ItemGroup>
@@ -323,6 +323,7 @@
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.240109" />
     <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.240109" />
     <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.124" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WinUI" Version="2.0.0-rc2.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240311000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />

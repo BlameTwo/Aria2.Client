@@ -118,7 +118,10 @@
                 PaneBackground="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
                 PanePlacement="Right">
                 <SplitView.Pane>
-                    <Grid>
+                    <Grid
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition />
@@ -148,13 +151,8 @@
                                             Padding="5"
                                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                            BorderThickness="1"
                                             CornerRadius="5">
-                                            <Grid.ChildrenTransitions>
-                                                <TransitionCollection>
-
-                                                    <RepositionThemeTransition />
-                                                </TransitionCollection>
-                                            </Grid.ChildrenTransitions>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="auto" />
                                                 <RowDefinition />
@@ -169,23 +167,35 @@
                                                 FontSize="10"
                                                 Foreground="{ThemeResource SystemColorGrayTextBrush}"
                                                 Text="{Binding Data.Message, Mode=OneWay}" />
-                                            <Button
+                                            <StackPanel
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Top"
-                                                Command="{Binding CloseCommand, Mode=OneWay}"
-                                                IsEnabled="{Binding Data.IsClear, Mode=OneWay}"
-                                                Style="{ThemeResource TransparentButtonStyle}">
-                                                <FontIcon
-                                                    FontFamily="Segoe Fluent Icons"
-                                                    FontSize="10"
-                                                    Glyph="&#xE894;" />
-                                            </Button>
+                                                Orientation="Horizontal">
+                                                <TextBlock
+                                                    Margin="0,5,5,0"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="12"
+                                                    Foreground="{ThemeResource SystemChromeGrayColor}"
+                                                    Text="{Binding DelayValue, Mode=OneWay}"
+                                                    Visibility="{Binding TimeSpanVisibility, Mode=OneWay}" />
+                                                <Button
+                                                    Command="{Binding CloseCommand, Mode=OneWay}"
+                                                    IsEnabled="{Binding Data.IsClear, Mode=OneWay}"
+                                                    Style="{ThemeResource TransparentButtonStyle}"
+                                                    Visibility="{Binding CloseButtonVisibility, Mode=OneWay}">
+                                                    <FontIcon
+                                                        FontFamily="Segoe Fluent Icons"
+                                                        FontSize="10"
+                                                        Glyph="&#xE894;" />
+                                                </Button>
+                                            </StackPanel>
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                                 <ItemsControl.ItemContainerTransitions>
                                     <TransitionCollection>
                                         <RepositionThemeTransition />
+                                        <AddDeleteThemeTransition />
                                     </TransitionCollection>
                                 </ItemsControl.ItemContainerTransitions>
                             </ItemsControl>

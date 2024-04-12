@@ -107,11 +107,7 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     {
         NavigationService.NavigationTo<HomeViewModel>(null);
         AppMessageService.SendMessage("Aria2启动成功", "应用消息", Models.Enums.MessageLevel.Default,true);
-        AppMessageService.SendMessage("Aria2启动成功", "应用消息2", Models.Enums.MessageLevel.Default,true);
-        AppMessageService.SendMessage("Aria2启动成功", "应用消息3", Models.Enums.MessageLevel.Default,true);
-        AppMessageService.SendMessage("Aria2启动成功", "应用消息4", Models.Enums.MessageLevel.Default,true);
-        AppMessageService.SendMessage("Aria2启动成功", "应用消息5", Models.Enums.MessageLevel.Default,true);
-        AppMessageService.SendMessage("Aria2启动成功", "应用消息6", Models.Enums.MessageLevel.Default, true);
+        AppMessageService.SendTimeSpanMessage(TimeSpan.FromSeconds(60), "延时关闭消息", "应用消息", Models.Enums.MessageLevel.Default);
     }
 
     [RelayCommand]

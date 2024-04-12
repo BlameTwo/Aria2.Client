@@ -23,4 +23,14 @@ public class AppMessageService : IAppMessageService
         );
         return result.Item2.Guid;
     }
+
+
+    public string SendTimeSpanMessage(TimeSpan time, string message, string title, MessageLevel level)
+    {
+        Tuple<bool, AppNotifyMessager> result = new(true, new(message, title, level, false, time));
+        WeakReferenceMessenger.Default.Send<Tuple<bool, AppNotifyMessager>>(
+            result
+        );
+        return result.Item2.Guid;
+    }
 }
