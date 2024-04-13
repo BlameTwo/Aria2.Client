@@ -15,13 +15,17 @@ namespace Aria2.Client.ViewModels.DownloadViewModels;
 
 public sealed partial class ActiveViewModel : DownloadViewModelBase,IRecipient<TellTaskStateAddRemoveItemMessager>
 {
-    
+    public IAppMessageService AppMessageService { get; }
+
     public ActiveViewModel(
         IAria2cClient aria2CClient,
         IDataFactory dataFactory,
-        IApplicationSetup<App> applicationSetup
+        IApplicationSetup<App> applicationSetup,IAppMessageService appMessageService
     )
-        : base(aria2CClient, dataFactory, applicationSetup) { IsActive = true; }
+        : base(aria2CClient, dataFactory, applicationSetup)
+    {
+        IsActive = true; AppMessageService = appMessageService;
+    }
 
     private void Aria2CClient_Aria2WebSocketMessage(
         object source,

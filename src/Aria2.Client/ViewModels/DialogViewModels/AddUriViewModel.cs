@@ -18,17 +18,20 @@ public sealed partial class AddUriViewModel : ObservableRecipient
     public AddUriViewModel(
         IDialogManager dialogManager,
         IApplicationSetup<App> applicationSetup,
-        IAria2cClient aria2CClient
+        IAria2cClient aria2CClient,
+        IAppMessageService appMessageService
     )
     {
         DialogManager = dialogManager;
         ApplicationSetup = applicationSetup;
         Aria2CClient = aria2CClient;
+        AppMessageService = appMessageService;
     }
 
     public IDialogManager DialogManager { get; }
     public IApplicationSetup<App> ApplicationSetup { get; }
     public IAria2cClient Aria2CClient { get; }
+    public IAppMessageService AppMessageService { get; }
 
     [NotifyCanExecuteChangedFor(nameof(ActiveCommand))]
     [ObservableProperty]
@@ -97,6 +100,12 @@ public sealed partial class AddUriViewModel : ObservableRecipient
                     { "follow-torrent", true }
                 },
                 1
+            );
+            AppMessageService.SendTimeSpanMessage(
+                TimeSpan.FromSeconds(3),
+                $"开始下载，任务ID{result.Result}",
+                "Aria2",
+                Models.Enums.MessageLevel.Default
             );
             if (result.Result != null)
                 DialogManager.CloseDialog();

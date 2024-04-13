@@ -54,7 +54,5 @@ public class DialogManager : IDialogManager
         await dialog.ShowAsync();
     }
 
-    public async Task ShowDownloadDetails(string gid)
-        =>await ShowDialogAsync<DownloadDetailsDialog,string>(gid);
 
 }

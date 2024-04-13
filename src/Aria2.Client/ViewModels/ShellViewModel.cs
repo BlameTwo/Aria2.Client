@@ -1,5 +1,6 @@
 ﻿using Aria2.Client.Models;
 using Aria2.Client.Models.Messagers;
+using Aria2.Client.Models.Wallpaper;
 using Aria2.Client.Services;
 using Aria2.Client.Services.Contracts;
 using Aria2.Client.ViewModels.FrameViewModels;
@@ -29,7 +30,7 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
         IDialogManager dialogManager,
         IAria2cClient aria2CClient,
         ITipShow tipShow,
-        IDataFactory dataFactory,IAppMessageService appMessageService
+        IDataFactory dataFactory,IAppMessageService appMessageService,IWallpaperService wallpaperService
     )
     {
         ApplicationSetup = applicationSetup;
@@ -40,6 +41,7 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
         TipShow = tipShow;
         DataFactory = dataFactory;
         AppMessageService = appMessageService;
+        WallpaperService = wallpaperService;
         Aria2CClient.Aria2ConnectStateChanged += Aria2CClient_Aria2ConnectStateChanged;
         this.IsActive = true;
     }
@@ -59,6 +61,7 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     public ITipShow TipShow { get; }
     public IDataFactory DataFactory { get; }
     public IAppMessageService AppMessageService { get; }
+    public IWallpaperService WallpaperService { get; }
 
     private void Aria2CClient_Aria2ConnectStateChanged(
         object source,
@@ -100,14 +103,18 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     }
 
     [ObservableProperty]
+    YurikotoModel _WallpaperUrl;
+
+    [ObservableProperty]
     Visibility _MessageInfoVisibility = Visibility.Collapsed;
 
     [RelayCommand]
-    void Loaded()
+    async Task Loaded()
     {
         NavigationService.NavigationTo<HomeViewModel>(null);
         AppMessageService.SendMessage("Aria2启动成功", "应用消息", Models.Enums.MessageLevel.Default,true);
         AppMessageService.SendTimeSpanMessage(TimeSpan.FromSeconds(60), "延时关闭消息", "应用消息", Models.Enums.MessageLevel.Default);
+        this.WallpaperUrl = await this.WallpaperService.GetYurikoWallpaper();
     }
 
     [RelayCommand]

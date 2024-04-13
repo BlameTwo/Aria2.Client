@@ -8,6 +8,7 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:property="using:Aria2.Client.UI.Propertys"
+    xmlns:user="using:Aria2.Client.Views.SplitViews"
     mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <core:EventTriggerBehavior EventName="Loaded">
@@ -100,6 +101,15 @@
                 </StackPanel>
             </Border>
             <Frame x:Name="frame" Margin="20,0" />
+            <SplitView
+                IsPaneOpen="{x:Bind ViewModel.IsPaneOpen, Mode=TwoWay}"
+                OpenPaneLength="500"
+                PaneBackground="Transparent"
+                PanePlacement="Right">
+                <SplitView.Pane>
+                    <user:TellDownloadSessionView ViewModel="{x:Bind ViewModel.TellDownloadSessionViewModel, Mode=OneWay}" />
+                </SplitView.Pane>
+            </SplitView>
         </Grid>
 
     </NavigationView>

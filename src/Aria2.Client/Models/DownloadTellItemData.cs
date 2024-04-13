@@ -300,6 +300,7 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     [RelayCommand]
     void OpenDetailsDialog()
     {
-        DialogManager.ShowDownloadDetails(this.Data.Gid);
+        //DialogManager.ShowDownloadDetails(this.Data.Gid);
+        WeakReferenceMessenger.Default.Send<OpenDownloadSessionMessager>(new(true, this.Data.Gid));
     }
 }

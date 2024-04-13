@@ -1,27 +1,25 @@
 ﻿using Aria2.Client.Models;
 using Aria2.Client.Services.Contracts;
-using Aria2.Net;
-using Aria2.Net.Models;
 using Aria2.Net.Models.ClientModel;
 using Aria2.Net.Services.Contracts;
+using Aria2.Net;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System;
+using Microsoft.UI.Xaml;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Linq;
 
-namespace Aria2.Client.ViewModels.DialogViewModels;
+namespace Aria2.Client.ViewModels.SplitViewModels;
 
-public sealed partial class DownloadDetailsViewModel : ObservableRecipient
+public sealed partial  class TellDownloadSessionViewModel:ObservableObject
 {
     CancellationTokenSource _source = new CancellationTokenSource();
 
-    public DownloadDetailsViewModel(
+    public TellDownloadSessionViewModel(
         IAria2cClient aria2CClient,
         IDialogManager dialogManager,
         IDataFactory dataFactory
@@ -85,6 +83,10 @@ public sealed partial class DownloadDetailsViewModel : ObservableRecipient
         if (Data != null)
         {
             var ips = await Aria2CClient.GetBittorrentPeers(this.Gid, _source.Token);
+            if (ips == null)
+            {
+                return;
+            }
             this.Peers = new(ips.Result);
         }
     }
@@ -97,13 +99,13 @@ public sealed partial class DownloadDetailsViewModel : ObservableRecipient
             LinkVisibility = Visibility.Collapsed;
             DataVisibility = Visibility.Collapsed;
         }
-        else if(value.Text == "连接")
+        else if (value.Text == "连接")
         {
             TaskVisibility = Visibility.Collapsed;
             LinkVisibility = Visibility.Visible;
             DataVisibility = Visibility.Collapsed;
         }
-        else if(value.Text == "Data")
+        else if (value.Text == "Data")
         {
 
             TaskVisibility = Visibility.Collapsed;
@@ -127,7 +129,7 @@ public sealed partial class DownloadDetailsViewModel : ObservableRecipient
     {
         if (this.Data.Data.Bittorrent == null)
             return;
-        var downloads = await this.Aria2CClient.GetFiles(this.Gid,_source.Token);
+        var downloads = await this.Aria2CClient.GetFiles(this.Gid, _source.Token);
         if (downloads == null)
             return;
         this.Downloads = new(downloads.Result);

@@ -1,47 +1,40 @@
-<ContentDialog
-    x:Class="Aria2.Client.Views.Dialogs.DownloadDetailsDialog"
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl
+    x:Class="Aria2.Client.Views.SplitViews.TellDownloadSessionView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converter="using:Aria2.Client.Converters"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:data="using:Aria2.Net.Models.ClientModel"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:local="using:Aria2.Client.Views.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uiconverter="using:CommunityToolkit.WinUI.Converters"
-    CornerRadius="5"
-    Language="zh-CN"
     mc:Ignorable="d">
-    <ContentDialog.Resources>
+    <UserControl.Resources>
         <uiconverter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converter:NetworkLengthConverter x:Key="NetworkLengthConverter" />
         <converter:BoolToStringConverter x:Key="BoolToStringConverter" />
-    </ContentDialog.Resources>
-    <Grid Width="500" Height="500">
+    </UserControl.Resources>
+    <Grid
+        Margin="10"
+        Padding="25"
+        Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button
-            Padding="7"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Command="{x:Bind ViewModel.CloseDialogCommand}"
-            Style="{ThemeResource TransparentButtonStyle}">
-            <FontIcon
-                FontFamily="Segoe Fluent Icons"
-                FontSize="15"
-                Glyph="&#xE894;" />
-        </Button>
         <SelectorBar
             x:Name="tabselector"
             Grid.Row="0"
             SelectedItem="{x:Bind ViewModel.TabSelectoritem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <SelectorBarItem x:Uid="Dialog_DownloadDetils_Task" />
+            <SelectorBarItem Text="Trackers" />
             <SelectorBarItem x:Uid="Dialog_DownloadDetils_Link" />
             <SelectorBarItem Text="Data" />
+
         </SelectorBar>
         <Grid
             x:Name="task"
@@ -59,6 +52,7 @@
                 HorizontalAlignment="Stretch"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
                 CornerRadius="5">
                 <TextBlock
                     Grid.Column="1"
@@ -67,12 +61,6 @@
                     Text="{x:Bind ViewModel.Data.FileName, Mode=OneWay}"
                     TextTrimming="CharacterEllipsis" />
             </Grid>
-            <ProgressBar
-                Grid.Row="1"
-                Margin="0,10,0,0"
-                Maximum="{x:Bind ViewModel.Data.Data.TotalLength}"
-                Minimum="0"
-                Value="{x:Bind ViewModel.Data.Data.CompletedLength}" />
             <TextBlock
                 Grid.Row="2"
                 Margin="0,10,0,0"
@@ -244,4 +232,4 @@
 
         </Grid>
     </Grid>
-</ContentDialog>
+</UserControl>

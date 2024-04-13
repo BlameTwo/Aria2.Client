@@ -7,6 +7,7 @@ using Aria2.Client.ViewModels;
 using Aria2.Client.ViewModels.DialogViewModels;
 using Aria2.Client.ViewModels.DownloadViewModels;
 using Aria2.Client.ViewModels.FrameViewModels;
+using Aria2.Client.ViewModels.SplitViewModels;
 using Aria2.Client.Views;
 using Aria2.Client.Views.Dialogs;
 using Aria2.Client.Views.DownloadPages;
@@ -38,6 +39,7 @@ public static class ProgramLife
             //.AddKeyedSingleton<IBTSearchPlugin, X1337Plugin>("1337x")
             .AddSingleton<ITipShow,TipShow>()
             .AddSingleton<IAria2cClient, Aria2cClient>()
+            .AddSingleton<IWallpaperService, WallpaperService>()
             .AddSingleton<IPickersService, PickersService>()
             .AddSingleton<ILocalSettingsService,LocalSettingsService>()
             .AddTransient<IDataFactory, DataFactory>()
@@ -54,9 +56,10 @@ public static class ProgramLife
             .AddTransient<OverviewViewModel>()
             .AddTransient<AddTorrentDialog>()
             .AddTransient<AddTorrentViewModel>()
-            .AddTransient<DownloadDetailsViewModel>()
-            .AddTransient<DownloadDetailsDialog>()
             .AddTransient<PluginViewModel>()
+        #region 展开栏目内容
+            .AddTransient<TellDownloadSessionViewModel>()
+        #endregion
         #region 注册下载页面
             .AddTransient<ActivePage>()
             .AddTransient<ActiveViewModel>()

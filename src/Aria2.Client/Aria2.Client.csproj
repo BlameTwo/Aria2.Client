@@ -296,7 +296,6 @@
     <None Remove="Views\DateTemplate\PluginItemTemplate.xaml" />
     <None Remove="Views\Dialogs\AddTorrentDialog.xaml" />
     <None Remove="Views\Dialogs\AddUriDialog.xaml" />
-    <None Remove="Views\Dialogs\DownloadDetailsDialog.xaml" />
     <None Remove="Views\DownloadPages\ActivePage.xaml" />
     <None Remove="Views\DownloadPages\PausePage.xaml" />
     <None Remove="Views\DownloadPages\StopPage.xaml" />
@@ -306,6 +305,7 @@
     <None Remove="Views\OverviewPage.xaml" />
     <None Remove="Views\PluginPage.xaml" />
     <None Remove="Views\ShellPage.xaml" />
+    <None Remove="Views\SplitViews\TellDownloadSessionView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -357,11 +357,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\FramePages\SearchPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\Dialogs\DownloadDetailsDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -433,6 +428,11 @@
   <ItemGroup>
     <Folder Include="Models\Handler\" />
     <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\SplitViews\TellDownloadSessionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\DateTemplate\PluginItemTemplate.xaml">
