@@ -1,9 +1,23 @@
 # Aria2.Client
 
+##### 路线图
+
+- [ ]  完善Onekuma API
+
+- [ ]  完善应用缺陷
+
+- [ ]  B站下载接口
+  
+  - [ ]  普通视频
+  
+  - [ ]  流媒体
+  
+  - [ ]  直播挂载下载
 
 
-国旗图片的下载位置：
 
-[GitHub - BlameTwo/CountriesData: 世界各国家名称及国旗数据](https://github.com/BlameTwo/CountriesData)
+
+
+
 
 

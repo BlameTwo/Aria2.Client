@@ -86,7 +86,7 @@
                         <Grid
                             Margin="5"
                             Padding="10"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             CornerRadius="5">
                             <Grid.ColumnDefinitions>

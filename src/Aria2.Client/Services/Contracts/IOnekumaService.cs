@@ -12,5 +12,5 @@ public interface IOnekumaService
 
     public Task<AnimeTorrentModel> GetAnimeHomeAsync(int page,int pagesize);
 
-    public async Task<AnimeTorrentModel> SearchKeyworkd(List<string> keyword, string Type = null, int page = 1, int pageSize = 20);
+    public Task<AnimeTorrentModel> SearchKeyworkd(List<string> keyword, string Type = null, int page = 1, int pageSize = 20);
 }
