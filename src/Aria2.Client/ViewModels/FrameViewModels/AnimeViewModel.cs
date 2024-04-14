@@ -3,25 +3,26 @@ using Aria2.Client.Models.Anime;
 using Aria2.Client.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Aria2.Client.ViewModels.FrameViewModels;
 
 public sealed partial class AnimeViewModel:ObservableRecipient
 {
-    public AnimeViewModel(IRssService rssService,IDataFactory dataFactory)
+    public AnimeViewModel(IOnekumaService rssService,IDataFactory dataFactory)
     {
         RssService = rssService;
         DataFactory = dataFactory;
     }
 
-    public IRssService RssService { get; }
+    public IOnekumaService RssService { get; }
     public IDataFactory DataFactory { get; }
 
     [RelayCommand]
     async void Loaded()
     {
-        var result = await RssService.GetAnimeHomeAsync(1,10);
+        var result = await RssService.SearchKeyworkd(new List<string>() { "间谍过家家"}, "動畫");
         if (result == null)
         {
             return;

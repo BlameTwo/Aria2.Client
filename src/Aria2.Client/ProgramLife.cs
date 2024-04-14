@@ -43,7 +43,7 @@ public static class ProgramLife
             .AddSingleton<IPickersService, PickersService>()
             .AddSingleton<ILocalSettingsService,LocalSettingsService>()
             .AddTransient<IDataFactory, DataFactory>()
-            .AddSingleton<IRssService, RssService>()
+            .AddSingleton<IOnekumaService, OnekumaService>()
             .AddTransient<ShellPage>()
             .AddTransient<ShellViewModel>()
             .AddTransient<SearchPage>()
