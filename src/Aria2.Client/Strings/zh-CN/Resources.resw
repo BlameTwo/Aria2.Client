@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnimePage_Download.Text" xml:space="preserve">
+    <value>下载</value>
+  </data>
   <data name="Dialog_DownloadDetils_Editer.Content" xml:space="preserve">
     <value>修改</value>
   </data>
@@ -134,5 +137,134 @@
   </data>
   <data name="Dialog_DownloadDetils_Task.Text" xml:space="preserve">
     <value>任务详情</value>
+  </data>
+  <data name="DownloadTellTemplate_CopyLink.Text" xml:space="preserve">
+    <value>复制源链接</value>
+  </data>
+  <data name="DownloadTellTemplate_Session.Text" xml:space="preserve">
+    <value>详细信息</value>
+  </data>
+  <data name="HomePage_ActivePage_Title.Content" xml:space="preserve">
+    <value>活动中</value>
+  </data>
+  <data name="HomePage_OverView_Title.Content" xml:space="preserve">
+    <value>总览</value>
+  </data>
+  <data name="HomePage_PausePage_Title.Content" xml:space="preserve">
+    <value>暂停中</value>
+  </data>
+  <data name="HomePage_PluginPage_Title.Content" xml:space="preserve">
+    <value>插件</value>
+  </data>
+  <data name="HomePage_StopPage_Title.Content" xml:space="preserve">
+    <value>停止中</value>
+  </data>
+  <data name="HomePage_TaskTitle.Content" xml:space="preserve">
+    <value>任务</value>
+  </data>
+  <data name="OverViewPage_Aria2Global.Text" xml:space="preserve">
+    <value>Aria2全局设置</value>
+  </data>
+  <data name="OverViewPage_Aria2GlobalEditFle.Description" xml:space="preserve">
+    <value>修改文件保存位置</value>
+  </data>
+  <data name="OverViewPage_Aria2GlobalEditFle.Header" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="OverViewPage_Aria2GlobalMaxDownload.Description" xml:space="preserve">
+    <value>修改全局最大下载</value>
+  </data>
+  <data name="OverViewPage_Aria2GlobalMaxDownload.Header" xml:space="preserve">
+    <value>最大下载</value>
+  </data>
+  <data name="OverViewPage_Aria2GlobalMaxSaveResult.Header" xml:space="preserve">
+    <value>最大保存下载结果数量</value>
+  </data>
+  <data name="OverViewPage_Aria2GlobalMaxUpload.Description" xml:space="preserve">
+    <value>修改全局最大上传</value>
+  </data>
+  <data name="OverViewPage_Aria2GlobalMaxUpload.Header" xml:space="preserve">
+    <value>最大上传</value>
+  </data>
+  <data name="OverViewPage_Aria2GlobalSpeed.Description" xml:space="preserve">
+    <value>修改全局速率</value>
+  </data>
+  <data name="OverViewPage_Aria2GlobalSpeed.Header" xml:space="preserve">
+    <value>速率</value>
+  </data>
+  <data name="PluginPage_DownloadPluginTitle.Text" xml:space="preserve">
+    <value>下载插件</value>
+  </data>
+  <data name="PluginPage_PluginItem_Uninstall.Content" xml:space="preserve">
+    <value>卸载</value>
+  </data>
+  <data name="PluginPage_SearchPluginAdd.Text" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="PluginPage_SearchPluginRefresh.Text" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="PluginPage_SearchPluginTitle.Text" xml:space="preserve">
+    <value>搜索插件</value>
+  </data>
+  <data name="SearchPage_Delity.Content" xml:space="preserve">
+    <value>详情页面</value>
+  </data>
+  <data name="SearchPage_Link.Text" xml:space="preserve">
+    <value>链接</value>
+  </data>
+  <data name="SearchPage_PublishTime.Text" xml:space="preserve">
+    <value>发布日期：</value>
+  </data>
+  <data name="SearchPage_Size.Text" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="SehllPage_MenuBar_SearchTitle.Title" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="SehllPage_MenuBar_Search_Anime.Text" xml:space="preserve">
+    <value>Anime Garden</value>
+  </data>
+  <data name="SehllPage_Message_Clear.Content" xml:space="preserve">
+    <value>清空消息</value>
+  </data>
+  <data name="ShellPage_MenuBarTitle.Title" xml:space="preserve">
+    <value>程序</value>
+  </data>
+  <data name="ShellPage_MenuBar_AboutTitle.Title" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="ShellPage_MenuBar_AddTaskTitle.Text" xml:space="preserve">
+    <value>添加任务</value>
+  </data>
+  <data name="ShellPage_MenuBar_AddTask_Torrent.Text" xml:space="preserve">
+    <value>种子文件(.torrent)</value>
+  </data>
+  <data name="ShellPage_MenuBar_AddTask_Url.Text" xml:space="preserve">
+    <value>网址(Url)</value>
+  </data>
+  <data name="ShellPage_MenuBar_ExitAppTitle.Text" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="ShellPage_MenuBar_ExitApp_Exit.Text" xml:space="preserve">
+    <value>直接退出</value>
+  </data>
+  <data name="ShellPage_MenuBar_ExitApp_NotifyIcon.Text" xml:space="preserve">
+    <value>托盘</value>
+  </data>
+  <data name="ShellPage_MenuBar_Search_Search.Text" xml:space="preserve">
+    <value>搜素</value>
+  </data>
+  <data name="ShellPage_Message_Title.Text" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="TellDownloadSession_Split_Data.Text" xml:space="preserve">
+    <value>数据块</value>
+  </data>
+  <data name="TellDownloadSession_Split_Tracker.Text" xml:space="preserve">
+    <value>Trackers</value>
+  </data>
+  <data name="UI_NULL.Text" xml:space="preserve">
+    <value>这里是空的</value>
   </data>
 </root>

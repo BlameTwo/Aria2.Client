@@ -5,6 +5,7 @@ using Aria2.Net.Models;
 using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,9 +23,27 @@ public abstract partial class DownloadViewModelBase: PageViewModelBase
         DataFactory = dataFactory;
         ApplicationSetup = applicationSetup;
         OnInitEnd();
+        this.Downloads.CollectionChanged += Downloads_CollectionChanged;
     }
 
- 
+    private void Downloads_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        RefreshCard();
+    }
+
+    [ObservableProperty]
+    double _CardVisibility = 1;
+
+
+    internal void RefreshCard()
+    {
+
+        if (this.Downloads.Count == 0)
+            CardVisibility = 1;
+        else 
+            CardVisibility = 0;
+    }
+
     public CancellationTokenSource TokenSource = new();
 
     [ObservableProperty]

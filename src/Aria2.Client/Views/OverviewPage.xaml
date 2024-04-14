@@ -27,21 +27,15 @@
             </TransitionCollection>
         </StackPanel.ChildrenTransitions>
         <TextBlock
+            x:Uid="OverViewPage_Aria2Global"
             FontSize="15"
-            FontWeight="Bold"
-            Text="Aria2全局设置" />
-        <setting:SettingsExpander
-            Margin="0,5,0,0"
-            Description="修改全局速率"
-            Header="速率">
+            FontWeight="Bold" />
+        <setting:SettingsExpander x:Uid="OverViewPage_Aria2GlobalSpeed" Margin="0,5,0,0">
             <setting:SettingsExpander.HeaderIcon>
                 <SymbolIcon Symbol="Clock" />
             </setting:SettingsExpander.HeaderIcon>
             <setting:SettingsExpander.Items>
-                <setting:SettingsCard
-                    CornerRadius="5"
-                    Description="修改全局最大上传"
-                    Header="最大上传">
+                <setting:SettingsCard x:Uid="OverViewPage_Aria2GlobalMaxUpload" CornerRadius="5">
                     <setting:SettingsCard.HeaderIcon>
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE898;" />
                     </setting:SettingsCard.HeaderIcon>
@@ -53,10 +47,7 @@
                             SelectedItem="{x:Bind ViewModel.SelectUpload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                 </setting:SettingsCard>
-                <setting:SettingsCard
-                    CornerRadius="5"
-                    Description="修改全局最大下载"
-                    Header="最大下载">
+                <setting:SettingsCard x:Uid="OverViewPage_Aria2GlobalMaxDownload" CornerRadius="5">
                     <setting:SettingsCard.HeaderIcon>
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE896;" />
                     </setting:SettingsCard.HeaderIcon>
@@ -76,10 +67,7 @@
                     Glyph="&#xE894;" />
             </Button>
         </setting:SettingsExpander>
-        <setting:SettingsExpander
-            Margin="0,5,0,0"
-            Description="修改文件保存位置"
-            Header="文件">
+        <setting:SettingsExpander x:Uid="OverViewPage_Aria2GlobalEditFle" Margin="0,5,0,0">
             <setting:SettingsExpander.HeaderIcon>
                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC50;" />
             </setting:SettingsExpander.HeaderIcon>
@@ -146,7 +134,7 @@
             </setting:SettingsExpander.Items>
             <ToggleSwitch x:Name="downloadOption" />
         </setting:SettingsExpander>-->
-        <setting:SettingsCard Margin="0,5,0,0" Header="最大保存下载结果数量">
+        <setting:SettingsCard x:Uid="OverViewPage_Aria2GlobalMaxSaveResult" Margin="0,5,0,0">
             <StackPanel Orientation="Horizontal">
                 <Button Style="{ThemeResource TransparentButtonStyle}">
                     <FontIcon

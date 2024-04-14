@@ -17,7 +17,7 @@
         <Border
             Margin="0,5,0,0"
             Padding="10"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            Background="{ThemeResource AcrylicBackgroundFillColorBaseBrush}"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="5">
@@ -77,12 +77,12 @@
                             Glyph="&#xE712;" />
                         <Button.Flyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Command="{x:Bind OpenDetailsDialogCommand}" Text="详细信息">
+                                <MenuFlyoutItem x:Uid="DownloadTellTemplate_Session" Command="{x:Bind OpenDetailsDialogCommand}">
                                     <MenuFlyoutItem.Icon>
                                         <SymbolIcon Symbol="Filter" />
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="复制源链接">
+                                <MenuFlyoutItem x:Uid="DownloadTellTemplate_CopyLink">
                                     <MenuFlyoutItem.Icon>
                                         <SymbolIcon Symbol="Link" />
                                     </MenuFlyoutItem.Icon>

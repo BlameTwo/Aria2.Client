@@ -22,30 +22,30 @@
         IsBackButtonVisible="Collapsed"
         SelectedItem="{x:Bind ViewModel.NavigationSelectItem, Mode=OneWay}">
         <NavigationView.MenuItems>
-            <NavigationViewItem property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.OverviewViewModel" Content="总览">
+            <NavigationViewItem x:Uid="HomePage_OverView_Title" property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.OverviewViewModel">
                 <NavigationViewItem.Icon>
                     <SymbolIcon Symbol="Home" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
             <NavigationViewItemSeparator />
-            <NavigationViewItemHeader Content="任务" />
-            <NavigationViewItem property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.DownloadViewModels.ActiveViewModel" Content="活动中">
+            <NavigationViewItemHeader x:Uid="HomePage_TaskTitle" />
+            <NavigationViewItem x:Uid="HomePage_ActivePage_Title" property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.DownloadViewModels.ActiveViewModel">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE768;" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.DownloadViewModels.PauseViewModel" Content="暂停中">
+            <NavigationViewItem x:Uid="HomePage_PausePage_Title" property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.DownloadViewModels.PauseViewModel">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE769;" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.DownloadViewModels.StopViewModel" Content="已结束">
+            <NavigationViewItem x:Uid="HomePage_StopPage_Title" property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.DownloadViewModels.StopViewModel">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE71A;" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
             <NavigationViewItemSeparator />
-            <NavigationViewItem property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.PluginViewModel" Content="插件">
+            <NavigationViewItem x:Uid="HomePage_PluginPage_Title" property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.PluginViewModel">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEBD2;" />
                 </NavigationViewItem.Icon>

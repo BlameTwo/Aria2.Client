@@ -19,6 +19,35 @@
                 <RepositionThemeTransition />
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <ItemsControl ItemTemplate="{ThemeResource DownloadTellTemplate}" ItemsSource="{x:Bind ViewModel.Downloads, Mode=OneWay}" />
+        <Grid
+            Width="200"
+            Height="200"
+            Opacity="{x:Bind ViewModel.CardVisibility, Mode=OneWay}">
+            <Rectangle
+                Fill="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                RadiusX="15"
+                RadiusY="15"
+                Stroke="{ThemeResource CardStrokeColorDefaultSolidBrush}"
+                StrokeThickness="1" />
+            <StackPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <FontIcon
+                    FontFamily="Segoe UI Emoji"
+                    FontSize="50"
+                    Glyph="&#x1F64C;" />
+                <TextBlock
+                    x:Uid="UI_NULL"
+                    Margin="0,8,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="17" />
+            </StackPanel>
+        </Grid>
+        <ScrollView>
+
+            <ItemsControl ItemTemplate="{ThemeResource DownloadTellTemplate}" ItemsSource="{x:Bind ViewModel.Downloads, Mode=OneWay}" />
+        </ScrollView>
     </Grid>
 </Page>

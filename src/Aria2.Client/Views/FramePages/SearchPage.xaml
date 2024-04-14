@@ -109,14 +109,14 @@
                                     Margin="0,5,0,0"
                                     Orientation="Vertical">
                                     <TextBlock FontSize="10" Foreground="Gray">
-                                        <Run Text="大小：" />
+                                        <Run x:Uid="SearchPage_Size" />
                                         <Run Text="{Binding Data.Size, Mode=OneWay}" />
                                     </TextBlock>
                                     <TextBlock
                                         Margin="0,5,0,0"
                                         FontSize="10"
                                         Foreground="LightGray">
-                                        <Run Text="发布日期：" />
+                                        <Run x:Uid="SearchPage_PublishTime" />
                                         <Run Text="{Binding Data.CreateTime, Mode=OneWay}" />
                                     </TextBlock>
                                     <TextBlock
@@ -124,7 +124,7 @@
                                         FontSize="10"
                                         Foreground="LightGray"
                                         TextTrimming="CharacterEllipsis">
-                                        <Run Text="链接：" />
+                                        <Run x:Uid="SearchPage_Link" />
                                         <Run Text="{Binding Data.BTUrl, Mode=OneWay}" />
                                     </TextBlock>
                                 </StackPanel>
@@ -139,9 +139,9 @@
                                             Glyph="&#xE896;" />
                                     </Button>
                                     <HyperlinkButton
+                                        x:Uid="SearchPage_Delity"
                                         Margin="5,0,0,0"
                                         Padding="4"
-                                        Content="详情页面"
                                         FontSize="10"
                                         NavigateUri="{Binding Data.WebUrl, Mode=OneWay}" />
                                 </StackPanel>

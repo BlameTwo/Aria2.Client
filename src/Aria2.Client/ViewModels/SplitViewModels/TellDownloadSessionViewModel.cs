@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Linq;
+using System;
 
 namespace Aria2.Client.ViewModels.SplitViewModels;
 
@@ -56,7 +57,13 @@ public sealed partial  class TellDownloadSessionViewModel:ObservableObject
     Visibility _DataVisibility = Visibility.Collapsed;
 
     [ObservableProperty]
+    Visibility _TrackerVisibility = Visibility.Collapsed;
+
+    [ObservableProperty]
     ObservableCollection<BittorrentPeer> _Peers;
+
+    [ObservableProperty]
+    ObservableCollection<string> _Trackers;
 
     [ObservableProperty]
     int _SelectFile;
@@ -93,24 +100,33 @@ public sealed partial  class TellDownloadSessionViewModel:ObservableObject
 
     partial void OnTabSelectoritemChanged(SelectorBarItem value)
     {
-        if (value.Text == "任务详情")
+        if (value.Tag.ToString() == "Detlis")
         {
             TaskVisibility = Visibility.Visible;
             LinkVisibility = Visibility.Collapsed;
+            TrackerVisibility = Visibility.Collapsed;
             DataVisibility = Visibility.Collapsed;
         }
-        else if (value.Text == "连接")
+        else if (value.Tag.ToString() == "IPLink")
         {
             TaskVisibility = Visibility.Collapsed;
             LinkVisibility = Visibility.Visible;
+            TrackerVisibility = Visibility.Collapsed;
             DataVisibility = Visibility.Collapsed;
         }
-        else if (value.Text == "Data")
+        else if (value.Tag.ToString() == "Data")
         {
 
             TaskVisibility = Visibility.Collapsed;
             LinkVisibility = Visibility.Collapsed;
+            TrackerVisibility = Visibility.Collapsed;
             DataVisibility = Visibility.Visible;
+        }else if(value.Tag.ToString() == "Tracker")
+        {
+            TaskVisibility = Visibility.Collapsed;
+            LinkVisibility = Visibility.Collapsed;
+            TrackerVisibility = Visibility.Visible;
+            DataVisibility = Visibility.Collapsed;
         }
     }
 
@@ -119,10 +135,23 @@ public sealed partial  class TellDownloadSessionViewModel:ObservableObject
         this.Gid = gidName;
         var data = await Aria2CClient.GetTellStatusAsync(this.Gid, _source.Token);
         this.Data = DataFactory.CreateownloadTellItemData(data.Result);
+        RefreshTracker();
         _timer = new DispatcherTimer();
         _timer.Tick += _timer_Tick;
         _timer.Interval = new(0, 0, 1);
         _timer.Start();
+    }
+
+    private void RefreshTracker()
+    {
+        if (Data.Data.Bittorrent == null)
+            return;
+        List<string> trackers = new();
+        foreach (var item in Data.Data.Bittorrent.AnnounceList)
+        {
+            trackers.AddRange(item);
+        }
+        this.Trackers = new(trackers);
     }
 
     private async Task refreshDownloads()

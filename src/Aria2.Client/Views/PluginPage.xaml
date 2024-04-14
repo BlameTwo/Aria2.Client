@@ -18,7 +18,7 @@
     </i:Interaction.Behaviors>
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid>
-            <TextBlock FontWeight="Bold" Text="搜索插件" />
+            <TextBlock x:Uid="PluginPage_SearchPluginTitle" FontWeight="Bold" />
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button Style="{ThemeResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
@@ -28,10 +28,10 @@
                             FontSize="10"
                             Glyph="&#xECC8;" />
                         <TextBlock
+                            x:Uid="PluginPage_SearchPluginAdd"
                             Margin="4,0,0,0"
                             VerticalAlignment="Center"
-                            FontSize="10"
-                            Text="添加" />
+                            FontSize="10" />
                     </StackPanel>
                 </Button>
                 <Button Style="{ThemeResource TransparentButtonStyle}">
@@ -42,10 +42,10 @@
                             FontSize="10"
                             Glyph="&#xE72C;" />
                         <TextBlock
+                            x:Uid="PluginPage_SearchPluginRefresh"
                             Margin="4,0,0,0"
                             VerticalAlignment="Center"
-                            FontSize="10"
-                            Text="刷新" />
+                            FontSize="10" />
                     </StackPanel>
                 </Button>
 
@@ -71,9 +71,9 @@
                                     </i:Interaction.Behaviors>
                                 </ToggleSwitch>
                                 <ToggleButton
+                                    x:Uid="PluginPage_PluginItem_Uninstall"
                                     Margin="5,0,0,0"
                                     Command="{Binding SetUninstallCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Content="卸载"
                                     IsChecked="{Binding Data.Config.IsUninstall, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <i:Interaction.Behaviors>
                                         <core:EventTriggerBehavior EventName="Checked">
@@ -91,9 +91,9 @@
             </ItemsRepeater>
         </ScrollView>
         <TextBlock
+            x:Uid="PluginPage_DownloadPluginTitle"
             Margin="0,8,0,0"
-            FontWeight="Bold"
-            Text="下载插件" />
+            FontWeight="Bold" />
     </StackPanel>
 
 </Page>

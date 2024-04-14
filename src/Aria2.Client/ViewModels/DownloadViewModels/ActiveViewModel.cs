@@ -67,6 +67,7 @@ public sealed partial class ActiveViewModel : DownloadViewModelBase,IRecipient<T
             RemoveDownload(state.Params);
         }
     }
+
     public async override Task OnRefreshAsync()
     {
         var result = await Aria2CClient.GetAllTellActiveAsync(TokenSource.Token);
@@ -78,6 +79,7 @@ public sealed partial class ActiveViewModel : DownloadViewModelBase,IRecipient<T
             AddDownload(download);
         }
     }
+
 
     public void Receive(TellTaskStateAddRemoveItemMessager message)
     {

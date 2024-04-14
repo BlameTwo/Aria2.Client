@@ -33,7 +33,7 @@
         </tb:TaskbarIcon>
         <Image
             Grid.RowSpan="2"
-            Opacity="0.8"
+            Opacity="0.5"
             Source="{x:Bind ViewModel.WallpaperUrl.Link, Mode=OneWay}"
             Stretch="UniformToFill" />
         <ui:TitleBar
@@ -44,36 +44,36 @@
             TitleVerticalAlignment="Center">
             <ui:TitleBar.Header>
                 <MenuBar Margin="3">
-                    <MenuBarItem Title="程序">
-                        <MenuFlyoutSubItem Text="添加任务">
+                    <MenuBarItem x:Uid="ShellPage_MenuBarTitle">
+                        <MenuFlyoutSubItem x:Uid="ShellPage_MenuBar_AddTaskTitle">
                             <MenuFlyoutSubItem.Icon>
                                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE710;" />
                             </MenuFlyoutSubItem.Icon>
-                            <MenuFlyoutItem Command="{x:Bind ViewModel.ShowAddUriCommand}" Text="URL" />
-                            <MenuFlyoutItem Command="{x:Bind ViewModel.ShowAddTorrentCommand}" Text="种子(.torrent)" />
+                            <MenuFlyoutItem x:Uid="ShellPage_MenuBar_AddTask_Url" Command="{x:Bind ViewModel.ShowAddUriCommand}" />
+                            <MenuFlyoutItem x:Uid="ShellPage_MenuBar_AddTask_Torrent" Command="{x:Bind ViewModel.ShowAddTorrentCommand}" />
                         </MenuFlyoutSubItem>
                         <MenuFlyoutSeparator />
-                        <MenuFlyoutSubItem Text="退出">
+                        <MenuFlyoutSubItem x:Uid="ShellPage_MenuBar_ExitAppTitle">
                             <MenuFlyoutSubItem.Icon>
                                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE894;" />
                             </MenuFlyoutSubItem.Icon>
-                            <MenuFlyoutItem Text="托盘" />
-                            <MenuFlyoutItem Text="直接退出" />
+                            <MenuFlyoutItem x:Uid="ShellPage_MenuBar_ExitApp_NotifyIcon" />
+                            <MenuFlyoutItem x:Uid="ShellPage_MenuBar_ExitApp_Exit" />
                         </MenuFlyoutSubItem>
                     </MenuBarItem>
-                    <MenuBarItem Title="搜索">
-                        <MenuFlyoutItem Command="{x:Bind ViewModel.GoAnimePageCommand}" Text="Anime Garden">
+                    <MenuBarItem x:Uid="SehllPage_MenuBar_SearchTitle">
+                        <MenuFlyoutItem x:Uid="SehllPage_MenuBar_Search_Anime" Command="{x:Bind ViewModel.GoAnimePageCommand}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x2721;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
-                        <MenuFlyoutItem Command="{x:Bind ViewModel.GoSearchPageCommand}" Text="搜索种子">
+                        <MenuFlyoutItem x:Uid="ShellPage_MenuBar_Search_Search" Command="{x:Bind ViewModel.GoSearchPageCommand}">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE721;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                     </MenuBarItem>
-                    <MenuBarItem Title="关于" />
+                    <MenuBarItem x:Uid="ShellPage_MenuBar_AboutTitle" />
                 </MenuBar>
             </ui:TitleBar.Header>
             <ui:TitleBar.Footer>
@@ -128,21 +128,17 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <TextBlock
-                            Margin="8,8,0,0"
-                            HorizontalAlignment="Left"
-                            Text="消息" />
+                            x:Uid="ShellPage_Message_Title"
+                            Margin="15,11,0,0"
+                            HorizontalAlignment="Left" />
                         <Button
+                            x:Uid="SehllPage_Message_Clear"
                             Margin="0,5,5,0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             Command="{x:Bind ViewModel.ClearMessageCommand, Mode=OneWay}"
-                            Style="{ThemeResource TransparentButtonStyle}"
-                            ToolTipService.ToolTip="清空消息">
-                            <FontIcon
-                                FontFamily="Segoe Fluent Icons"
-                                FontSize="10"
-                                Glyph="&#xE894;" />
-                        </Button>
+                            FontSize="11"
+                            Style="{ThemeResource TransparentButtonStyle}" />
                         <ScrollView Grid.Row="1">
                             <ItemsControl ItemsSource="{x:Bind ViewModel.MessageList, Mode=OneWay}">
                                 <ItemsControl.ItemTemplate>

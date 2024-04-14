@@ -35,7 +35,7 @@
                             CornerRadius="5">
                             <Border.ContextFlyout>
                                 <MenuFlyout>
-                                    <MenuFlyoutItem Command="{x:Bind AddDownloadCommand}" Text="下载">
+                                    <MenuFlyoutItem x:Uid="AnimePage_Download" Command="{x:Bind AddDownloadCommand}">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE896;" />
                                         </MenuFlyoutItem.Icon>
