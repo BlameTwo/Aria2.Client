@@ -2,6 +2,7 @@
     x:Class="Aria2.Client.Views.ShellPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
@@ -33,7 +34,7 @@
         </tb:TaskbarIcon>
         <Image
             Grid.RowSpan="2"
-            Opacity="0.5"
+            Opacity="0.3"
             Source="{x:Bind ViewModel.WallpaperUrl.Link, Mode=OneWay}"
             Stretch="UniformToFill" />
         <ui:TitleBar
@@ -43,38 +44,57 @@
             TitleMode="Tall"
             TitleVerticalAlignment="Center">
             <ui:TitleBar.Header>
-                <MenuBar Margin="3">
-                    <MenuBarItem x:Uid="ShellPage_MenuBarTitle">
-                        <MenuFlyoutSubItem x:Uid="ShellPage_MenuBar_AddTaskTitle">
-                            <MenuFlyoutSubItem.Icon>
-                                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE710;" />
-                            </MenuFlyoutSubItem.Icon>
-                            <MenuFlyoutItem x:Uid="ShellPage_MenuBar_AddTask_Url" Command="{x:Bind ViewModel.ShowAddUriCommand}" />
-                            <MenuFlyoutItem x:Uid="ShellPage_MenuBar_AddTask_Torrent" Command="{x:Bind ViewModel.ShowAddTorrentCommand}" />
-                        </MenuFlyoutSubItem>
-                        <MenuFlyoutSeparator />
-                        <MenuFlyoutSubItem x:Uid="ShellPage_MenuBar_ExitAppTitle">
-                            <MenuFlyoutSubItem.Icon>
-                                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE894;" />
-                            </MenuFlyoutSubItem.Icon>
-                            <MenuFlyoutItem x:Uid="ShellPage_MenuBar_ExitApp_NotifyIcon" />
-                            <MenuFlyoutItem x:Uid="ShellPage_MenuBar_ExitApp_Exit" />
-                        </MenuFlyoutSubItem>
-                    </MenuBarItem>
-                    <MenuBarItem x:Uid="SehllPage_MenuBar_SearchTitle">
-                        <MenuFlyoutItem x:Uid="SehllPage_MenuBar_Search_Anime" Command="{x:Bind ViewModel.GoAnimePageCommand}">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x2721;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                        <MenuFlyoutItem x:Uid="ShellPage_MenuBar_Search_Search" Command="{x:Bind ViewModel.GoSearchPageCommand}">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE721;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                    </MenuBarItem>
-                    <MenuBarItem x:Uid="ShellPage_MenuBar_AboutTitle" />
-                </MenuBar>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Margin="8,8,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Command="{x:Bind ViewModel.GoBackCommand}"
+                        IsEnabled="{x:Bind ViewModel.IsBack, Mode=OneWay}"
+                        Style="{ThemeResource TransparentButtonStyle}">
+                        <AnimatedIcon x:Name="SearchAnimatedIcon">
+                            <AnimatedIcon.Source>
+                                <animatedvisuals:AnimatedBackVisualSource />
+                            </AnimatedIcon.Source>
+                            <AnimatedIcon.FallbackIconSource>
+                                <SymbolIconSource Symbol="Back" />
+                            </AnimatedIcon.FallbackIconSource>
+                        </AnimatedIcon>
+
+                    </Button>
+                    <MenuBar Margin="3">
+                        <MenuBarItem x:Uid="ShellPage_MenuBarTitle">
+                            <MenuFlyoutSubItem x:Uid="ShellPage_MenuBar_AddTaskTitle">
+                                <MenuFlyoutSubItem.Icon>
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE710;" />
+                                </MenuFlyoutSubItem.Icon>
+                                <MenuFlyoutItem x:Uid="ShellPage_MenuBar_AddTask_Url" Command="{x:Bind ViewModel.ShowAddUriCommand}" />
+                                <MenuFlyoutItem x:Uid="ShellPage_MenuBar_AddTask_Torrent" Command="{x:Bind ViewModel.ShowAddTorrentCommand}" />
+                            </MenuFlyoutSubItem>
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutSubItem x:Uid="ShellPage_MenuBar_ExitAppTitle">
+                                <MenuFlyoutSubItem.Icon>
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE894;" />
+                                </MenuFlyoutSubItem.Icon>
+                                <MenuFlyoutItem x:Uid="ShellPage_MenuBar_ExitApp_NotifyIcon" />
+                                <MenuFlyoutItem x:Uid="ShellPage_MenuBar_ExitApp_Exit" />
+                            </MenuFlyoutSubItem>
+                        </MenuBarItem>
+                        <MenuBarItem x:Uid="SehllPage_MenuBar_SearchTitle">
+                            <MenuFlyoutItem x:Uid="SehllPage_MenuBar_Search_Anime" Command="{x:Bind ViewModel.GoAnimePageCommand}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x2721;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem x:Uid="ShellPage_MenuBar_Search_Search" Command="{x:Bind ViewModel.GoSearchPageCommand}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE721;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuBarItem>
+                        <MenuBarItem x:Uid="ShellPage_MenuBar_AboutTitle" />
+                    </MenuBar>
+                </StackPanel>
             </ui:TitleBar.Header>
             <ui:TitleBar.Footer>
                 <Button

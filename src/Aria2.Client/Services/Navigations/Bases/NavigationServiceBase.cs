@@ -17,7 +17,12 @@ public class NavigationServiceBase : INavigationService
     private object _parameter;
 
     public IPageService PageService { get; }
+
     public Frame RootFrame { get; private set; }
+
+    public bool CanGoBack => RootFrame != null ? RootFrame.CanGoBack : false;
+
+    public bool CanGoForward => RootFrame!=null ? RootFrame.CanGoForward : false;
 
     public event NavigatedEventHandler Navigated;
     public event NavigationFailedEventHandler NavigationFailed;

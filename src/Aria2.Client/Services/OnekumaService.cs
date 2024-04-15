@@ -44,17 +44,21 @@ public class OnekumaService:IOnekumaService
     }
 
 
-    public async Task<AnimeTorrentModel> SearchKeyworkd(List<string> keyword, string Type = null,int page = 1,int pageSize = 20)
+    public async Task<AnimeTorrentModel> SearchKeyworkd(List<string> keyword,List<string> fliter = null, string Type = null,string Fansub = null, int page = 1,int pageSize = 20)
     {
+        if (keyword == null || keyword.Count == 0)
+            return null;
         var request = new HttpRequestMessage()
         {
             Method = HttpMethod.Post,
         };
-        var content = JsonContent.Create(new { include = keyword });
+        var content = JsonContent.Create(new { include = keyword, keywords = fliter });
         var str = await content.ReadAsStringAsync();
         string url = "https://garden.onekuma.cn/api/resources";
         if (Type != null)
-            url += $"?type={Type}&page=1&pageSize=20";
+            url += url.Contains('?') ? $"&type={Type}" : $"?type={Type}";
+        if (Fansub != null)
+            url += url.Contains('?') ? $"&fansubName={Fansub}" : $"?fansubName={Fansub}";
         request.RequestUri = new System.Uri(url);
         request.Content = content;
         request.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36");

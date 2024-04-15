@@ -43,12 +43,20 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
         AppMessageService = appMessageService;
         WallpaperService = wallpaperService;
         Aria2CClient.Aria2ConnectStateChanged += Aria2CClient_Aria2ConnectStateChanged;
+        HomeNavigationService.Navigated += HomeNavigationService_Navigated;
         this.IsActive = true;
     }
 
+    private void HomeNavigationService_Navigated(object sender, Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
+    {
+        this.IsBack = HomeNavigationService.CanGoBack;
+    }
 
     [ObservableProperty]
     SolidColorBrush _ConnectState;
+
+    [ObservableProperty]
+    bool _IsBack;
 
     [ObservableProperty]
     string _ConnectText;
@@ -91,6 +99,8 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     [ObservableProperty]
     ObservableCollection<AppMessageItemData> _MessageList=new();
 
+
+
     [ObservableProperty]
     int _MessageCount=0;
 
@@ -127,6 +137,12 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     async Task ShowAddTorrent()
     {
         await DialogManager.ShowAddTorrentAsync();
+    }
+
+    [RelayCommand]
+    void GoBack()
+    {
+        HomeNavigationService.GoBack();
     }
 
     [RelayCommand]

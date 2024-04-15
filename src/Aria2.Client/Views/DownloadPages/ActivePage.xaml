@@ -23,6 +23,9 @@
             Width="200"
             Height="200"
             Opacity="{x:Bind ViewModel.CardVisibility, Mode=OneWay}">
+            <Grid.OpacityTransition>
+                <ScalarTransition />
+            </Grid.OpacityTransition>
             <Rectangle
                 Fill="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
                 RadiusX="15"

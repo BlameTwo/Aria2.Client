@@ -11,6 +11,9 @@ public interface INavigationService
 
     public void UnRegisterView();
 
+    public bool CanGoBack { get;}
+
+    public bool CanGoForward { get;}
 
     public bool GoBack();
 

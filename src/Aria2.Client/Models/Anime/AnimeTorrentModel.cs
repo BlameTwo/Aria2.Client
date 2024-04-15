@@ -45,7 +45,7 @@ public class Publisher
 public class AnimeResource
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     [JsonPropertyName("provider")]
     public string Provider { get; set; }
