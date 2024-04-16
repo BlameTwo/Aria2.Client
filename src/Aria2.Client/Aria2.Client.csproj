@@ -291,6 +291,7 @@
     <None Remove="Assets\logo.png" />
     <None Remove="UI\Controls\PopupDialog.xaml" />
     <None Remove="UI\Styles\Button.xaml" />
+    <None Remove="UI\Styles\ImageEx.xaml" />
     <None Remove="UI\Styles\TitleBar.xaml" />
     <None Remove="Views\DateTemplate\DownloadTellFileTemplate.xaml" />
     <None Remove="Views\DateTemplate\PluginItemTemplate.xaml" />
@@ -428,6 +429,11 @@
   <ItemGroup>
     <Folder Include="Models\Handler\" />
     <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="UI\Styles\ImageEx.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\SplitViews\TellDownloadSessionView.xaml">

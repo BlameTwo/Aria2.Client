@@ -12,17 +12,24 @@ public static class FileHelper
 {
     public static async Task<BitmapImage> BitmapToBitmapImage(Bitmap bitmap)
     {
-        using (var memoryStream = new MemoryStream())
+        try
         {
-            bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-            var randomAccessStream = new InMemoryRandomAccessStream();
-            var dataWriter = new DataWriter(randomAccessStream.GetOutputStreamAt(0));
-            dataWriter.WriteBytes(memoryStream.ToArray());
-            await dataWriter.StoreAsync();
-            dataWriter.DetachStream();
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.SetSource(randomAccessStream);
-            return bitmapImage;
+            using (var memoryStream = new MemoryStream())
+            {
+                bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                var randomAccessStream = new InMemoryRandomAccessStream();
+                var dataWriter = new DataWriter(randomAccessStream.GetOutputStreamAt(0));
+                dataWriter.WriteBytes(memoryStream.ToArray());
+                await dataWriter.StoreAsync();
+                dataWriter.DetachStream();
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.SetSource(randomAccessStream);
+                return bitmapImage;
+            }
+        }
+        catch (Exception)
+        {
+            return null;
         }
     }
 

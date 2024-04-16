@@ -176,6 +176,7 @@ public sealed partial class AnimeViewModel : ObservableRecipient
         );
         if (result == null)
         {
+            this.CardVisibility = 0;
             return;
         }
         foreach (var item in result.Resources)

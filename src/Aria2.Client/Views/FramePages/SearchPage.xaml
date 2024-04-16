@@ -7,6 +7,7 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:Aria2.Client.Views.FramePages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Aria2.Client.UI.Controls"
     Margin="20"
     mc:Ignorable="d">
     <i:Interaction.Behaviors>
@@ -36,7 +37,7 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Image
+                            <ui:ImageEx
                                 Width="15"
                                 Height="15"
                                 Source="{Binding Icon, Mode=OneWay}" />
@@ -93,7 +94,7 @@
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Image Height="100" Source="{Binding Data.Cover, Mode=OneWay}" />
+                            <ui:ImageEx Height="100" Source="{Binding Data.Cover, Mode=OneWay}" />
                             <Grid Grid.Column="1" Margin="8,0,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />

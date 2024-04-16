@@ -1,4 +1,5 @@
 ﻿using Aria2.Client.Common;
+using Aria2.Client.Common.ViewModelBase;
 using Aria2.Client.Models;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;

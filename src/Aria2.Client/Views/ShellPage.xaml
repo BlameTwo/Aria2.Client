@@ -32,7 +32,7 @@
                     Text="&#x1F447;" />
             </tb:TaskbarIcon.IconSource>
         </tb:TaskbarIcon>
-        <Image
+        <ui:ImageEx
             Grid.RowSpan="2"
             Opacity="0.3"
             Source="{x:Bind ViewModel.WallpaperUrl.Link, Mode=OneWay}"

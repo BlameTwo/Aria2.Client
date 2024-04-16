@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Aria2.Client.Common;
+namespace Aria2.Client.Common.ViewModelBase;
 
 public partial class PageViewModelBase:ObservableRecipient
 {

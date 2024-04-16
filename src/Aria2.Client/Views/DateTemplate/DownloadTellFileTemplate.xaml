@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:Aria2.Client.Models"
+    xmlns:ui="using:Aria2.Client.UI.Controls"
     xmlns:uiconverter="using:CommunityToolkit.WinUI.Converters"
     mc:Ignorable="d">
     <converter:NetworkLengthConverter x:Key="NetworkLengthConverter" />

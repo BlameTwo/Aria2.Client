@@ -8,7 +8,7 @@ public static class GlobalUsings
 
     public const string HttpRequetBaseUrl = $"http://127.0.0.1:{Port}/jsonrpc";
 
-    public const string WebSocketBaseUrl = $"ws://localhost:5050/jsonrpc";
+    public const string WebSocketBaseUrl = $"ws://localhost:{Port}/jsonrpc";
 
     public const string RequestOK = "OK";
 
