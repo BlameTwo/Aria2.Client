@@ -55,6 +55,8 @@ public static class ProgramLife
             .AddTransient<OverviewPage>()
             .AddTransient<OverviewViewModel>()
             .AddTransient<AddTorrentDialog>()
+            .AddTransient<AboutPage>()
+            .AddTransient<AboutViewModel>()
             .AddTransient<AddTorrentViewModel>()
             .AddTransient<PluginViewModel>()
         #region 展开栏目内容

@@ -99,8 +99,6 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     [ObservableProperty]
     ObservableCollection<AppMessageItemData> _MessageList=new();
 
-
-
     [ObservableProperty]
     int _MessageCount=0;
 
@@ -166,6 +164,12 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
                 MessageList.Remove(item);
         }
         MessageCount = MessageList.Count;
+    }
+
+    [RelayCommand]
+    void GoAboutPage()
+    {
+        HomeNavigationService.NavigationTo<AboutViewModel>(null);
     }
 
     public void Receive(Tuple<bool, AppNotifyMessager> message)

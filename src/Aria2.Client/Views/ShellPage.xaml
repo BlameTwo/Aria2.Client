@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:cui="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:Aria2.Client.Views"
@@ -11,6 +12,7 @@
     xmlns:settings="using:CommunityToolkit.WinUI.Controls"
     xmlns:tb="using:H.NotifyIcon"
     xmlns:ui="using:Aria2.Client.UI.Controls"
+    xmlns:wuc="using:WinUICommunity"
     mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <core:EventTriggerBehavior EventName="Loaded">
@@ -18,11 +20,23 @@
         </core:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     <Grid x:Name="grid">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <RepositionThemeTransition />
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <tb:TaskbarIcon ContextMenuMode="SecondWindow" ToolTipText="Aria2.Client">
+            <tb:TaskbarIcon.ContextFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem x:Uid="Notify_Home" />
+                    <MenuFlyoutSeparator />
+                    <MenuFlyoutItem x:Uid="Notify_Exit" />
+                </MenuFlyout>
+            </tb:TaskbarIcon.ContextFlyout>
             <tb:TaskbarIcon.IconSource>
                 <tb:GeneratedIconSource
                     FontFamily="Segoe UI Emoji"
@@ -32,11 +46,12 @@
                     Text="&#x1F447;" />
             </tb:TaskbarIcon.IconSource>
         </tb:TaskbarIcon>
-        <ui:ImageEx
+        <cui:ImageEx
             Grid.RowSpan="2"
             Opacity="0.3"
             Source="{x:Bind ViewModel.WallpaperUrl.Link, Mode=OneWay}"
-            Stretch="UniformToFill" />
+            Stretch="UniformToFill"
+            Visibility="Visible" />
         <ui:TitleBar
             x:Name="TitleBar"
             FooterVerticalAlignment="Center"
@@ -60,7 +75,6 @@
                                 <SymbolIconSource Symbol="Back" />
                             </AnimatedIcon.FallbackIconSource>
                         </AnimatedIcon>
-
                     </Button>
                     <MenuBar Margin="3">
                         <MenuBarItem x:Uid="ShellPage_MenuBarTitle">
@@ -92,7 +106,13 @@
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
                         </MenuBarItem>
-                        <MenuBarItem x:Uid="ShellPage_MenuBar_AboutTitle" />
+                        <MenuBarItem x:Uid="ShellPage_MenuBar_AboutTitle">
+                            <MenuFlyoutItem x:Uid="ShellPage_MenuBar_AboutText" Command="{x:Bind ViewModel.GoAboutPageCommand}">
+                                <MenuFlyoutItem.Icon>
+                                    <SymbolIcon Symbol="Accept" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuBarItem>
                     </MenuBar>
                 </StackPanel>
             </ui:TitleBar.Header>
@@ -221,6 +241,37 @@
                 </SplitView.Pane>
             </SplitView>
         </Grid>
-
+        <wuc:GooeyButton
+            Grid.Row="1"
+            Width="60"
+            Height="60"
+            Margin="0,0,25,25"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            ItemsPosition="LeftTop">
+            <wuc:GooeyButton.Content>
+                <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F63C;" />
+            </wuc:GooeyButton.Content>
+            <wuc:GooeyButton.Items>
+                <wuc:GooeyButtonItem
+                    Width="50"
+                    Height="50"
+                    Command="{x:Bind ViewModel.ShowAddUriCommand}">
+                    <SymbolIcon Symbol="Link" />
+                </wuc:GooeyButtonItem>
+                <wuc:GooeyButtonItem
+                    Width="50"
+                    Height="50"
+                    Command="{x:Bind ViewModel.ShowAddTorrentCommand}">
+                    <SymbolIcon Symbol="OpenFile" />
+                </wuc:GooeyButtonItem>
+                <wuc:GooeyButtonItem Width="50" Height="50">
+                    <SymbolIcon Symbol="BlockContact" />
+                </wuc:GooeyButtonItem>
+                <wuc:GooeyButtonItem Width="50" Height="50">
+                    <SymbolIcon Symbol="Setting" />
+                </wuc:GooeyButtonItem>
+            </wuc:GooeyButton.Items>
+        </wuc:GooeyButton>
     </Grid>
 </Page>

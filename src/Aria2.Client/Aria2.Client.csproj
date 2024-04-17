@@ -291,8 +291,8 @@
     <None Remove="Assets\logo.png" />
     <None Remove="UI\Controls\PopupDialog.xaml" />
     <None Remove="UI\Styles\Button.xaml" />
-    <None Remove="UI\Styles\ImageEx.xaml" />
     <None Remove="UI\Styles\TitleBar.xaml" />
+    <None Remove="Views\AboutPage.xaml" />
     <None Remove="Views\DateTemplate\DownloadTellFileTemplate.xaml" />
     <None Remove="Views\DateTemplate\PluginItemTemplate.xaml" />
     <None Remove="Views\Dialogs\AddTorrentDialog.xaml" />
@@ -323,14 +323,16 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.240109" />
     <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.0.240109" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
     <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.124" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WinUI" Version="2.0.0-rc2.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240311000" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240404000" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.3" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
+    <PackageReference Include="WinUICommunity.Win2D" Version="6.7.0" />
     <PackageReference Include="WinUIEx" Version="2.3.4" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
@@ -431,7 +433,7 @@
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="UI\Styles\ImageEx.xaml">
+    <Page Update="Views\AboutPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

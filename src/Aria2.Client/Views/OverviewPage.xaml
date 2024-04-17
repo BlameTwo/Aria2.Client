@@ -19,98 +19,100 @@
             <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand, Mode=OneWay}" />
         </core:EventTriggerBehavior>
     </i:Interaction.Behaviors>
-    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <StackPanel.ChildrenTransitions>
-            <TransitionCollection>
-                <RepositionThemeTransition />
-            </TransitionCollection>
-        </StackPanel.ChildrenTransitions>
-        <TextBlock
-            x:Uid="OverViewPage_Aria2Global"
-            FontSize="15"
-            FontWeight="Bold" />
-        <setting:SettingsExpander x:Uid="OverViewPage_Aria2GlobalSpeed" Margin="0,5,0,0">
-            <setting:SettingsExpander.HeaderIcon>
-                <SymbolIcon Symbol="Clock" />
-            </setting:SettingsExpander.HeaderIcon>
-            <setting:SettingsExpander.Items>
-                <setting:SettingsCard x:Uid="OverViewPage_Aria2GlobalMaxUpload" CornerRadius="5">
-                    <setting:SettingsCard.HeaderIcon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE898;" />
-                    </setting:SettingsCard.HeaderIcon>
-                    <StackPanel Orientation="Horizontal">
-                        <NumberBox Margin="5,0,0,0" Value="{x:Bind ViewModel.InputUpload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <ComboBox
-                            Margin="5,0,0,0"
-                            ItemsSource="{x:Bind ViewModel.SpiltSource}"
-                            SelectedItem="{x:Bind ViewModel.SelectUpload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                </setting:SettingsCard>
-                <setting:SettingsCard x:Uid="OverViewPage_Aria2GlobalMaxDownload" CornerRadius="5">
-                    <setting:SettingsCard.HeaderIcon>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE896;" />
-                    </setting:SettingsCard.HeaderIcon>
-                    <StackPanel Orientation="Horizontal">
-                        <NumberBox Value="{x:Bind ViewModel.InputDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <ComboBox
-                            Margin="5,0,0,0"
-                            ItemsSource="{x:Bind ViewModel.SpiltSource}"
-                            SelectedItem="{x:Bind ViewModel.SelectDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                </setting:SettingsCard>
-            </setting:SettingsExpander.Items>
-            <Button Command="{x:Bind ViewModel.ClearSpeedCommand}" Style="{ThemeResource TransparentButtonStyle}">
-                <FontIcon
-                    FontFamily="Segoe Fluent Icons"
-                    FontSize="10"
-                    Glyph="&#xE894;" />
-            </Button>
-        </setting:SettingsExpander>
-        <setting:SettingsExpander x:Uid="OverViewPage_Aria2GlobalEditFle" Margin="0,5,0,0">
-            <setting:SettingsExpander.HeaderIcon>
-                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC50;" />
-            </setting:SettingsExpander.HeaderIcon>
-            <setting:SettingsExpander.Items>
-                <setting:SettingsCard CornerRadius="5" Header="会话文件">
-                    <setting:SettingsCard.Description>
-                        <TextBlock
-                            Foreground="{ThemeResource SystemChromeGrayColor}"
-                            IsTextSelectionEnabled="True"
-                            Text="{x:Bind ViewModel.SessionPath, Mode=OneWay}" />
-                    </setting:SettingsCard.Description>
-                    <Button Command="{x:Bind ViewModel.SelectSessionPathCommand}" Style="{ThemeResource TransparentButtonStyle}">
-                        <FontIcon
-                            FontFamily="Segoe Fluent Icons"
-                            FontSize="14"
-                            Glyph="&#xE8A7;" />
-                    </Button>
-                </setting:SettingsCard>
-                <setting:SettingsCard CornerRadius="5" Header="日志文件">
-                    <setting:SettingsCard.Description>
-                        <TextBlock
-                            Foreground="{ThemeResource SystemChromeGrayColor}"
-                            IsTextSelectionEnabled="True"
-                            Text="{x:Bind ViewModel.LogPath, Mode=OneWay}" />
-                    </setting:SettingsCard.Description>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Command="{x:Bind ViewModel.SelectLogPathCommand}" Style="{ThemeResource TransparentButtonStyle}">
+    <ScrollView>
+
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+            <TextBlock
+                x:Uid="OverViewPage_Aria2Global"
+                FontSize="15"
+                FontWeight="Bold" />
+            <setting:SettingsExpander x:Uid="OverViewPage_Aria2GlobalSpeed" Margin="0,5,0,0">
+                <setting:SettingsExpander.HeaderIcon>
+                    <SymbolIcon Symbol="Clock" />
+                </setting:SettingsExpander.HeaderIcon>
+                <setting:SettingsExpander.Items>
+                    <setting:SettingsCard x:Uid="OverViewPage_Aria2GlobalMaxUpload" CornerRadius="5">
+                        <setting:SettingsCard.HeaderIcon>
+                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE898;" />
+                        </setting:SettingsCard.HeaderIcon>
+                        <StackPanel Orientation="Horizontal">
+                            <NumberBox Margin="5,0,0,0" Value="{x:Bind ViewModel.InputUpload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <ComboBox
+                                Margin="5,0,0,0"
+                                ItemsSource="{x:Bind ViewModel.SpiltSource}"
+                                SelectedItem="{x:Bind ViewModel.SelectUpload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </setting:SettingsCard>
+                    <setting:SettingsCard x:Uid="OverViewPage_Aria2GlobalMaxDownload" CornerRadius="5">
+                        <setting:SettingsCard.HeaderIcon>
+                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE896;" />
+                        </setting:SettingsCard.HeaderIcon>
+                        <StackPanel Orientation="Horizontal">
+                            <NumberBox Value="{x:Bind ViewModel.InputDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <ComboBox
+                                Margin="5,0,0,0"
+                                ItemsSource="{x:Bind ViewModel.SpiltSource}"
+                                SelectedItem="{x:Bind ViewModel.SelectDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </setting:SettingsCard>
+                </setting:SettingsExpander.Items>
+                <Button Command="{x:Bind ViewModel.ClearSpeedCommand}" Style="{ThemeResource TransparentButtonStyle}">
+                    <FontIcon
+                        FontFamily="Segoe Fluent Icons"
+                        FontSize="10"
+                        Glyph="&#xE894;" />
+                </Button>
+            </setting:SettingsExpander>
+            <setting:SettingsExpander x:Uid="OverViewPage_Aria2GlobalEditFle" Margin="0,5,0,0">
+                <setting:SettingsExpander.HeaderIcon>
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC50;" />
+                </setting:SettingsExpander.HeaderIcon>
+                <setting:SettingsExpander.Items>
+                    <setting:SettingsCard CornerRadius="5" Header="会话文件">
+                        <setting:SettingsCard.Description>
+                            <TextBlock
+                                Foreground="{ThemeResource SystemChromeGrayColor}"
+                                IsTextSelectionEnabled="True"
+                                Text="{x:Bind ViewModel.SessionPath, Mode=OneWay}" />
+                        </setting:SettingsCard.Description>
+                        <Button Command="{x:Bind ViewModel.SelectSessionPathCommand}" Style="{ThemeResource TransparentButtonStyle}">
                             <FontIcon
                                 FontFamily="Segoe Fluent Icons"
                                 FontSize="14"
                                 Glyph="&#xE8A7;" />
                         </Button>
-                    </StackPanel>
+                    </setting:SettingsCard>
+                    <setting:SettingsCard CornerRadius="5" Header="日志文件">
+                        <setting:SettingsCard.Description>
+                            <TextBlock
+                                Foreground="{ThemeResource SystemChromeGrayColor}"
+                                IsTextSelectionEnabled="True"
+                                Text="{x:Bind ViewModel.LogPath, Mode=OneWay}" />
+                        </setting:SettingsCard.Description>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Command="{x:Bind ViewModel.SelectLogPathCommand}" Style="{ThemeResource TransparentButtonStyle}">
+                                <FontIcon
+                                    FontFamily="Segoe Fluent Icons"
+                                    FontSize="14"
+                                    Glyph="&#xE8A7;" />
+                            </Button>
+                        </StackPanel>
 
-                </setting:SettingsCard>
-            </setting:SettingsExpander.Items>
-            <Button Style="{ThemeResource TransparentButtonStyle}">
-                <FontIcon
-                    FontFamily="Segoe Fluent Icons"
-                    FontSize="10"
-                    Glyph="&#xE72C;" />
-            </Button>
-        </setting:SettingsExpander>
-        <!--<setting:SettingsExpander Margin="0,5,0,0" Header="自动调整下载">
+                    </setting:SettingsCard>
+                </setting:SettingsExpander.Items>
+                <Button Style="{ThemeResource TransparentButtonStyle}">
+                    <FontIcon
+                        FontFamily="Segoe Fluent Icons"
+                        FontSize="10"
+                        Glyph="&#xE72C;" />
+                </Button>
+            </setting:SettingsExpander>
+            <!--<setting:SettingsExpander Margin="0,5,0,0" Header="自动调整下载">
             <setting:SettingsExpander.HeaderIcon>
                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE80A;" />
             </setting:SettingsExpander.HeaderIcon>
@@ -133,21 +135,60 @@
             </setting:SettingsExpander.Items>
             <ToggleSwitch x:Name="downloadOption" />
         </setting:SettingsExpander>-->
-        <setting:SettingsCard x:Uid="OverViewPage_Aria2GlobalMaxSaveResult" Margin="0,5,0,0">
-            <StackPanel Orientation="Horizontal">
-                <Button Style="{ThemeResource TransparentButtonStyle}">
-                    <FontIcon
-                        FontFamily="Segoe Fluent Icons"
-                        FontSize="10"
-                        Glyph="&#xE72C;" />
-                </Button>
-                <NumberBox
-                    Margin="5,0,0,0"
-                    Maximum="100"
-                    Minimum="1"
-                    SpinButtonPlacementMode="Compact"
-                    Value="{x:Bind ViewModel.MaxResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-        </setting:SettingsCard>
-    </StackPanel>
+            <setting:SettingsCard x:Uid="OverViewPage_Aria2GlobalMaxSaveResult" Margin="0,5,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{ThemeResource TransparentButtonStyle}">
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="10"
+                            Glyph="&#xE72C;" />
+                    </Button>
+                    <NumberBox
+                        Margin="5,0,0,0"
+                        Maximum="100"
+                        Minimum="1"
+                        SpinButtonPlacementMode="Compact"
+                        Value="{x:Bind ViewModel.MaxResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </setting:SettingsCard>
+            <Expander
+                Margin="0,8,0,0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                Header="编辑Trakcer">
+                <Grid Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="修改Tracker" />
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button Style="{ThemeResource TransparentButtonStyle}">
+                            <FontIcon
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="10"
+                                Glyph="&#xE897;" />
+                        </Button>
+                        <Button
+                            Margin="8,0,0,0"
+                            Command="{x:Bind ViewModel.SaveTrackerCommand}"
+                            Style="{ThemeResource TransparentButtonStyle}">
+                            <FontIcon
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="10"
+                                Glyph="&#xE74E;" />
+                        </Button>
+                    </StackPanel>
+                    <TextBox
+                        Grid.Row="1"
+                        MaxHeight="400"
+                        Margin="0,5,0,0"
+                        AcceptsReturn="True"
+                        Text="{x:Bind ViewModel.TrackerLines, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        TextWrapping="Wrap" />
+                </Grid>
+            </Expander>
+        </StackPanel>
+    </ScrollView>
 </Page>

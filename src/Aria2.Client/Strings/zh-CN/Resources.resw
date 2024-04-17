@@ -162,6 +162,12 @@
   <data name="HomePage_TaskTitle.Content" xml:space="preserve">
     <value>任务</value>
   </data>
+  <data name="Notify_Exit.Text" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="Notify_Home.Text" xml:space="preserve">
+    <value>主页</value>
+  </data>
   <data name="OverViewPage_Aria2Global.Text" xml:space="preserve">
     <value>Aria2全局设置</value>
   </data>
@@ -231,8 +237,11 @@
   <data name="ShellPage_MenuBarTitle.Title" xml:space="preserve">
     <value>程序</value>
   </data>
-  <data name="ShellPage_MenuBar_AboutTitle.Title" xml:space="preserve">
+  <data name="ShellPage_MenuBar_AboutText.Text" xml:space="preserve">
     <value>关于</value>
+  </data>
+  <data name="ShellPage_MenuBar_AboutTitle.Title" xml:space="preserve">
+    <value>帮助</value>
   </data>
   <data name="ShellPage_MenuBar_AddTaskTitle.Text" xml:space="preserve">
     <value>添加任务</value>

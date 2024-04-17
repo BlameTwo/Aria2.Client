@@ -89,6 +89,10 @@ public sealed partial class HomeViewModel
         {
             this.Title = "插件管理";
         }
+        if(e.SourcePageType == typeof(AboutPage))
+        {
+            this.Title = "关于";
+        }
     }
 
     public async void Receive(OpenDownloadSessionMessager message)

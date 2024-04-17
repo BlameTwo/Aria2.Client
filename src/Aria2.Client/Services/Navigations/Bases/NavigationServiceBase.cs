@@ -1,5 +1,6 @@
 ﻿using Aria2.Client.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
@@ -31,6 +32,8 @@ public class NavigationServiceBase : INavigationService
     {
         if (RootFrame.CanGoBack)
         {
+            ElementSoundPlayer.State = ElementSoundPlayerState.On;
+            ElementSoundPlayer.Play(ElementSoundKind.GoBack);
             RootFrame.GoBack();
             return true;
         }

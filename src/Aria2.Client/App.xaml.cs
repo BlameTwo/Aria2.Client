@@ -40,27 +40,14 @@ public sealed partial class App : ClientApplication
         if (Instance.IsCurrent)
         {
             FileHelper.CheckFolder(SearchPluginFolder);
+            var trackers = await ProgramLife.GetService<ILocalSettingsService>().ReadObjectConfig<List<string>>("Trackers");
             var application = ProgramLife.GetService<IApplicationSetup<App>>();
             application.Launcher(this);
             var config = new Aria2LauncherConfig()
             {
                 SesionFilePath = Aria2Config.SessionPath,
                 LogFilePath = Aria2Config.LogPath,
-                BtTracker = new()
-                {
-                    "http://93.158.213.92:1337/announce",
-                    "udp://23.137.251.46:6969/announce",
-                    "udp://23.134.90.6:1337/announce",
-                    "udp://185.243.218.213:80/announce",
-                    "udp://91.216.110.53:451/announce",
-                    "udp://208.83.20.20:6969/announce",
-                    "udp://107.189.11.58:6969/announce",
-                    "udp://222.216.138.162:6969/announce",
-                    "udp://109.201.134.183:80/announce",
-                    "udp://198.100.149.66:6969/announce",
-                    "udp://23.157.120.14:6969/announce",
-                    "udp://83.146.98.78:6969/announce"
-                },
+                BtTracker = trackers,
                 MaxDownloadSpeed = "0",
                 MaxUploadSpeed = "0",
                 MaxSaveResultCount = 20

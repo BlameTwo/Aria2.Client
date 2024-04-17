@@ -7,7 +7,7 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:Aria2.Client.Views.FramePages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="using:Aria2.Client.UI.Controls"
+    xmlns:ui="using:CommunityToolkit.WinUI.UI.Controls"
     Margin="20"
     mc:Ignorable="d">
     <i:Interaction.Behaviors>
