@@ -19,6 +19,143 @@
             <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand, Mode=OneWay}" />
         </core:EventTriggerBehavior>
     </i:Interaction.Behaviors>
+    <Page.Resources>
+        <Style x:Key="MyGooeyButtonItem" TargetType="wuc:GooeyButtonItem">
+            <Setter Property="Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1.5" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="{ThemeResource TextFillColorPrimaryBrush}" />
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+            <Setter Property="Width" Value="60" />
+            <Setter Property="Height" Value="60" />
+            <Setter Property="TabFocusNavigation" Value="Once" />
+            <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+            <Setter Property="FocusVisualMargin" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="wuc:GooeyButtonItem">
+                        <Grid
+                            x:Name="LayoutRoot"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Control.IsTemplateFocusTarget="True"
+                            CornerRadius="40">
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Foreground="{TemplateBinding Foreground}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyGooeyButton" TargetType="wuc:GooeyButton">
+            <Setter Property="Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="TabFocusNavigation" Value="Local" />
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Height" Value="80" />
+            <Setter Property="Distance" Value="100" />
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <wuc:GooeyButtonItemsPanel />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="wuc:GooeyButton">
+                        <Grid
+                            x:Name="LayoutRoot"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid.Resources>
+                                <!--#region ButtonStyle-->
+                                <Style x:Key="InnerButtonStyle" TargetType="Button">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                                    <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+                                    <Setter Property="FontWeight" Value="Normal" />
+                                    <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+                                    <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+                                    <Setter Property="FocusVisualMargin" Value="-3" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <ContentPresenter
+                                                    x:Name="ContentPresenter"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                    AutomationProperties.AccessibilityView="Raw"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    Content="{TemplateBinding Content}"
+                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                    ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                    CornerRadius="{TemplateBinding CornerRadius}" />
+
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                                <!--#endregion-->
+                            </Grid.Resources>
+                            <Canvas
+                                x:Name="Win2DHost"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                            <ItemsPresenter x:Name="ItemsPresenter" />
+                            <Button
+                                x:Name="InnerButton"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1.5"
+                                CornerRadius="50"
+                                Style="{StaticResource InnerButtonStyle}"
+                                TabFocusNavigation="{TemplateBinding TabFocusNavigation}">
+                                <Grid>
+                                    <Ellipse
+                                        x:Name="BackgroundShape"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Fill="{TemplateBinding Background}" />
+                                    <ContentPresenter
+                                        x:Name="ContentPresenter"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Content="{TemplateBinding Content}"
+                                        Foreground="{TemplateBinding Foreground}">
+                                        <ContentPresenter.RenderTransform>
+                                            <TranslateTransform x:Name="BackgroundShapeTranslate" />
+                                        </ContentPresenter.RenderTransform>
+
+                                    </ContentPresenter>
+                                </Grid>
+                            </Button>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid x:Name="grid">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
@@ -47,7 +184,7 @@
             </tb:TaskbarIcon.IconSource>
         </tb:TaskbarIcon>
         <cui:ImageEx
-            Grid.RowSpan="2"
+            Grid.RowSpan="5"
             Opacity="0.3"
             Source="{x:Bind ViewModel.WallpaperUrl.Link, Mode=OneWay}"
             Stretch="UniformToFill"
@@ -248,27 +385,41 @@
             Margin="0,0,25,25"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            ItemsPosition="LeftTop">
+            ItemsPosition="LeftTop"
+            Style="{ThemeResource MyGooeyButton}">
+
             <wuc:GooeyButton.Content>
-                <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F63C;" />
+                <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F975;" />
             </wuc:GooeyButton.Content>
             <wuc:GooeyButton.Items>
                 <wuc:GooeyButtonItem
                     Width="50"
                     Height="50"
-                    Command="{x:Bind ViewModel.ShowAddUriCommand}">
+                    Command="{x:Bind ViewModel.ShowAddUriCommand}"
+                    Style="{ThemeResource MyGooeyButtonItem}">
                     <SymbolIcon Symbol="Link" />
                 </wuc:GooeyButtonItem>
                 <wuc:GooeyButtonItem
                     Width="50"
                     Height="50"
-                    Command="{x:Bind ViewModel.ShowAddTorrentCommand}">
+                    Command="{x:Bind ViewModel.ShowAddTorrentCommand}"
+                    Style="{ThemeResource MyGooeyButtonItem}">
                     <SymbolIcon Symbol="OpenFile" />
                 </wuc:GooeyButtonItem>
-                <wuc:GooeyButtonItem Width="50" Height="50">
+                <wuc:GooeyButtonItem
+                    Width="50"
+                    Height="50"
+                    Foreground="{ThemeResource SystemChromeGrayColor}"
+                    IsEnabled="False"
+                    Style="{ThemeResource MyGooeyButtonItem}">
                     <SymbolIcon Symbol="BlockContact" />
                 </wuc:GooeyButtonItem>
-                <wuc:GooeyButtonItem Width="50" Height="50">
+                <wuc:GooeyButtonItem
+                    Width="50"
+                    Height="50"
+                    Foreground="{ThemeResource SystemChromeGrayColor}"
+                    IsEnabled="False"
+                    Style="{ThemeResource MyGooeyButtonItem}">
                     <SymbolIcon Symbol="Setting" />
                 </wuc:GooeyButtonItem>
             </wuc:GooeyButton.Items>

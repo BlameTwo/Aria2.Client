@@ -3,14 +3,17 @@ using Aria2.Client.Models.Anime;
 using Aria2.Client.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using static SkiaSharp.HarfBuzz.SKShaper;
 
 namespace Aria2.Client.ViewModels.FrameViewModels;
 
-public sealed partial class AnimeViewModel : ObservableRecipient
+public sealed partial class AnimeViewModel : ObservableRecipient,IDisposable
 {
     public AnimeViewModel(IOnekumaService rssService, IDataFactory dataFactory)
     {
@@ -18,9 +21,10 @@ public sealed partial class AnimeViewModel : ObservableRecipient
         DataFactory = dataFactory;
         Resources.CollectionChanged += Resources_CollectionChanged;
         this.CardVisibility = 0;
+        _cts = new();
     }
 
-
+    CancellationTokenSource _cts;
     public IOnekumaService RssService { get; }
     public IDataFactory DataFactory { get; }
 
@@ -156,7 +160,16 @@ public sealed partial class AnimeViewModel : ObservableRecipient
     [ObservableProperty]
     string _Query;
 
-    private void Resources_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    [ObservableProperty]
+    int _Number = 1;
+
+    [ObservableProperty]
+    int _MaxNumber;
+
+    private void Resources_CollectionChanged(
+        object sender,
+        System.Collections.Specialized.NotifyCollectionChangedEventArgs e
+    )
     {
         if (Resources.Count == 0)
             this.CardVisibility = 1;
@@ -164,24 +177,62 @@ public sealed partial class AnimeViewModel : ObservableRecipient
             this.CardVisibility = 0;
     }
 
+
     [RelayCommand]
     async Task SearchAsync()
     {
+        Number = 1;
+        await Refresh(Number);
+        if (this.Resources.Count > 0)
+            MaxNumber++;
+    }
+
+    async Task Refresh(int page)
+    {
+        this.Number = page;
         this.Resources.Clear();
-        var result = await RssService.SearchKeyworkd(
-            new List<string>() { Query },
-            Fliter == null ? null: this.Fliter.Split(' ').ToList(),
-            SelectType == "默认" ? null : SelectType,
-            this.Fansub == "默认" ? null : this.Fansub
-        );
+        AnimeTorrentModel result = null;
+        result = await RssService.SearchKeyWord(
+                new List<string>() { Query },
+                Fliter == null ? null : this.Fliter.Split(' ').ToList(),
+                SelectType == "默认" ? null : SelectType,
+                this.Fansub == "默认" ? null : this.Fansub,
+                default, Number
+            );
         if (result == null)
         {
             this.CardVisibility = 0;
             return;
         }
+        if (_cts.IsCancellationRequested)
+            return;
         foreach (var item in result.Resources)
         {
-            this.Resources.Add(DataFactory.CreateAnimeItemData(item));
+            Resources.Add(DataFactory.CreateAnimeItemData(item));
         }
+        MaxNumber = Number;
+        result = null;
     }
+
+    [RelayCommand]
+    async Task Back()
+    {
+        await Refresh(Number-1);
+    }
+
+    [RelayCommand]
+    async Task Forward()
+    {
+        await Refresh(Number+1);
+    }
+
+
+    public void Dispose()
+    {
+        _cts.Cancel();
+        ((IDisposable)_cts).Dispose();
+        this.Resources.Clear();
+        this.Resources = null;
+    }
+
 }

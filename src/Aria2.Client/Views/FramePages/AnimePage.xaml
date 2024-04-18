@@ -6,7 +6,6 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:local="using:Aria2.Client.Views.FramePages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:rssmodel="using:Aria2.Client.Models"
     Margin="20"
@@ -22,6 +21,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -67,7 +67,7 @@
                         <Border
                             Margin="0,5,0,0"
                             Padding="15"
-                            Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+                            Background="{ThemeResource SolidBackgroundFillColorBaseBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="5">
@@ -149,5 +149,26 @@
                     Text="搜索中……" />
             </StackPanel>
         </Grid>
+        <StackPanel
+            Grid.Row="3"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Button Command="{x:Bind ViewModel.BackCommand}">
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE76B;" />
+            </Button>
+            <TextBlock
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                Text="{x:Bind ViewModel.Number, Mode=OneWay}" />
+            <TextBlock VerticalAlignment="Center" Text="/" />
+            <TextBlock
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                Text="{x:Bind ViewModel.MaxNumber, Mode=OneWay}" />
+            <Button Margin="5,0,0,0" Command="{x:Bind ViewModel.ForwardCommand}">
+                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE76C;" />
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>

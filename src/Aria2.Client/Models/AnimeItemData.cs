@@ -11,7 +11,7 @@ using Windows.Storage;
 
 namespace Aria2.Client.Models;
 
-public sealed partial class AnimeItemData : ObservableRecipient,IItemData<AnimeResource>
+public sealed partial class AnimeItemData : ObservableRecipient,IItemData<AnimeResource>,IDisposable
 {
     [ObservableProperty]
     AnimeResource _Data;
@@ -53,5 +53,11 @@ public sealed partial class AnimeItemData : ObservableRecipient,IItemData<AnimeR
         {
             TipShow.ShowMessage($"创建任务：{result.Result}", Microsoft.UI.Xaml.Controls.Symbol.Accept);
         }
+    }
+
+    public void Dispose()
+    {
+        this.Data = null;
+        GC.Collect();
     }
 }
