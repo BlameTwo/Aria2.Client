@@ -154,19 +154,25 @@
             Margin="0,10,0,0"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
-            <Button Command="{x:Bind ViewModel.BackCommand}">
+            <Button Command="{x:Bind ViewModel.BackCommand}" Style="{ThemeResource TransparentButtonStyle}">
                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE76B;" />
             </Button>
             <TextBlock
                 Margin="5,0,0,0"
                 VerticalAlignment="Center"
                 Text="{x:Bind ViewModel.Number, Mode=OneWay}" />
-            <TextBlock VerticalAlignment="Center" Text="/" />
+            <TextBlock
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                Text="/" />
             <TextBlock
                 Margin="5,0,0,0"
                 VerticalAlignment="Center"
                 Text="{x:Bind ViewModel.MaxNumber, Mode=OneWay}" />
-            <Button Margin="5,0,0,0" Command="{x:Bind ViewModel.ForwardCommand}">
+            <Button
+                Margin="5,0,0,0"
+                Command="{x:Bind ViewModel.ForwardCommand}"
+                Style="{ThemeResource TransparentButtonStyle}">
                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE76C;" />
             </Button>
         </StackPanel>

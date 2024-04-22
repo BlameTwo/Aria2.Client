@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Aria2Plugin>
+	<!--插件名称-->
+	<Name>1337X</Name>
+	<!--GUID-->
+	<GUID>BAA7032E-0DB0-2454-124F-E829283C1FA0</GUID>
+	<!--WebUrl-->
+	<WebHome>https://www.1337xx.to/</WebHome>
+	<!--安装许可-->
+	<LicenseFile FilePath="License.txt"/>
+</Aria2Plugin>

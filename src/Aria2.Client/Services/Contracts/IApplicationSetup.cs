@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Windows.AppLifecycle;
+using System;
 using System.Threading.Tasks;
 
 namespace Aria2.Client.Services.Contracts;
@@ -7,11 +8,13 @@ public interface IApplicationSetup<App>
     where App : Aria2.Client.Common.ClientApplication
 {
     public App Application { get; }
-    public void Launcher(App app);
+    public Task LauncherAsync(App app, Microsoft.Windows.AppLifecycle.AppActivationArguments activatedEventArgs);
 
     public void TryEnqueue(Action action);
 
     public bool IsSystemSetup { get; }
 
     public void SetSystemSetup(string appPath, bool enable);
+
+    public AppActivationArguments LauncherArgs { get; }
 }

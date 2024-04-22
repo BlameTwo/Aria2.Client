@@ -21,3 +21,9 @@
 5. 发布插件
    
    1. 讲插件主体合并到Aria2.Client 的注入容器中，在`SearchViewModel`中扩展插件内容。
+
+
+
+```xml
+<Aria2Plugin></Aria2Plugin>
+```

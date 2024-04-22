@@ -79,7 +79,6 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                             <Grid.Resources>
-                                <!--#region ButtonStyle-->
                                 <Style x:Key="InnerButtonStyle" TargetType="Button">
                                     <Setter Property="Background" Value="Transparent" />
                                     <Setter Property="BorderBrush" Value="Transparent" />
@@ -115,7 +114,6 @@
                                         </Setter.Value>
                                     </Setter>
                                 </Style>
-                                <!--#endregion-->
                             </Grid.Resources>
                             <Canvas
                                 x:Name="Win2DHost"
@@ -166,7 +164,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <tb:TaskbarIcon ContextMenuMode="SecondWindow" ToolTipText="Aria2.Client">
+        <!--<tb:TaskbarIcon ContextMenuMode="SecondWindow" ToolTipText="Aria2.Client">
             <tb:TaskbarIcon.ContextFlyout>
                 <MenuFlyout>
                     <MenuFlyoutItem x:Uid="Notify_Home" />
@@ -182,7 +180,7 @@
                     Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
                     Text="&#x1F447;" />
             </tb:TaskbarIcon.IconSource>
-        </tb:TaskbarIcon>
+        </tb:TaskbarIcon>-->
         <cui:ImageEx
             Grid.RowSpan="5"
             Opacity="0.3"
@@ -409,10 +407,10 @@
                 <wuc:GooeyButtonItem
                     Width="50"
                     Height="50"
+                    Command="{x:Bind ViewModel.RestartCommand}"
                     Foreground="{ThemeResource SystemChromeGrayColor}"
-                    IsEnabled="False"
                     Style="{ThemeResource MyGooeyButtonItem}">
-                    <SymbolIcon Symbol="BlockContact" />
+                    <SymbolIcon Symbol="Refresh" />
                 </wuc:GooeyButtonItem>
                 <wuc:GooeyButtonItem
                     Width="50"

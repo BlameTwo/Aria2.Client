@@ -1,7 +1,8 @@
 {
   "profiles": {
     "Aria2.Client (Package)": {
-      "commandName": "MsixPackage"
+      "commandName": "MsixPackage",
+      "commandLineArgs": "‪"
     },
     "Aria2.Client (Unpackaged)": {
       "commandName": "Project"

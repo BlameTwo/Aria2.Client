@@ -5,10 +5,14 @@ using Aria2.Client.Services.Contracts;
 using Aria2.Net.Common;
 using Aria2.Net.Services.Contracts;
 using BtSearch.Loader;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Text.Json;
+using Windows.ApplicationModel.Activation;
 
 namespace Aria2.Client;
 
@@ -18,6 +22,7 @@ public sealed partial class App : ClientApplication
     {
         this.InitializeComponent();
         this.UnhandledException += App_UnhandledException;
+        
     }
 
     private void App_UnhandledException(
@@ -28,53 +33,39 @@ public sealed partial class App : ClientApplication
         e.Handled = true;
     }
 
+    /// <summary>
+    /// PluginFolder
+    /// </summary>
     public static string SearchPluginFolder =
         Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Aria2ClientPlugin";
 
     public Microsoft.Windows.AppLifecycle.AppInstance Instance { get; private set; }
 
-    protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+    protected async override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
         Instance = AppInstance.FindOrRegisterForKey("Aria2.Client");
         Instance.Activated += Instance_Activated;
+        var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
         if (Instance.IsCurrent)
         {
             FileHelper.CheckFolder(SearchPluginFolder);
-            var trackers = await ProgramLife.GetService<ILocalSettingsService>().ReadObjectConfig<List<string>>("Trackers");
             var application = ProgramLife.GetService<IApplicationSetup<App>>();
-            application.Launcher(this);
-            var config = new Aria2LauncherConfig()
-            {
-                SesionFilePath = Aria2Config.SessionPath,
-                LogFilePath = Aria2Config.LogPath,
-                BtTracker = trackers,
-                MaxDownloadSpeed = "0",
-                MaxUploadSpeed = "0",
-                MaxSaveResultCount = 20
-            };
-            await ProgramLife.GetService<IAria2cClient>().LauncherAsync(config);
-            await ProgramLife.GetService<IAria2cClient>().ConnectAsync();
-            InitSettings(config);
+            await application.LauncherAsync(this,activatedEventArgs);
         }
         else
         {
-            var eventargs = Microsoft.Windows.AppLifecycle.AppInstance
-                .GetCurrent()
-                .GetActivatedEventArgs();
-            await Instance.RedirectActivationToAsync(eventargs);
+            await Instance.RedirectActivationToAsync(activatedEventArgs);
             Process.GetCurrentProcess().Kill();
         }
     }
 
-    private void InitSettings(Aria2LauncherConfig config)
-    {
-        var localsetting = ProgramLife.GetService<ILocalSettingsService>();
-        Dictionary<string, object> settings = new() { { "LauncherConfig", config } };
-        localsetting.InitSetting(settings);
-    }
 
     private void Instance_Activated(object sender, AppActivationArguments e)
     {
-        if (e.Kind == ExtendedActivationKind.StartupTask) { }
+        if (e.Kind == ExtendedActivationKind.File)
+        {
+            var file = e.Data as FileActivatedEventArgs;
+            var result = file.Files;
+        }
     }
 }

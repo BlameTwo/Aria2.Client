@@ -12,10 +12,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 
 namespace Aria2.Client.ViewModels;
 
@@ -170,6 +172,12 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     void GoAboutPage()
     {
         HomeNavigationService.NavigationTo<AboutViewModel>(null);
+    }
+
+    [RelayCommand]
+    void Restart()
+    {
+        var reStart =  Microsoft.Windows.AppLifecycle.AppInstance.Restart("");
     }
 
     public void Receive(Tuple<bool, AppNotifyMessager> message)

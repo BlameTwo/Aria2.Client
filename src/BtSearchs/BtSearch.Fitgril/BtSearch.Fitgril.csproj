@@ -6,12 +6,6 @@
 	  <LangVersion>11.0</LangVersion>
 	  <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.60" />
-  </ItemGroup>
-
   <ItemGroup>
 	  <ProjectReference Include="..\..\IBtSearch\IBtSearch.csproj">
 		  <Private>false</Private>

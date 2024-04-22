@@ -72,6 +72,8 @@ public class PluginManager : IPluginManager
                 return null;
             }
         }
+        if (config == null)
+            config = new();
         if (config.IsUninstall)
         {
             Directory.Delete(System.IO.Path.GetDirectoryName(path)!, true);

@@ -43,6 +43,16 @@
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="ap">
+            <uap:SupportedFileTypes>
+              <uap:FileType>.ap</uap:FileType>
+            </uap:SupportedFileTypes>
+            <uap:DisplayName>Aria2.Client插件</uap:DisplayName>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+      </Extensions>
 		
 	</Application>
   </Applications>

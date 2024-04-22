@@ -7,11 +7,13 @@ using Aria2.Client.ViewModels;
 using Aria2.Client.ViewModels.DialogViewModels;
 using Aria2.Client.ViewModels.DownloadViewModels;
 using Aria2.Client.ViewModels.FrameViewModels;
+using Aria2.Client.ViewModels.InstallerPluginViewModel;
 using Aria2.Client.ViewModels.SplitViewModels;
 using Aria2.Client.Views;
 using Aria2.Client.Views.Dialogs;
 using Aria2.Client.Views.DownloadPages;
 using Aria2.Client.Views.FramePages;
+using Aria2.Client.Views.InstallerPluginView;
 using Aria2.Net.Contracts;
 using Aria2.Net.Services;
 using Aria2.Net.Services.Contracts;
@@ -35,8 +37,6 @@ public static class ProgramLife
             .AddKeyedScoped<INavigationService, ShellNavigationService>(ServiceKey.ShellNavigationServiceKey)
             .AddKeyedScoped<INavigationService, HomeNavigationService>(ServiceKey.HomeNavigationServiceKey)
             .AddKeyedScoped<INavigationViewService, HomeNavigationViewService>(ServiceKey.HomeNavigationViewServiceKey)
-            //.AddKeyedSingleton<IBTSearchPlugin, FitgrilPlugin>("Fitgril")
-            //.AddKeyedSingleton<IBTSearchPlugin, X1337Plugin>("1337x")
             .AddSingleton<ITipShow,TipShow>()
             .AddSingleton<IAria2cClient, Aria2cClient>()
             .AddSingleton<IWallpaperService, WallpaperService>()
@@ -59,6 +59,10 @@ public static class ProgramLife
             .AddTransient<AboutViewModel>()
             .AddTransient<AddTorrentViewModel>()
             .AddTransient<PluginViewModel>()
+        #region 插件安装
+            .AddTransient<PluginShellPage>()
+            .AddTransient<PluginShellViewModel>()
+        #endregion
         #region 展开栏目内容
             .AddTransient<TellDownloadSessionViewModel>()
         #endregion
@@ -77,7 +81,7 @@ public static class ProgramLife
             .AddTransient<BTPluginItemData>()
             .AddTransient<AppMessageItemData>()
         #endregion
-        #region RSS
+        #region Anime
             .AddTransient<AnimePage>()
             .AddTransient<AnimeViewModel>()
         #endregion
@@ -88,5 +92,5 @@ public static class ProgramLife
 
 
     public static T GetService<T>()
-        =>Service.GetService<T>();
+        =>Service.GetRequiredService<T>();
 }
