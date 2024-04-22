@@ -17,6 +17,7 @@ public sealed partial class ShellPage : Page
     {
         this.TitleBar.Window = ViewModel.ApplicationSetup.Application.MainWindow;
         this.ViewModel.DialogManager.RegisterRoot(this.XamlRoot);
+        this.ViewModel.ApplicationSetup.RegisterNotifyIcon(this.notifyIcon);
         this.ViewModel.TipShow.Owner = this.grid;
     }
 

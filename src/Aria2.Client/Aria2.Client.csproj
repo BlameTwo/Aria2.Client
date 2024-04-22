@@ -13,16 +13,6 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <Platform>x64</Platform>
     <Platforms>x86;x64;arm64</Platforms>
-	  
-	  
-	  <!--<Platform>x64</Platform>
-	  <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
-	  <SelfContained>true</SelfContained>
-	  <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-	  <PublishSingleFile>False</PublishSingleFile>
-	  <PublishTrimmed>True</PublishTrimmed>-->
-	  
-	  
 	  <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
 	  <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
 	  <PackageCertificateKeyFile>Aria2.Client_TemporaryKey.pfx</PackageCertificateKeyFile>
@@ -297,6 +287,7 @@
     <None Remove="Views\DateTemplate\PluginItemTemplate.xaml" />
     <None Remove="Views\Dialogs\AddTorrentDialog.xaml" />
     <None Remove="Views\Dialogs\AddUriDialog.xaml" />
+    <None Remove="Views\Dialogs\ExitDialog.xaml" />
     <None Remove="Views\DownloadPages\ActivePage.xaml" />
     <None Remove="Views\DownloadPages\PausePage.xaml" />
     <None Remove="Views\DownloadPages\StopPage.xaml" />
@@ -304,6 +295,7 @@
     <None Remove="Views\FramePages\SearchPage.xaml" />
     <None Remove="Views\HomePage.xaml" />
     <None Remove="Views\InstallerPluginView\PluginShellPage.xaml" />
+    <None Remove="Views\NotifyViews\NotyfiMainPage.xaml" />
     <None Remove="Views\OverviewPage.xaml" />
     <None Remove="Views\PluginPage.xaml" />
     <None Remove="Views\ShellPage.xaml" />
@@ -432,6 +424,16 @@
   <ItemGroup>
     <Folder Include="Models\Handler\" />
     <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\NotifyViews\NotyfiMainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\ExitDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\InstallerPluginView\PluginShellPage.xaml">

@@ -164,14 +164,11 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <!--<tb:TaskbarIcon ContextMenuMode="SecondWindow" ToolTipText="Aria2.Client">
-            <tb:TaskbarIcon.ContextFlyout>
-                <MenuFlyout>
-                    <MenuFlyoutItem x:Uid="Notify_Home" />
-                    <MenuFlyoutSeparator />
-                    <MenuFlyoutItem x:Uid="Notify_Exit" />
-                </MenuFlyout>
-            </tb:TaskbarIcon.ContextFlyout>
+        <tb:TaskbarIcon
+            x:Name="notifyIcon"
+            LeftClickCommand="{x:Bind ViewModel.LeftClickCommand}"
+            RightClickCommand="{x:Bind ViewModel.RightClickCommand}"
+            ToolTipText="Aria2.Client">
             <tb:TaskbarIcon.IconSource>
                 <tb:GeneratedIconSource
                     FontFamily="Segoe UI Emoji"
@@ -180,7 +177,7 @@
                     Foreground="{ThemeResource AccentAAFillColorDefaultBrush}"
                     Text="&#x1F447;" />
             </tb:TaskbarIcon.IconSource>
-        </tb:TaskbarIcon>-->
+        </tb:TaskbarIcon>
         <cui:ImageEx
             Grid.RowSpan="5"
             Opacity="0.3"

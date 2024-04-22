@@ -15,9 +15,13 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using WinUIEx;
 
 namespace Aria2.Client.ViewModels;
 
@@ -178,6 +182,22 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     void Restart()
     {
         var reStart =  Microsoft.Windows.AppLifecycle.AppInstance.Restart("");
+    }
+
+    [RelayCommand]
+    void LeftClick()
+    {
+        if (!ApplicationSetup.Application.MainWindow.AppWindow.IsVisible)
+            ApplicationSetup.Application.MainWindow.Show();
+        else
+            ApplicationSetup.Application.MainWindow.Hide();
+    }
+
+    [RelayCommand]
+    void RightClick()
+    {
+
+        ApplicationSetup.ShowLeftPanelWindow();
     }
 
     public void Receive(Tuple<bool, AppNotifyMessager> message)
