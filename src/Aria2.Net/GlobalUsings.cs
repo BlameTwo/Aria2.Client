@@ -1,8 +1,10 @@
-﻿namespace Aria2.Net;
+﻿using System;
+
+namespace Aria2.Net;
 
 public static class GlobalUsings
 {
-    public const string Aria2Path = "C:\\Users\\30140\\Desktop\\aria2-1.37.0-win-64bit-build1\\aria2c.exe";
+    public static string Aria2Path => AppDomain.CurrentDomain.BaseDirectory+ "LibSource\\aria2c.exe";
 
     public const string Port = "5050";
 

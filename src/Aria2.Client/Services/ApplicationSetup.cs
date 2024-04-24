@@ -26,9 +26,10 @@ namespace Aria2.Client.Services;
 public class ApplicationSetup<App> : IApplicationSetup<App>
     where App:Aria2.Client.Common.ClientApplication
 {
-    public ApplicationSetup()
+    public ApplicationSetup(IThemeService<App> themeService)
     {
         LeftPane = null;
+        ThemeService = themeService;
     }
 
     public App Application { get; private set; }
@@ -60,6 +61,7 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
     }
 
     public AppActivationArguments LauncherArgs { get; private set; }
+    public IThemeService<App> ThemeService { get; }
 
     public async Task LauncherAsync(App app, Microsoft.Windows.AppLifecycle.AppActivationArguments activatedEventArgs)
     {
@@ -68,19 +70,18 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
         {
             this.Application = app;
             this.Application.MainWindow = new();
-            this.Application.MainWindow.SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop();
+            //this.Application.MainWindow.SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop();
             this.Application.MainWindow.ExtendsContentIntoTitleBar = true;
             Application.MainWindow.Content = ProgramLife.GetService<ShellPage>();
-            Application.MainWindow.AppWindow.Closing += async (sender, e) =>
-            {
-                await ProgramLife.GetService<IAria2cClient>().ExitAria2();
-            };
             this.Application.MainWindow.AppWindow.Closing += (sender, e) =>
             {
                 e.Cancel = true;
                 this.Application.MainWindow.Hide();
             };
+            this.Application.MainWindow.SystemBackdrop =new MicaBackdrop();
             this.Application.MainWindow.Activate();
+            this.Application.MainWindow.MinWidth = 500;
+            this.Application.MainWindow.MinHeight = 550;
             var trackers = await ProgramLife.GetService<ILocalSettingsService>().ReadObjectConfig<List<string>>("Trackers");
             var config = new Aria2LauncherConfig()
             {
@@ -104,6 +105,12 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
             Application.MainWindow.Content = ProgramLife.GetService<PluginShellPage>(); 
             this.Application.MainWindow.Activate();
         }
+        await InitAsync(app);
+    }
+
+    private async Task InitAsync(App app)
+    {
+        await ThemeService.InitializeAsync(app);
     }
 
     private void InitSettings(Aria2LauncherConfig config)

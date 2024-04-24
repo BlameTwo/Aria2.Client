@@ -32,7 +32,6 @@ public class NavigationServiceBase : INavigationService
     {
         if (RootFrame.CanGoBack)
         {
-            ElementSoundPlayer.State = ElementSoundPlayerState.On;
             ElementSoundPlayer.Play(ElementSoundKind.GoBack);
             RootFrame.GoBack();
             return true;

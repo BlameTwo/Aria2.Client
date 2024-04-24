@@ -1,6 +1,4 @@
-﻿using Aria2.Net;
-using Aria2.Net.Models;
-using Aria2.Net.Models.Attributes;
+﻿using Aria2.Net.Models;
 using Aria2.Net.Models.ClientModel;
 using Aria2.Net.Models.Enums;
 using Aria2.Net.Models.Handler;
@@ -9,18 +7,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Sockets;
 using System.Net.WebSockets;
-using System.Reflection;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
 using Aria2.Net.Common;
 using System.IO;
+using System.Net.Http;
 
 namespace Aria2.Net.Services;
 
@@ -195,7 +189,7 @@ public partial class Aria2cClient : IAria2cClient
             info.UseShellExecute = false;
             info.RedirectStandardOutput = true;
             info.RedirectStandardError = true;
-            info.CreateNoWindow = false;
+            info.CreateNoWindow = true;
             info.Arguments = argument;
             ps.StartInfo = info;
             ps.Start();

@@ -4,15 +4,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:coui="using:CommunityToolkit.WinUI"
     xmlns:cui="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:level="using:Aria2.Client.Models.Enums"
     xmlns:local="using:Aria2.Client.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:settings="using:CommunityToolkit.WinUI.Controls"
     xmlns:tb="using:H.NotifyIcon"
     xmlns:ui="using:Aria2.Client.UI.Controls"
-    xmlns:wuc="using:WinUICommunity"
+    xmlns:wui="using:WinUICommunity"
     mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <core:EventTriggerBehavior EventName="Loaded">
@@ -20,7 +22,7 @@
         </core:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     <Page.Resources>
-        <Style x:Key="MyGooeyButtonItem" TargetType="wuc:GooeyButtonItem">
+        <Style x:Key="MyGooeyButtonItem" TargetType="wui:GooeyButtonItem">
             <Setter Property="Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
             <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
             <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
@@ -35,7 +37,7 @@
             <Setter Property="FocusVisualMargin" Value="0" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="wuc:GooeyButtonItem">
+                    <ControlTemplate TargetType="wui:GooeyButtonItem">
                         <Grid
                             x:Name="LayoutRoot"
                             Background="{TemplateBinding Background}"
@@ -57,7 +59,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="MyGooeyButton" TargetType="wuc:GooeyButton">
+        <Style x:Key="MyGooeyButton" TargetType="wui:GooeyButton">
             <Setter Property="Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
             <Setter Property="IsTabStop" Value="False" />
             <Setter Property="TabFocusNavigation" Value="Local" />
@@ -67,13 +69,13 @@
             <Setter Property="ItemsPanel">
                 <Setter.Value>
                     <ItemsPanelTemplate>
-                        <wuc:GooeyButtonItemsPanel />
+                        <wui:GooeyButtonItemsPanel />
                     </ItemsPanelTemplate>
                 </Setter.Value>
             </Setter>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="wuc:GooeyButton">
+                    <ControlTemplate TargetType="wui:GooeyButton">
                         <Grid
                             x:Name="LayoutRoot"
                             BorderBrush="{TemplateBinding BorderBrush}"
@@ -183,7 +185,7 @@
             Opacity="0.3"
             Source="{x:Bind ViewModel.WallpaperUrl.Link, Mode=OneWay}"
             Stretch="UniformToFill"
-            Visibility="Visible" />
+            Visibility="{x:Bind ViewModel.WallpaperVisibility, Mode=OneWay}" />
         <ui:TitleBar
             x:Name="TitleBar"
             FooterVerticalAlignment="Center"
@@ -249,24 +251,27 @@
                 </StackPanel>
             </ui:TitleBar.Header>
             <ui:TitleBar.Footer>
-                <Button
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="Button_Click"
-                    Style="{ThemeResource TransparentButtonStyle}">
-                    <Grid>
-                        <FontIcon
-                            FontFamily="Segoe Fluent Icons"
-                            FontSize="15"
-                            Glyph="&#xE8BD;" />
-                        <InfoBadge
-                            Margin="0,-7,-7,0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            Visibility="{x:Bind ViewModel.MessageInfoVisibility, Mode=OneWay}"
-                            Value="{x:Bind ViewModel.MessageCount, Mode=OneWay}" />
-                    </Grid>
-                </Button>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="Button_Click"
+                        Style="{ThemeResource TransparentButtonStyle}">
+                        <Grid>
+                            <FontIcon
+                                FontFamily="Segoe Fluent Icons"
+                                FontSize="15"
+                                Glyph="&#xE8BD;" />
+                            <InfoBadge
+                                Margin="0,-7,-7,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="{x:Bind ViewModel.MessageInfoVisibility, Mode=OneWay}"
+                                Value="{x:Bind ViewModel.MessageCount, Mode=OneWay}" />
+                        </Grid>
+                    </Button>
+
+                </StackPanel>
             </ui:TitleBar.Footer>
         </ui:TitleBar>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
@@ -326,16 +331,71 @@
                                                 <RowDefinition Height="auto" />
                                                 <RowDefinition />
                                             </Grid.RowDefinitions>
-                                            <TextBlock
-                                                Margin="5"
-                                                FontSize="12"
-                                                Text="{Binding Data.Title, Mode=OneWay}" />
+                                            <settings:SwitchPresenter TargetType="level:MessageLevel" Value="{Binding Data.Level, Mode=OneWay}">
+                                                <settings:Case Value="Error">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <FontIcon
+                                                            Margin="8,0,0,0"
+                                                            FontFamily="Segoe Fluent Icons"
+                                                            FontSize="13"
+                                                            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                                                            Glyph="&#xE783;" />
+                                                        <TextBlock
+                                                            Margin="5"
+                                                            FontSize="13"
+                                                            Text="{Binding Data.Title, Mode=OneWay}" />
+                                                    </StackPanel>
+                                                </settings:Case>
+                                                <settings:Case Value="Warn">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <FontIcon
+                                                            Margin="8,0,0,0"
+                                                            FontFamily="Segoe Fluent Icons"
+                                                            FontSize="13"
+                                                            Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                                                            Glyph="&#xE7BA;" />
+                                                        <TextBlock
+                                                            Margin="5"
+                                                            FontSize="13"
+                                                            Text="{Binding Data.Title, Mode=OneWay}" />
+                                                    </StackPanel>
+                                                </settings:Case>
+                                                <settings:Case Value="Success">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <FontIcon
+                                                            Margin="8,0,0,0"
+                                                            FontFamily="Segoe Fluent Icons"
+                                                            FontSize="13"
+                                                            Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+                                                            Glyph="&#xF78C;" />
+                                                        <TextBlock
+                                                            Margin="5"
+                                                            FontSize="13"
+                                                            Text="{Binding Data.Title, Mode=OneWay}" />
+                                                    </StackPanel>
+                                                </settings:Case>
+                                                <settings:Case Value="Default">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <FontIcon
+                                                            Margin="8,0,0,0"
+                                                            FontFamily="Segoe Fluent Icons"
+                                                            FontSize="13"
+                                                            Foreground="{ThemeResource SystemFillColorAttentionBrush}"
+                                                            Glyph="&#xE8BD;" />
+                                                        <TextBlock
+                                                            Margin="5"
+                                                            FontSize="13"
+                                                            Text="{Binding Data.Title, Mode=OneWay}" />
+                                                    </StackPanel>
+                                                </settings:Case>
+                                            </settings:SwitchPresenter>
                                             <TextBlock
                                                 Grid.Row="1"
                                                 Margin="5,8,5,5"
-                                                FontSize="10"
+                                                FontSize="12"
                                                 Foreground="{ThemeResource SystemColorGrayTextBrush}"
-                                                Text="{Binding Data.Message, Mode=OneWay}" />
+                                                Text="{Binding Data.Message, Mode=OneWay}"
+                                                TextWrapping="Wrap" />
                                             <StackPanel
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Top"
@@ -373,7 +433,7 @@
                 </SplitView.Pane>
             </SplitView>
         </Grid>
-        <wuc:GooeyButton
+        <wui:GooeyButton
             Grid.Row="1"
             Width="60"
             Height="60"
@@ -383,41 +443,41 @@
             ItemsPosition="LeftTop"
             Style="{ThemeResource MyGooeyButton}">
 
-            <wuc:GooeyButton.Content>
+            <wui:GooeyButton.Content>
                 <FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x1F975;" />
-            </wuc:GooeyButton.Content>
-            <wuc:GooeyButton.Items>
-                <wuc:GooeyButtonItem
+            </wui:GooeyButton.Content>
+            <wui:GooeyButton.Items>
+                <wui:GooeyButtonItem
                     Width="50"
                     Height="50"
                     Command="{x:Bind ViewModel.ShowAddUriCommand}"
                     Style="{ThemeResource MyGooeyButtonItem}">
                     <SymbolIcon Symbol="Link" />
-                </wuc:GooeyButtonItem>
-                <wuc:GooeyButtonItem
+                </wui:GooeyButtonItem>
+                <wui:GooeyButtonItem
                     Width="50"
                     Height="50"
                     Command="{x:Bind ViewModel.ShowAddTorrentCommand}"
                     Style="{ThemeResource MyGooeyButtonItem}">
                     <SymbolIcon Symbol="OpenFile" />
-                </wuc:GooeyButtonItem>
-                <wuc:GooeyButtonItem
+                </wui:GooeyButtonItem>
+                <wui:GooeyButtonItem
                     Width="50"
                     Height="50"
                     Command="{x:Bind ViewModel.RestartCommand}"
-                    Foreground="{ThemeResource SystemChromeGrayColor}"
                     Style="{ThemeResource MyGooeyButtonItem}">
                     <SymbolIcon Symbol="Refresh" />
-                </wuc:GooeyButtonItem>
-                <wuc:GooeyButtonItem
+                </wui:GooeyButtonItem>
+                <wui:GooeyButtonItem
                     Width="50"
                     Height="50"
                     Foreground="{ThemeResource SystemChromeGrayColor}"
                     IsEnabled="False"
                     Style="{ThemeResource MyGooeyButtonItem}">
                     <SymbolIcon Symbol="Setting" />
-                </wuc:GooeyButtonItem>
-            </wuc:GooeyButton.Items>
-        </wuc:GooeyButton>
+                </wui:GooeyButtonItem>
+            </wui:GooeyButton.Items>
+        </wui:GooeyButton>
+
     </Grid>
 </Page>

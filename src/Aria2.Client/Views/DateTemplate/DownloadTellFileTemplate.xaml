@@ -31,6 +31,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -54,8 +55,12 @@
                 <TextBlock
                     Grid.Column="1"
                     VerticalAlignment="Center"
-                    Text="{x:Bind FileName, Mode=OneWay}" />
-                <Grid Grid.Row="1" Grid.Column="1">
+                    Text="{x:Bind FileName, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis" />
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2">
                     <ProgressBar
                         Height="10"
                         Margin="0,0,10,0"
@@ -63,10 +68,9 @@
                         Maximum="{x:Bind Data.TotalLength, Mode=OneWay}"
                         Minimum="0"
                         Value="{x:Bind Data.CompletedLength, Mode=OneWay}" />
-
                 </Grid>
                 <StackPanel
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Padding="3"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"

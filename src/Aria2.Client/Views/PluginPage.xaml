@@ -19,37 +19,6 @@
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid>
             <TextBlock x:Uid="PluginPage_SearchPluginTitle" FontWeight="Bold" />
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Style="{ThemeResource TransparentButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <FontIcon
-                            VerticalAlignment="Center"
-                            FontFamily="Segoe Fluent Icons"
-                            FontSize="10"
-                            Glyph="&#xECC8;" />
-                        <TextBlock
-                            x:Uid="PluginPage_SearchPluginAdd"
-                            Margin="4,0,0,0"
-                            VerticalAlignment="Center"
-                            FontSize="10" />
-                    </StackPanel>
-                </Button>
-                <Button Style="{ThemeResource TransparentButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-
-                        <FontIcon
-                            FontFamily="Segoe Fluent Icons"
-                            FontSize="10"
-                            Glyph="&#xE72C;" />
-                        <TextBlock
-                            x:Uid="PluginPage_SearchPluginRefresh"
-                            Margin="4,0,0,0"
-                            VerticalAlignment="Center"
-                            FontSize="10" />
-                    </StackPanel>
-                </Button>
-
-            </StackPanel>
         </Grid>
         <ScrollView>
             <ItemsRepeater ItemsSource="{x:Bind ViewModel.SearchPlugins, Mode=OneWay}">

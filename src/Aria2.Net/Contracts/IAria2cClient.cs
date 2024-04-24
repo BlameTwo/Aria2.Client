@@ -25,6 +25,10 @@ public interface IAria2cClient
     /// <returns></returns>
     public Task LauncherAsync(Aria2LauncherConfig config);
     
+    /// <summary>
+    /// 启动Aria2
+    /// </summary>
+    /// <returns></returns>
     public Task LauncherAsync();
 
     /// <summary>
@@ -189,6 +193,12 @@ public interface IAria2cClient
     /// <returns></returns>
     public Task<ResultCode<List<FileDownloadTell>>> GetStopedTaskAsync(int offset = 0, int pagesize = 1000, CancellationToken token = default);
 
+    /// <summary>
+    /// 获得一个Bt任务的所有Ip连接
+    /// </summary>
+    /// <param name="gid"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public Task<ResultCode<List<BittorrentPeer>>> GetBittorrentPeers(string gid,CancellationToken token = default);
 
     /// <summary>
@@ -198,6 +208,12 @@ public interface IAria2cClient
     /// <returns></returns>
     public Task<WebSocketState> ConnectAsync(CancellationToken token=default);
 
+    /// <summary>
+    /// 获得一个IP的详细地理位置
+    /// </summary>
+    /// <param name="ip"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public Task<IpData> GetIpAsync(string ip ,CancellationToken token=default);
 
     /// <summary>
@@ -225,14 +241,40 @@ public interface IAria2cClient
     /// <returns></returns>
     public Task<ResultCode<string>> Aria2RemoveDownloadResult(string gid,CancellationToken token = default);
 
-
+    /// <summary>
+    /// 移除全部的下载结果
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public Task<ResultCode<string>> Aria2RemoveAllDownloadResult(CancellationToken token = default);
 
+    /// <summary>
+    /// 获得一个任务对应的全部文件
+    /// </summary>
+    /// <param name="gid">任务ID</param>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public Task<ResultCode<List<DownloadFile>>> GetFiles(string gid, CancellationToken token = default);
 
+    /// <summary>
+    /// 改变一个任务的配置设置
+    /// </summary>
+    /// <param name="gid"></param>
+    /// <param name="values"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public Task<ResultCode<string>> ChangeTellOption(string gid,Dictionary<string,object> values,CancellationToken token = default);
 
+    /// <summary>
+    /// 立即移除一个任务
+    /// </summary>
+    /// <param name="gid"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public Task<ResultCode<string>> ForceRemove(string gid, CancellationToken token = default);
 
+    /// <summary>
+    /// Aria2 下载状态更新
+    /// </summary>
     public event Aria2DownloadStateChangedDelegate Aria2DownloadStateEvent;
 }

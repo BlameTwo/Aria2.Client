@@ -10,10 +10,10 @@ public interface IApplicationSetup<App>
     where App : Aria2.Client.Common.ClientApplication
 {
     public App Application { get; }
+
     public Task LauncherAsync(App app, Microsoft.Windows.AppLifecycle.AppActivationArguments activatedEventArgs);
 
     public void TryEnqueue(Action action);
-
 
     public TaskbarIcon NotyfiIcon { get; }
 

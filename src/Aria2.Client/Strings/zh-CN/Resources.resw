@@ -234,6 +234,30 @@
   <data name="SehllPage_Message_Clear.Content" xml:space="preserve">
     <value>清空消息</value>
   </data>
+  <data name="Setting_Theme_Color_Dark.Content" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Setting_Theme_Color_Header.Description" xml:space="preserve">
+    <value>更改应用颜色模式</value>
+  </data>
+  <data name="Setting_Theme_Color_Header.Header" xml:space="preserve">
+    <value>颜色</value>
+  </data>
+  <data name="Setting_Theme_Color_Light.Content" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="Setting_Theme_Color_System.Content" xml:space="preserve">
+    <value>系统</value>
+  </data>
+  <data name="Setting_Theme_Header.Text" xml:space="preserve">
+    <value>外观</value>
+  </data>
+  <data name="Setting_Theme_Wallpaper_Header.Description" xml:space="preserve">
+    <value>开关壁纸</value>
+  </data>
+  <data name="Setting_Theme_Wallpaper_Header.Header" xml:space="preserve">
+    <value>壁纸</value>
+  </data>
   <data name="ShellPage_MenuBarTitle.Title" xml:space="preserve">
     <value>程序</value>
   </data>
@@ -266,6 +290,9 @@
   </data>
   <data name="ShellPage_Message_Title.Text" xml:space="preserve">
     <value>消息</value>
+  </data>
+  <data name="ShellPage_SettingNavigation.Content" xml:space="preserve">
+    <value>设置</value>
   </data>
   <data name="TellDownloadSession_Split_Data.Text" xml:space="preserve">
     <value>数据块</value>

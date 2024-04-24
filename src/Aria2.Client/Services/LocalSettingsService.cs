@@ -116,17 +116,33 @@ namespace Aria2.Client.Services
                 {
                     object ob = null;
                     Config.TryGetValue(key, out ob);
-                    return ob;
+                    var je =  (JsonElement)ob;
+                    switch (je.ValueKind)
+                    {
+                        case JsonValueKind.Undefined:
+                            break;
+                        case JsonValueKind.String:
+                            return je.GetString();
+                        case JsonValueKind.Number:
+                            return je.GetInt32();
+                        case JsonValueKind.True:
+                            return true;
+                        case JsonValueKind.False:
+                            return false;
+                        case JsonValueKind.Null:
+                            return null;
+                    }
                 }
                 else
                 {
-                    return null;
+                    return default;
                 }
             }
             catch (Exception)
             {
-                return null;
+                return default;
             }
+            return null;
         }
 
         public async Task<T> ReadObjectConfig<T>(string key,CancellationToken token = default)

@@ -28,6 +28,7 @@ public sealed partial class PageService:IPageService
         RegisterView<SearchPage,SearchViewModel>();
         RegisterView<PluginPage, PluginViewModel>();
         RegisterView<AboutPage,AboutViewModel>();
+        RegisterView<SettingPage,SettingViewModel>();
     }
 
     public Type GetPage(string key)

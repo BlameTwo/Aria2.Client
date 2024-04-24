@@ -10,10 +10,5 @@
 		<PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.60" />
 	</ItemGroup>
-	<ItemGroup>
-	  <None Update="1.html">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
 
 </Project>

@@ -20,6 +20,8 @@
         Grid.Row="1"
         Header="{x:Bind ViewModel.Title, Mode=OneWay}"
         IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="False"
+        OpenPaneLength="200"
         SelectedItem="{x:Bind ViewModel.NavigationSelectItem, Mode=OneWay}">
         <NavigationView.MenuItems>
             <NavigationViewItem x:Uid="HomePage_OverView_Title" property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.OverviewViewModel">
@@ -51,6 +53,13 @@
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
         </NavigationView.MenuItems>
+        <NavigationView.FooterMenuItems>
+            <NavigationViewItem x:Uid="ShellPage_SettingNavigation" property:NavigationItemClickHelper.NavigationKey="Aria2.Client.ViewModels.SettingViewModel">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE713;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.FooterMenuItems>
         <Grid>
             <Grid.ChildrenTransitions>
                 <TransitionCollection>

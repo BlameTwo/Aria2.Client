@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace Aria2.Net.Models;
 
+/// <summary>
+/// 单方法请求
+/// </summary>
 public class Aria2Request
 {
     [JsonPropertyName("id")]
@@ -19,6 +22,9 @@ public class Aria2Request
 }
 
 
+/// <summary>
+/// 多方法请求组合
+/// </summary>
 public class MulticallRequest
 {
     [JsonPropertyName("methodName")]

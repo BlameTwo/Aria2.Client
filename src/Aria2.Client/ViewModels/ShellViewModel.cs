@@ -25,7 +25,7 @@ using WinUIEx;
 
 namespace Aria2.Client.ViewModels;
 
-public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tuple<bool, AppNotifyMessager>>,IRecipient<AppClearNotifyMessager>
+public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tuple<bool, AppNotifyMessager>>,IRecipient<AppClearNotifyMessager>,IRecipient<AppWallpaperMessager>
 {
     public ShellViewModel(
         IApplicationSetup<App> applicationSetup,
@@ -106,6 +106,9 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     ObservableCollection<AppMessageItemData> _MessageList=new();
 
     [ObservableProperty]
+    Visibility _WallpaperVisibility;
+
+    [ObservableProperty]
     int _MessageCount=0;
 
     partial void OnMessageCountChanged(int value)
@@ -179,8 +182,10 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     }
 
     [RelayCommand]
-    void Restart()
+    async Task Restart()
     {
+        await Aria2CClient.DisconnectAsync();
+        await Aria2CClient.ExitAria2();
         var reStart =  Microsoft.Windows.AppLifecycle.AppInstance.Restart("");
     }
 
@@ -233,5 +238,17 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
             }
         }
         MessageCount = MessageList.Count;
+    }
+
+    public void Receive(AppWallpaperMessager message)
+    {
+        if (message.isopen)
+        {
+            WallpaperVisibility = Visibility.Visible;
+        }
+        else
+        {
+            WallpaperVisibility = Visibility.Collapsed;
+        }
     }
 }

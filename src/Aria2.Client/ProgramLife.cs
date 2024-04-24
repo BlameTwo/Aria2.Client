@@ -31,6 +31,7 @@ public static class ProgramLife
     {
         Service = new ServiceCollection()
             .AddSingleton<IApplicationSetup<App>, ApplicationSetup<App>>()
+            .AddSingleton<IThemeService<App>, ThemeService<App>>()
             .AddSingleton<IPageService, PageService>()
             .AddSingleton<IDialogManager, DialogManager>()
             .AddSingleton<IAria2cClient, Aria2cClient>()
@@ -55,6 +56,8 @@ public static class ProgramLife
             .AddTransient<HomeViewModel>()
             .AddTransient<AddUriDialog>()
             .AddTransient<AddUriViewModel>()
+            .AddTransient<SettingPage>()
+            .AddTransient<SettingViewModel>()
             .AddTransient<OverviewPage>()
             .AddTransient<OverviewViewModel>()
             .AddTransient<AddTorrentDialog>()
