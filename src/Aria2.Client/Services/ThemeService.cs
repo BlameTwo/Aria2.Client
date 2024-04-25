@@ -60,15 +60,10 @@ public sealed class ThemeService<T> : IThemeService<T>
         await Task.CompletedTask;
     }
 
-    private async Task SaveThemeSetting(ElementTheme theme)
-    {
-        await LocalSetting.SaveConfig("AppTheme", theme.ToString());
-    }
 
     public async Task SetThemeAsync(ElementTheme theme)
     {
         Theme = theme;
         await SetRequestedThemeAsync();
-        await SaveThemeSetting(theme);
     }
 }

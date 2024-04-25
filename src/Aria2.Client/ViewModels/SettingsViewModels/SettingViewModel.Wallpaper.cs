@@ -15,9 +15,9 @@ partial class SettingViewModel
     [ObservableProperty]
     bool _WallpaperEnable;
 
-    partial void OnWallpaperEnableChanged(bool value)
+    async partial void OnWallpaperEnableChanged(bool value)
     {
-        LocalSettingsService.SaveConfig(AppSettingKey.WallpaperEnable,value);
+        await LocalSettingsService.SaveConfig(AppSettingKey.WallpaperEnable,value);
         WeakReferenceMessenger.Default.Send<AppWallpaperMessager>(new(value));
     }
 }

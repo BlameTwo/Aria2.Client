@@ -3,9 +3,14 @@ using Aria2.Client.Extentions;
 using Aria2.Client.Models;
 using Aria2.Client.Services.Contracts;
 using Aria2.Client.ViewModels;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.Windows.AppLifecycle;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using Windows.ApplicationModel.Activation;
 
 namespace Aria2.Client;
@@ -42,8 +47,11 @@ public sealed partial class App : ClientApplication
         var activatedEventArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
         if (Instance.IsCurrent)
         {
-            await ProgramLife.GetService<ILocalSettingsService>()!.SaveConfig(AppSettingKey.ThemeColor, 1);
-            await ProgramLife.GetService<ILocalSettingsService>()!.SaveConfig(AppSettingKey.WallpaperEnable, true);
+            await ProgramLife.GetService<ILocalSettingsService>()!.InitSetting(new Dictionary<string,object>()
+            {
+                {AppSettingKey.ThemeColor, 1},
+                {AppSettingKey.WallpaperEnable, true }
+            });
             FileHelper.CheckFolder(SearchPluginFolder);
             var application = ProgramLife.GetService<IApplicationSetup<App>>();
             await application.LauncherAsync(this,activatedEventArgs);

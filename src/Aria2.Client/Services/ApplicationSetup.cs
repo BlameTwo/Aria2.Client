@@ -151,64 +151,37 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
 
     public void ShowLeftPanelWindow()
     {
-        if(LeftPane == null)
+        LeftPane = new();
+        LeftPane.SystemBackdrop = new DesktopAcrylicBackdrop();
+        LeftPane.Height = 450;
+        LeftPane.Width = 350;
+        var postion = WindowHelper.GetCursorPos(out var lpPoint);
+        var width = WindowHelper.GetSystemMetrics(WindowHelper.SM_CXSCREEN);
+        var height = WindowHelper.GetSystemMetrics(WindowHelper.SM_CYSCREEN);
+        var warkspace = WindowHelper.GetDesktopWorkArea();
+        var windowWidth = LeftPane.Width;
+        var halfWindowWidth = windowWidth / 2;
+        var desiredLeft = lpPoint.X - halfWindowWidth;
+        var workspace = WindowHelper.GetDesktopWorkArea();
+        if (desiredLeft < workspace.Left)
         {
-            LeftPane = new();
-            LeftPane.SystemBackdrop = new DesktopAcrylicBackdrop();
-            LeftPane.Height = 450;
-            LeftPane.Width = 350;
-            var postion = WindowHelper.GetCursorPos(out var lpPoint);
-            var width = WindowHelper.GetSystemMetrics(WindowHelper.SM_CXSCREEN);
-            var height = WindowHelper.GetSystemMetrics(WindowHelper.SM_CYSCREEN);
-            var warkspace = WindowHelper.GetDesktopWorkArea();
-            var windowWidth = LeftPane.Width;
-            var halfWindowWidth = windowWidth / 2;
-            var desiredLeft = lpPoint.X - halfWindowWidth;
-            var workspace = WindowHelper.GetDesktopWorkArea();
-            if (desiredLeft < workspace.Left)
-            {
-                desiredLeft = workspace.Left;
-            }
-            else if (desiredLeft + windowWidth > workspace.Right)
-            {
-                desiredLeft = workspace.Right - windowWidth;
-            }
-            var desiredTop = workspace.Height;
-            LeftPane.MoveAndResize(desiredLeft, desiredTop - LeftPane.Height, windowWidth, LeftPane.Height);
-            LeftPane.ExtendsContentIntoTitleBar = true;
-            LeftPane.IsMinimizable = false;
-            LeftPane.IsMaximizable = false;
-            LeftPane.IsResizable = false;
-            LeftPane.IsTitleBarVisible = false;
-            LeftPane.Content = ProgramLife.GetService<NotyfiMainPage>();
-            LeftPane.Activate();
-            LeftPane.Activated += LeftPane_Activated;
-            LeftPane.Content.Focus(FocusState.Pointer);
+            desiredLeft = workspace.Left;
         }
-        else
+        else if (desiredLeft + windowWidth > workspace.Right)
         {
-            var postion = WindowHelper.GetCursorPos(out var lpPoint);
-            var width = WindowHelper.GetSystemMetrics(WindowHelper.SM_CXSCREEN);
-            var height = WindowHelper.GetSystemMetrics(WindowHelper.SM_CYSCREEN);
-            var warkspace = WindowHelper.GetDesktopWorkArea();
-            var windowWidth = LeftPane.Width;
-            var halfWindowWidth = windowWidth / 2;
-            var desiredLeft = lpPoint.X - halfWindowWidth;
-            var workspace = WindowHelper.GetDesktopWorkArea();
-            if (desiredLeft < workspace.Left)
-            {
-                desiredLeft = workspace.Left;
-            }
-            else if (desiredLeft + windowWidth > workspace.Right)
-            {
-                desiredLeft = workspace.Right - windowWidth;
-            }
-            var desiredTop = workspace.Height;
-            LeftPane.MoveAndResize(desiredLeft, desiredTop - LeftPane.Height, windowWidth, LeftPane.Height);
-            LeftPane.Activate();
-            LeftPane.Content.Focus(FocusState.Pointer);
+            desiredLeft = workspace.Right - windowWidth;
         }
-        
+        var desiredTop = workspace.Height;
+        LeftPane.MoveAndResize(desiredLeft, desiredTop - LeftPane.Height, windowWidth, LeftPane.Height);
+        LeftPane.ExtendsContentIntoTitleBar = true;
+        LeftPane.IsMinimizable = false;
+        LeftPane.IsMaximizable = false;
+        LeftPane.IsResizable = false;
+        LeftPane.IsTitleBarVisible = false;
+        LeftPane.Content = ProgramLife.GetService<NotyfiMainPage>();
+        LeftPane.Activate();
+        LeftPane.Activated += LeftPane_Activated;
+        LeftPane.Content.Focus(FocusState.Pointer);
     }
 
     private void LeftPane_Activated(object sender, Microsoft.UI.Xaml.WindowActivatedEventArgs args)
@@ -216,7 +189,8 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
         if(args.WindowActivationState == Microsoft.UI.Xaml.WindowActivationState.Deactivated)
         {
             Debug.WriteLine("取消激活");
-            LeftPane.Hide();
+            LeftPane.Close();
+            LeftPane = null;
         }
         else if (args.WindowActivationState == Microsoft.UI.Xaml.WindowActivationState.CodeActivated)
         {

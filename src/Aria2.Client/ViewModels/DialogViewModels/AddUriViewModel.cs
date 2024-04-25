@@ -19,19 +19,21 @@ public sealed partial class AddUriViewModel : ObservableRecipient
         IDialogManager dialogManager,
         IApplicationSetup<App> applicationSetup,
         IAria2cClient aria2CClient,
-        IAppMessageService appMessageService
+        IAppMessageService appMessageService,IAppCenterService appCenterService
     )
     {
         DialogManager = dialogManager;
         ApplicationSetup = applicationSetup;
         Aria2CClient = aria2CClient;
         AppMessageService = appMessageService;
+        AppCenterService = appCenterService;
     }
 
     public IDialogManager DialogManager { get; }
     public IApplicationSetup<App> ApplicationSetup { get; }
     public IAria2cClient Aria2CClient { get; }
     public IAppMessageService AppMessageService { get; }
+    public IAppCenterService AppCenterService { get; }
 
     [NotifyCanExecuteChangedFor(nameof(ActiveCommand))]
     [ObservableProperty]
@@ -107,8 +109,13 @@ public sealed partial class AddUriViewModel : ObservableRecipient
                 "Aria2",
                 Models.Enums.MessageLevel.Default
             );
+
             if (result.Result != null)
                 DialogManager.CloseDialog();
+            AppCenterService.SendAppCenter(new("Aria2.AddUrlDownload", new()
+            {
+                { "State",result!= null? "true": "false" }
+            }));
         }
         catch (Exception) { }
         finally

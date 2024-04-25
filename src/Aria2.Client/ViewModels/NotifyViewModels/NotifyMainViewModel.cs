@@ -57,7 +57,13 @@ public sealed partial class NotifyMainViewModel:ObservableRecipient
     [RelayCommand]
     void Show()
     {
-        if(!ApplicationSetup.Application.MainWindow.AppWindow.IsVisible)
-            ApplicationSetup.Application.MainWindow.Show();
+        if (!ApplicationSetup.Application.MainWindow.AppWindow.IsVisible)
+        {
+            ApplicationSetup.Application.MainWindow.Activate();
+        }
+        else
+        {
+            ApplicationSetup.Application.MainWindow.Hide();
+        }
     }
 }

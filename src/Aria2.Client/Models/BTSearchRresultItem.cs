@@ -11,14 +11,16 @@ namespace Aria2.Client.Models;
 
 public sealed partial class BTSearchRresultItem : ItemDownloadBase<BTSearchResult>
 {
-    public BTSearchRresultItem(IAria2cClient aria2CClient,ITipShow tipShow)
+    public BTSearchRresultItem(IAria2cClient aria2CClient,ITipShow tipShow,IAppCenterService appCenterService)
     {
         Aria2CClient = aria2CClient;
         TipShow = tipShow;
+        AppCenterService = appCenterService;
     }
 
     public IAria2cClient Aria2CClient { get; }
     public ITipShow TipShow { get; }
+    public IAppCenterService AppCenterService { get; }
 
     [RelayCommand]
     async Task Download()
@@ -36,5 +38,9 @@ public sealed partial class BTSearchRresultItem : ItemDownloadBase<BTSearchResul
         {
             TipShow.ShowMessage($"创建任务：{result.Result}",Microsoft.UI.Xaml.Controls.Symbol.Accept);
         }
+        AppCenterService.SendAppCenter(new("Aria2.AddUrlDownload", new()
+        {
+            { "State",result!= null? "true": "false" }
+        }));
     }
 }

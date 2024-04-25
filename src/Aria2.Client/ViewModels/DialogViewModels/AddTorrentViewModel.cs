@@ -25,12 +25,14 @@ public sealed partial class AddTorrentViewModel : ObservableObject
         IApplicationSetup<App> applicationSetup,
         IDialogManager dialogManager,
         IAppMessageService appMessageService
+        ,IAppCenterService appCenterService
     )
     {
         Aria2CClient = aria2CClient;
         ApplicationSetup = applicationSetup;
         DialogManager = dialogManager;
         AppMessageService = appMessageService;
+        AppCenterService = appCenterService;
     }
 
     [ObservableProperty]
@@ -43,6 +45,7 @@ public sealed partial class AddTorrentViewModel : ObservableObject
     public IApplicationSetup<App> ApplicationSetup { get; }
     public IDialogManager DialogManager { get; }
     public IAppMessageService AppMessageService { get; }
+    public IAppCenterService AppCenterService { get; }
 
     [ObservableProperty]
     ObservableCollection<DownloadFile> _Downloads = new();
@@ -67,6 +70,10 @@ public sealed partial class AddTorrentViewModel : ObservableObject
             TorrentName,
             new Dictionary<string, object>() { { "dir", SaveFolder } }
         );
+        AppCenterService.SendAppCenter(new("Aria2.AddTorrentDownload", new()
+        {
+            { "State",data!= null? "true": "false" }
+        }));
         var pauseResult = await Aria2CClient.PauseTask(data.Result);
         if (pauseResult.Result == data.Result)
         {

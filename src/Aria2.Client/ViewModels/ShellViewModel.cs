@@ -193,7 +193,7 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     void LeftClick()
     {
         if (!ApplicationSetup.Application.MainWindow.AppWindow.IsVisible)
-            ApplicationSetup.Application.MainWindow.Show();
+            ApplicationSetup.Application.MainWindow.Activate();
         else
             ApplicationSetup.Application.MainWindow.Hide();
     }

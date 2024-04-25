@@ -12,9 +12,9 @@ partial class SettingViewModel
     [ObservableProperty]
     int _ThemeColor;
 
-    partial void OnThemeColorChanged(int value)
+    async partial void OnThemeColorChanged(int value)
     {
-        LocalSettingsService.SaveConfig(AppSettingKey.ThemeColor,value);
-        ThemeService.SetThemeAsync((ElementTheme)value);
+        await LocalSettingsService.SaveConfig(AppSettingKey.ThemeColor,value);
+        await ThemeService.SetThemeAsync((ElementTheme)value);
     }
 }
