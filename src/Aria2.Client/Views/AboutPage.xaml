@@ -54,6 +54,14 @@
                     <HyperlinkButton Content="Github" />
                     <HyperlinkButton Content="AppCenter" />
                     <HyperlinkButton Content="BiliBili" />
+                    <markdown:ImageEx
+                        Height="60"
+                        Source="Assets/VisualStudioLogo.png"
+                        Stretch="UniformToFill" />
+                    <markdown:ImageEx
+                        Height="60"
+                        Source="Assets/CSharpLogo.png"
+                        Stretch="UniformToFill" />
                 </StackPanel>
             </Grid>
         </StackPanel>

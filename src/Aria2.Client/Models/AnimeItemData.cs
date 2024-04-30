@@ -18,13 +18,11 @@ public sealed partial class AnimeItemData : ObservableRecipient,IItemData<AnimeR
 
     public IAria2cClient Aria2CClient { get; }
     public ITipShow TipShow { get; }
-    public IAppCenterService AppCenterService { get; }
 
-    public AnimeItemData(IAria2cClient aria2CClient,ITipShow tipShow,IAppCenterService appCenterService)
+    public AnimeItemData(IAria2cClient aria2CClient,ITipShow tipShow)
     {
         Aria2CClient = aria2CClient;
         TipShow = tipShow;
-        AppCenterService = appCenterService;
     }
 
     public void SetData(AnimeResource data)
@@ -59,10 +57,6 @@ public sealed partial class AnimeItemData : ObservableRecipient,IItemData<AnimeR
         {
             TipShow.ShowMessage($"创建失败!", Microsoft.UI.Xaml.Controls.Symbol.Clear);
         }
-        AppCenterService.SendAppCenter(new("Aria2.AddUrlDownload", new()
-        {
-            { "State",result!= null? "true": "false" }
-        }));
     }
 
     public void Dispose()

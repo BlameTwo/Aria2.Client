@@ -228,7 +228,7 @@ public partial class Aria2cClient : IAria2cClient
 
     public async Task<ResultCode<string>> ForceRemove(string gid,CancellationToken token = default)
     {
-        return await RequestAsync<string>(GlobalUsings.ForcePause, token, gid);
+        return await RequestAsync<string>(GlobalUsings.ForceRemove, token, gid);
     }
 
     public Task<ResultCode<string>> ChangGlobalOption(
@@ -432,7 +432,7 @@ public partial class Aria2cClient : IAria2cClient
     {
         switch (message.Method)
         {
-            case Aria2Socket_Method.OnDowloadStart:
+            case Aria2Socket_Method.OnDownloadStart:
                 this.aria2DownloadStateChangedHandler?.Invoke( Enums.WebSocketEventType.Start, message);
                 break;
             case Aria2Socket_Method.OnDownloadPause:
@@ -444,7 +444,7 @@ public partial class Aria2cClient : IAria2cClient
             case Aria2Socket_Method.OnDownloadComplete:
                 this.aria2DownloadStateChangedHandler?.Invoke(Enums.WebSocketEventType.Complete, message);
                 break;
-            case Aria2Socket_Method.OnDowloadError:
+            case Aria2Socket_Method.OnDownloadError:
                 this.aria2DownloadStateChangedHandler?.Invoke(Enums.WebSocketEventType.Error, message);
                 break;
             case Aria2Socket_Method.OnBtDownloadComplete:

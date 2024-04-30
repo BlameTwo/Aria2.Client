@@ -164,48 +164,33 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     async Task RemoveStopTask()
     {
         this._timer.Stop();
+        string gid = "";
         bool clearFlage = false;
-        if (
-            this.Data.Status == TellState.Removed
-            || this.Data.Status == TellState.Complete
-            || this.Data.Status == TellState.Error
-        )
+        var result = await Aria2CClient.ForceRemove(this._gid, token);
+        if (result == null)
+            return;
+        gid = result.Result;
+        while (true)
         {
-            var clear = await Aria2CClient.Aria2RemoveDownloadResult(this._gid);
-            if(clear == null)
-                WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveItemMessager>(new(this, true, false));
-            if (clear.Result == GlobalUsings.RequestOK)
+            await Task.Delay(300, token);
+            if (token.IsCancellationRequested)
+                break;
+            var getResult = await Aria2CClient.GetTellStatusAsync(gid, token);
+            if (getResult.Result.Status == TellState.Stopped || getResult.Result.Status == TellState.Paused || getResult.Result.Status== TellState.Removed)
             {
-                clearFlage = true;
-                WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveItemMessager>(new(this, true, false));
+                gid = getResult.Result.Gid;
+                break;
             }
         }
-        else
+        if (token.IsCancellationRequested)
+            return;
+        var clear = await Aria2CClient.Aria2RemoveDownloadResult(gid);
+        if (clear.Result == GlobalUsings.RequestOK)
         {
-            var result = await Aria2CClient.RemoveTask(this._gid, token);
-            if (result == null)
-                return;
-            while (true)
-            {
-                await Task.Delay(300);
-                var getResult = await Aria2CClient.GetTellStatusAsync(this._gid, token);
-                if (getResult == null)
-                    break;
-                if (getResult.Result.Status == TellState.Stopped)
-                    break;
-            }
-            var clear = await Aria2CClient.Aria2RemoveDownloadResult(this._gid);
-            if (clear == null)
-            {
-                WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveItemMessager>(new(this, true, false));
-            }
-            else if (clear.Result == GlobalUsings.RequestOK)
-            {
-                clearFlage = true;
-                WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveItemMessager>(new(this, true, false));
-            }
+            clearFlage = true;
+            WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveItemMessager>(new(this, true, false));
         }
-        if (!clearFlage)
+        if(!clearFlage)
             _timer.Start();
     }
 
@@ -294,6 +279,7 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     public void Disponse()
     {
         cts.Cancel();
+        
         _timer.Stop();
     }
 

@@ -12,15 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using WinUIEx;
 
 namespace Aria2.Client.ViewModels;

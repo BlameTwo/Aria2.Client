@@ -25,7 +25,6 @@
     <Content Remove="assets\About.md" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Assets\background.png" />
     <None Remove="Assets\Countries\countries_abb2.json" />
     <None Remove="Assets\Countries\countries_list.json" />
     <None Remove="Assets\Countries\flags\AC.png" />
@@ -279,6 +278,7 @@
     <None Remove="Assets\Countries\flags\ZM.png" />
     <None Remove="Assets\Countries\flags\ZW.png" />
     <None Remove="Assets\logo.png" />
+    <None Remove="Assets\VisualStudioLogo.png" />
     <None Remove="UI\Controls\PopupDialog.xaml" />
     <None Remove="UI\Styles\Button.xaml" />
     <None Remove="UI\Styles\TitleBar.xaml" />
@@ -346,9 +346,6 @@
     <ProjectReference Include="..\IBtSearch\IBtSearch.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Assets\background.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Update="Assets\logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

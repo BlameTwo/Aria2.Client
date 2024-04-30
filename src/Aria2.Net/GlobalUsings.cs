@@ -40,7 +40,7 @@ public static class GlobalUsings
 
 public static class Aria2Socket_Method
 {
-    public const string OnDowloadStart = "aria2.onDownloadStart";
+    public const string OnDownloadStart = "aria2.onDownloadStart";
 
     public const string OnDownloadPause = "aria2.onDownloadPause";
 
@@ -48,7 +48,7 @@ public static class Aria2Socket_Method
 
     public const string OnDownloadComplete = "aria2.onDownloadComplete";
 
-    public const string OnDowloadError = "aria2.onDownloadError";
+    public const string OnDownloadError = "aria2.onDownloadError";
 
     public const string OnBtDownloadComplete = "aria2.onBtDownloadComplete";
 }

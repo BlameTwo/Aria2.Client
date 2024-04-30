@@ -1,10 +1,4 @@
-﻿using BtSearch.Fitgril.Providers;
-using CommunityToolkit.Mvvm.Input;
-using HtmlAgilityPack;
-using IBtSearch;
-using IBtSearch.Bases;
-using IBtSearch.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -12,6 +6,12 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using BtSearch.Fitgril.Providers;
+using CommunityToolkit.Mvvm.Input;
+using HtmlAgilityPack;
+using IBtSearch;
+using IBtSearch.Bases;
+using IBtSearch.Models;
 
 namespace BtSearch.Fitgril;
 
@@ -31,7 +31,8 @@ public partial class FitgrilPlugin : IBTSearchPlugin
     public string Name => "Fitgril Repacks";
     public string Orgin => "https://fitgirl-repacks.site/";
 
-    public string Icon => "https://fitgirl-repacks.site/wp-content/uploads/2016/08/cropped-icon-270x270.jpg";
+    public string Icon =>
+        "https://fitgirl-repacks.site/wp-content/uploads/2016/08/cropped-icon-270x270.jpg";
 
     public PluginConfig Config { get; set; }
 
@@ -44,7 +45,6 @@ public partial class FitgrilPlugin : IBTSearchPlugin
 
     async Task SaveAsync()
     {
-
         await File.WriteAllTextAsync(JsonPath, JsonSerializer.Serialize(Config));
     }
 

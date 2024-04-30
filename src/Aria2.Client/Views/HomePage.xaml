@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:property="using:Aria2.Client.UI.Propertys"
     xmlns:user="using:Aria2.Client.Views.SplitViews"
+    KeyDown="Page_KeyDown"
     mc:Ignorable="d">
     <i:Interaction.Behaviors>
         <core:EventTriggerBehavior EventName="Loaded">

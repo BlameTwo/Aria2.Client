@@ -14,4 +14,9 @@ public sealed partial class HomePage : Page
     }
 
     public HomeViewModel ViewModel { get; }
+
+    private void Page_KeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+    {
+
+    }
 }
