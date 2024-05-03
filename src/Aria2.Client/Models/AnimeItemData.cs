@@ -18,11 +18,13 @@ public sealed partial class AnimeItemData : ObservableRecipient,IItemData<AnimeR
 
     public IAria2cClient Aria2CClient { get; }
     public ITipShow TipShow { get; }
+    public IDialogManager DialogManager { get; }
 
-    public AnimeItemData(IAria2cClient aria2CClient,ITipShow tipShow)
+    public AnimeItemData(IAria2cClient aria2CClient,ITipShow tipShow,IDialogManager dialogManager)
     {
         Aria2CClient = aria2CClient;
         TipShow = tipShow;
+        DialogManager = dialogManager;
     }
 
     public void SetData(AnimeResource data)
@@ -40,23 +42,25 @@ public sealed partial class AnimeItemData : ObservableRecipient,IItemData<AnimeR
     [RelayCommand]
     async Task AddDownload()
     {
-        var result = await Aria2CClient.AddUriAsync(
-            new List<string>() { this.Data.Magnet },
-            new Dictionary<string, object>()
-            {
-                { "dir", UserDataPaths.GetDefault().Downloads },
-                { "follow-torrent", true }
-            },
-            1
-        );
-        if (result != null)
-        {
-            TipShow.ShowMessage($"创建任务：{result.Result}", Microsoft.UI.Xaml.Controls.Symbol.Accept);
-        }
-        else
-        {
-            TipShow.ShowMessage($"创建失败!", Microsoft.UI.Xaml.Controls.Symbol.Clear);
-        }
+
+        await DialogManager.ShowAddUriAsync(this.Data.Magnet);
+        //var result = await Aria2CClient.AddUriAsync(
+        //    new List<string>() { this.Data.Magnet },
+        //    new Dictionary<string, object>()
+        //    {
+        //        { "dir", UserDataPaths.GetDefault().Downloads },
+        //        { "follow-torrent", true }
+        //    },
+        //    1
+        //);
+        //if (result != null)
+        //{
+        //    TipShow.ShowMessage($"创建任务：{result.Result}", Microsoft.UI.Xaml.Controls.Symbol.Accept);
+        //}
+        //else
+        //{
+        //    TipShow.ShowMessage($"创建失败!", Microsoft.UI.Xaml.Controls.Symbol.Clear);
+        //}
     }
 
     public void Dispose()

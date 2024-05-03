@@ -47,7 +47,8 @@ public sealed partial class App : ClientApplication
             await ProgramLife.GetService<ILocalSettingsService>()!.InitSetting(new Dictionary<string,object>()
             {
                 {AppSettingKey.ThemeColor, 1},
-                {AppSettingKey.WallpaperEnable, true }
+                {AppSettingKey.WallpaperEnable, true },
+                {"SetupFlag",true }
             });
             FileHelper.CheckFolder(SearchPluginFolder);
             var application = ProgramLife.GetService<IApplicationSetup<App>>();

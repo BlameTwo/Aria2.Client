@@ -144,6 +144,12 @@
   <data name="DownloadTellTemplate_Session.Text" xml:space="preserve">
     <value>详细信息</value>
   </data>
+  <data name="ExitDialog.PrimaryButtonText" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="ExitDialog.SecondaryButtonText" xml:space="preserve">
+    <value>取消</value>
+  </data>
   <data name="HomePage_ActivePage_Title.Content" xml:space="preserve">
     <value>活动中</value>
   </data>

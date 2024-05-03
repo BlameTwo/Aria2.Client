@@ -56,14 +56,6 @@
         <ScrollView Grid.Row="1">
             <ItemsControl ItemTemplate="{ThemeResource DownloadTellTemplate}" ItemsSource="{x:Bind ViewModel.Downloads, Mode=OneWay}" />
         </ScrollView>
-        <Button
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Style="{ThemeResource TransparentButtonStyle}">
-            <FontIcon
-                FontFamily="Segoe Fluent Icons"
-                FontSize="15"
-                Glyph="&#xE72C;" />
-        </Button>
+
     </Grid>
 </Page>

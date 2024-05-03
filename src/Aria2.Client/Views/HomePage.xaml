@@ -22,6 +22,7 @@
         Header="{x:Bind ViewModel.Title, Mode=OneWay}"
         IsBackButtonVisible="Collapsed"
         IsSettingsVisible="False"
+        IsTitleBarAutoPaddingEnabled="True"
         OpenPaneLength="200"
         SelectedItem="{x:Bind ViewModel.NavigationSelectItem, Mode=OneWay}">
         <NavigationView.MenuItems>

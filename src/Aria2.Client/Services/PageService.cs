@@ -1,9 +1,11 @@
 ﻿using Aria2.Client.Services.Contracts;
 using Aria2.Client.ViewModels;
 using Aria2.Client.ViewModels.DownloadViewModels;
+using Aria2.Client.ViewModels.FirstLaunchViewModel;
 using Aria2.Client.ViewModels.FrameViewModels;
 using Aria2.Client.Views;
 using Aria2.Client.Views.DownloadPages;
+using Aria2.Client.Views.FirstLaunchView;
 using Aria2.Client.Views.FramePages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml.Controls;
@@ -29,6 +31,7 @@ public sealed partial class PageService:IPageService
         RegisterView<PluginPage, PluginViewModel>();
         RegisterView<AboutPage,AboutViewModel>();
         RegisterView<SettingPage,SettingViewModel>();
+        RegisterView<HelloAria2Page, HelloAria2ViewModel>();
     }
 
     public Type GetPage(string key)

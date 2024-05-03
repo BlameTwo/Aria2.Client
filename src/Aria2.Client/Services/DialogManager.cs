@@ -34,6 +34,9 @@ public class DialogManager : IDialogManager
     public async Task ShowAddUriAsync()
         => await ShowDialogAsync<AddUriDialog>();
 
+    public async Task ShowAddUriAsync(string url)
+        => await this.ShowDialogAsync<AddUriDialog,string>(url);
+
     private async Task ShowDialogAsync<T>()
         where T:ContentDialog
     {
@@ -42,6 +45,16 @@ public class DialogManager : IDialogManager
         dialog.XamlRoot = Root;
         this._dialog = dialog;
         await dialog.ShowAsync();
+    }
+
+    private async Task<ContentDialogResult> ShowResultDialogAsync<T>()
+        where T:ContentDialog
+    {
+        var dialog = ProgramLife.GetService<T>();
+        if (dialog == null) return ContentDialogResult.None;
+        dialog.XamlRoot = Root;
+        this._dialog = dialog;
+        return await _dialog.ShowAsync();
     }
 
     private async Task ShowDialogAsync<T, Value>(Value type) where T : ContentDialog, IDialogBase<Value>
@@ -54,5 +67,8 @@ public class DialogManager : IDialogManager
         await dialog.ShowAsync();
     }
 
-
+    public async Task<ContentDialogResult> ExitApp()
+    {
+        return await this.ShowResultDialogAsync<ExitDialog>();
+    }
 }

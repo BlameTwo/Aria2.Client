@@ -224,8 +224,8 @@
                                 <MenuFlyoutSubItem.Icon>
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE894;" />
                                 </MenuFlyoutSubItem.Icon>
-                                <MenuFlyoutItem x:Uid="ShellPage_MenuBar_ExitApp_NotifyIcon" />
-                                <MenuFlyoutItem x:Uid="ShellPage_MenuBar_ExitApp_Exit" />
+                                <MenuFlyoutItem x:Uid="ShellPage_MenuBar_ExitApp_NotifyIcon" Command="{x:Bind ViewModel.CloseMinCommand}" />
+                                <MenuFlyoutItem x:Uid="ShellPage_MenuBar_ExitApp_Exit" Command="{x:Bind ViewModel.ExitCommand}" />
                             </MenuFlyoutSubItem>
                         </MenuBarItem>
                         <MenuBarItem x:Uid="SehllPage_MenuBar_SearchTitle">

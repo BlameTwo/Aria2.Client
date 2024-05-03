@@ -6,6 +6,7 @@ using Aria2.Client.Services.NavigationViews;
 using Aria2.Client.ViewModels;
 using Aria2.Client.ViewModels.DialogViewModels;
 using Aria2.Client.ViewModels.DownloadViewModels;
+using Aria2.Client.ViewModels.FirstLaunchViewModel;
 using Aria2.Client.ViewModels.FrameViewModels;
 using Aria2.Client.ViewModels.InstallerPluginViewModel;
 using Aria2.Client.ViewModels.NotifyViewModels;
@@ -13,6 +14,7 @@ using Aria2.Client.ViewModels.SplitViewModels;
 using Aria2.Client.Views;
 using Aria2.Client.Views.Dialogs;
 using Aria2.Client.Views.DownloadPages;
+using Aria2.Client.Views.FirstLaunchView;
 using Aria2.Client.Views.FramePages;
 using Aria2.Client.Views.InstallerPluginView;
 using Aria2.Client.Views.NotifyViews;
@@ -65,6 +67,7 @@ public static class ProgramLife
             .AddTransient<AboutViewModel>()
             .AddTransient<AddTorrentViewModel>()
             .AddTransient<PluginViewModel>()
+            .AddTransient<ExitDialog>()
         #region 托盘图标
             .AddSingleton<NotyfiMainPage>()
             .AddSingleton<NotifyMainViewModel>()
@@ -94,6 +97,10 @@ public static class ProgramLife
         #region Anime
             .AddTransient<AnimePage>()
             .AddTransient<AnimeViewModel>()
+        #endregion
+        #region 第一次启动注册
+            .AddTransient<HelloAria2Page>()
+            .AddTransient<HelloAria2ViewModel>()
         #endregion
             .BuildServiceProvider();
     }

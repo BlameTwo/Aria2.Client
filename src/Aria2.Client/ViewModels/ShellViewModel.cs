@@ -11,6 +11,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.ObjectModel;
@@ -196,7 +197,6 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     [RelayCommand]
     void RightClick()
     {
-
         ApplicationSetup.ShowLeftPanelWindow();
     }
 
@@ -244,6 +244,21 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
         else
         {
             WallpaperVisibility = Visibility.Collapsed;
+        }
+    }
+
+    [RelayCommand]
+    void CloseMin()
+    {
+        ApplicationSetup.Application.MainWindow.Hide();
+    }
+
+    [RelayCommand]
+    async Task Exit()
+    {
+        if(await DialogManager.ExitApp()== ContentDialogResult.Primary)
+        {
+            Environment.Exit(0);
         }
     }
 }

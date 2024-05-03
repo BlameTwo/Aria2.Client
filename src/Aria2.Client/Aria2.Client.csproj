@@ -20,6 +20,7 @@
     <AppxBundle>Auto</AppxBundle>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <DefaultLanguage>zh-CN</DefaultLanguage>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="assets\About.md" />
@@ -291,6 +292,9 @@
     <None Remove="Views\DownloadPages\ActivePage.xaml" />
     <None Remove="Views\DownloadPages\PausePage.xaml" />
     <None Remove="Views\DownloadPages\StopPage.xaml" />
+    <None Remove="Views\FirstLaunchView\FileSettingsPage.xaml" />
+    <None Remove="Views\FirstLaunchView\HelloAria2Page.xaml" />
+    <None Remove="Views\FirstLaunchView\ThemeSettingPage.xaml" />
     <None Remove="Views\FramePages\AnimePage.xaml" />
     <None Remove="Views\FramePages\SearchPage.xaml" />
     <None Remove="Views\HomePage.xaml" />
@@ -431,6 +435,15 @@
     <None Update="LibSource\aria2c.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\FirstLaunchView\ThemeSettingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\FirstLaunchView\HelloAria2Page.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\FirstLaunchView\FileSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Views\SettingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
