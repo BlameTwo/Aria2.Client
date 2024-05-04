@@ -43,6 +43,7 @@ public static class ProgramLife
             .AddKeyedScoped<INavigationService, ShellNavigationService>(ServiceKey.ShellNavigationServiceKey)
             .AddKeyedScoped<INavigationService, HomeNavigationService>(ServiceKey.HomeNavigationServiceKey)
             .AddKeyedScoped<INavigationViewService, HomeNavigationViewService>(ServiceKey.HomeNavigationViewServiceKey)
+            .AddKeyedScoped<INavigationService, WelcomeNavigationService>(ServiceKey.WelcomeNavigationServiceKey)
             .AddSingleton<ITipShow, TipShow>()
             .AddSingleton<IAria2cClient, Aria2cClient>()
             .AddSingleton<IWallpaperService, WallpaperService>()
@@ -101,6 +102,10 @@ public static class ProgramLife
         #region 第一次启动注册
             .AddTransient<HelloAria2Page>()
             .AddTransient<HelloAria2ViewModel>()
+            .AddTransient<FileSettingsPage>()
+            .AddTransient<FileSettingsViewModel>()
+            .AddTransient<ThemeSettingPage>()
+            .AddTransient<ThemeSettingViewModel>()
         #endregion
             .BuildServiceProvider();
     }

@@ -1,14 +1,20 @@
-﻿using Aria2.Client.Services.Contracts;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using Aria2.Client.Services.Contracts;
 using Aria2.Net;
 using Aria2.Net.Common;
 using Aria2.Net.Models.Enums;
 using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
+using LiveChartsCore;
+using LiveChartsCore.Defaults;
+using LiveChartsCore.SkiaSharpView;
+using Microsoft.UI.Xaml;
 
 namespace Aria2.Client.ViewModels;
 
@@ -16,11 +22,13 @@ public sealed partial class OverviewViewModel : ObservableRecipient
 {
     CancellationTokenRegistration Ctr;
 
+
     public OverviewViewModel(
         IAria2cClient aria2CClient,
         ITipShow tipShow,
         IPickersService pickersService,
-        ILocalSettingsService localSettingsService,IAppMessageService appMessageService
+        ILocalSettingsService localSettingsService,
+        IAppMessageService appMessageService
     )
     {
         Aria2CClient = aria2CClient;
@@ -29,7 +37,14 @@ public sealed partial class OverviewViewModel : ObservableRecipient
         LocalSettingsService = localSettingsService;
         AppMessageService = appMessageService;
         Ctr = new();
+        _downloadSpeed = new();
+        _uploadSpeed = new();
+        InitChart();
+        
     }
+
+   
+
 
     [ObservableProperty]
     Aria2LauncherConfig _Config;
@@ -50,11 +65,13 @@ public sealed partial class OverviewViewModel : ObservableRecipient
         Match upload = Regex.Match(Config.MaxUploadSpeed, @"(\d+)([A-Z]+)");
         this.InputUpload = double.Parse(upload.Groups[1].Value);
         this.SelectUpload = (upload.Groups[2].Value);
-        this.MaxResult = Config.MaxSaveResultCount; 
-        var trackers = await ProgramLife.GetService<ILocalSettingsService>().ReadObjectConfig<List<string>>("Trackers");
-        if (trackers!=null || trackers.Count > 0)
+        this.MaxResult = Config.MaxSaveResultCount;
+        var trackers = await ProgramLife
+            .GetService<ILocalSettingsService>()
+            .ReadObjectConfig<List<string>>("Trackers");
+        if (trackers != null || trackers.Count > 0)
         {
-            TrackerLines = string.Join("\r",trackers);
+            TrackerLines = string.Join("\r", trackers);
         }
     }
 
@@ -65,6 +82,9 @@ public sealed partial class OverviewViewModel : ObservableRecipient
         if (message == GlobalUsings.RequestOK)
             TipShow.ShowMessage("修改配置成功", Microsoft.UI.Xaml.Controls.Symbol.Accept);
     }
+
+    [ObservableProperty]
+    ObservableCollection<ISeries> _Series;
 
     public IAria2cClient Aria2CClient { get; }
     public ITipShow TipShow { get; }

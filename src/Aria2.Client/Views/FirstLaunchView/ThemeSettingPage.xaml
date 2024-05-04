@@ -6,7 +6,88 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Aria2.Client.Views.FirstLaunchView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    NavigationCacheMode="Required"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="6*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <FontIcon
+            VerticalAlignment="Center"
+            FontFamily="Segoe UI Emoji"
+            FontSize="150"
+            Glyph="&#x1F970;">
+            <FontIcon.Transitions>
+                <TransitionCollection>
+                    <ContentThemeTransition />
+                </TransitionCollection>
+            </FontIcon.Transitions>
+        </FontIcon>
+        <Grid
+            Grid.Column="1"
+            Margin="8,8,15,8"
+            Padding="15"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultSolid}"
+            BorderThickness="1"
+            CornerRadius="5">
+            <StackPanel HorizontalAlignment="Stretch" Orientation="Vertical">
+                <TextBlock FontSize="20" Text="2.你的应用可以变得更漂亮" />
+                <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="10,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="Yurikoto 每日壁纸" />
+                    <ToggleSwitch Grid.Column="1" IsOn="{x:Bind ViewModel.WallpaperEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Margin="10,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="颜色模式" />
+                    <ComboBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        SelectedIndex="{x:Bind ViewModel.ThemeColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem x:Uid="Setting_Theme_Color_System" Tag="System" />
+                        <ComboBoxItem x:Uid="Setting_Theme_Color_Light" Tag="Light" />
+                        <ComboBoxItem x:Uid="Setting_Theme_Color_Dark" Tag="Dark" />
+                    </ComboBox>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <NavigationViewItemSeparator Grid.Row="1" Grid.ColumnSpan="2" />
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="5"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+
+            <Button Command="{x:Bind ViewModel.BackCommand}" Content="上一页" />
+            <Button
+                Margin="5,0,0,0"
+                Command="{x:Bind ViewModel.LaunchCommand}"
+                Content="行动"
+                Style="{ThemeResource AccentButtonStyle}" />
+        </StackPanel>
+    </Grid>
 </Page>

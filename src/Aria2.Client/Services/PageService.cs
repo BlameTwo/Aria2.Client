@@ -31,7 +31,13 @@ public sealed partial class PageService:IPageService
         RegisterView<PluginPage, PluginViewModel>();
         RegisterView<AboutPage,AboutViewModel>();
         RegisterView<SettingPage,SettingViewModel>();
+
+
+        #region 首次启动
         RegisterView<HelloAria2Page, HelloAria2ViewModel>();
+        RegisterView<FileSettingsPage, FileSettingsViewModel>();
+        RegisterView<ThemeSettingPage, ThemeSettingViewModel>();
+        #endregion
     }
 
     public Type GetPage(string key)

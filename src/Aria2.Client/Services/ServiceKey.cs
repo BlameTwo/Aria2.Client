@@ -7,4 +7,6 @@ public static class ServiceKey
     public const string HomeNavigationServiceKey = "HomeNavigation";
 
     public const string HomeNavigationViewServiceKey = "HomeNavigationView";
+
+    public const string WelcomeNavigationServiceKey = "WelcomeNavigation";
 }

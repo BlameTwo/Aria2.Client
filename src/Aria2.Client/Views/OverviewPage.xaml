@@ -7,6 +7,8 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:lvc="using:LiveChartsCore.SkiaSharpView.WinUI"
+    xmlns:lvcx="using:LiveChartsCore.SkiaSharpView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="using:CommunityToolkit.WinUI.Controls"
     Margin="40,25,25,25"
@@ -27,6 +29,27 @@
                     <RepositionThemeTransition />
                 </TransitionCollection>
             </StackPanel.ChildrenTransitions>
+            <Grid Height="250">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="7*" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.Column="0"
+                    Background="{ThemeResource AcrylicBackgroundFillColorBaseBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                    <lvc:CartesianChart
+                        Margin="-21.5,10,10,10"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Series="{x:Bind ViewModel.Series, Mode=OneWay}"
+                        XAxes="{x:Bind ViewModel.SpeedX}"
+                        YAxes="{x:Bind ViewModel.SpeedY}"
+                        ZoomMode="None" />
+                </Border>
+            </Grid>
             <TextBlock
                 x:Uid="OverViewPage_Aria2Global"
                 FontSize="15"
