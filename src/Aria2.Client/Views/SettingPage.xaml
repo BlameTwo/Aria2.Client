@@ -7,6 +7,7 @@
     xmlns:local="using:Aria2.Client.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:settings="using:CommunityToolkit.WinUI.Controls"
+    xmlns:wui="using:WinUICommunity"
     Margin="25"
     mc:Ignorable="d">
     <StackPanel HorizontalAlignment="Stretch">
@@ -37,5 +38,6 @@
             </settings:SettingsCard.HeaderIcon>
             <ToggleSwitch IsOn="{x:Bind ViewModel.WallpaperEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </settings:SettingsCard>
+
     </StackPanel>
 </Page>

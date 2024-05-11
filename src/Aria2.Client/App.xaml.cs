@@ -2,12 +2,10 @@
 using Aria2.Client.Extentions;
 using Aria2.Client.Models;
 using Aria2.Client.Services.Contracts;
-using Aria2.Client.ViewModels;
 using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using Windows.ApplicationModel.Activation;
 
 namespace Aria2.Client;

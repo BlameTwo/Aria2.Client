@@ -51,9 +51,6 @@
                 Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
                 CornerRadius="5">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <HyperlinkButton Content="Github" />
-
-                    <HyperlinkButton Content="BiliBili" />
                     <markdown:ImageEx
                         Height="55"
                         Source="Assets/VisualStudioLogo.png"
