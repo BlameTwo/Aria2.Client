@@ -35,7 +35,7 @@ public sealed partial class StopViewModel : DownloadViewModelBase, IRecipient<Te
     }
     public async override Task OnRefreshAsync()
     {
-        var result = await Aria2CClient.GetStopedTaskAsync(0,1,TokenSource.Token);
+        var result = await Aria2CClient.GetStopedTaskAsync(0,1000,TokenSource.Token);
         if (result.Result == null)
             return;
         foreach (var item in result.Result)

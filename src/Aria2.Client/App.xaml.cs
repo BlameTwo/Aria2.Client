@@ -48,7 +48,8 @@ public sealed partial class App : ClientApplication
             {
                 {AppSettingKey.ThemeColor, 1},
                 {AppSettingKey.WallpaperEnable, true },
-                {"SetupFlag",true }
+                {"SetupFlag",true },
+                {"Trackers",new List<string>() }
             });
             FileHelper.CheckFolder(SearchPluginFolder);
             var application = ProgramLife.GetService<IApplicationSetup<App>>();

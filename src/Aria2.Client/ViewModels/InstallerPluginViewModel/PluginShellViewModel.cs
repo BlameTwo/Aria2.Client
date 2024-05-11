@@ -67,8 +67,11 @@ public sealed partial class PluginShellViewModel : ObservableObject
 
     async Task ReadPackage(string fileName)
     {
+#if DEBUG
         Debugger.Launch();
-        _zipfile= ZipFile.OpenRead(fileName);
+#endif
+
+        _zipfile = ZipFile.OpenRead(fileName);
         PluginHostModel model = null;
         foreach (var item in _zipfile.Entries)
         {

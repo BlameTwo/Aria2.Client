@@ -60,7 +60,7 @@ public class NavigationServiceBase : INavigationService
         )
         {
             _parameter = args;
-            return RootFrame.Navigate(pageType,_parameter, new DrillInNavigationTransitionInfo());
+            return RootFrame.Navigate(pageType,_parameter, new SuppressNavigationTransitionInfo());
         }
         return false;
     }

@@ -166,9 +166,12 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
         this._timer.Stop();
         string gid = "";
         bool clearFlage = false;
-        var result = await Aria2CClient.ForceRemove(this._gid, token);
+        var result = await Aria2CClient.RemoveTask(this._gid, token);
         if (result == null)
+        {
+            WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveItemMessager>(new(this, true, false));
             return;
+        }
         gid = result.Result;
         while (true)
         {
@@ -176,6 +179,12 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
             if (token.IsCancellationRequested)
                 break;
             var getResult = await Aria2CClient.GetTellStatusAsync(gid, token);
+            if(getResult == null)
+            {
+                clearFlage = true;
+                WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveItemMessager>(new(this, true, false));
+                break;
+            }
             if (getResult.Result.Status == TellState.Stopped || getResult.Result.Status == TellState.Paused || getResult.Result.Status== TellState.Removed)
             {
                 gid = getResult.Result.Gid;
@@ -185,7 +194,12 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
         if (token.IsCancellationRequested)
             return;
         var clear = await Aria2CClient.Aria2RemoveDownloadResult(gid);
-        if (clear.Result == GlobalUsings.RequestOK)
+        if(clear == null)
+        {
+            clearFlage = true;
+            WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveItemMessager>(new(this, true, false));
+        }
+        else if (clear.Result == GlobalUsings.RequestOK)
         {
             clearFlage = true;
             WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveItemMessager>(new(this, true, false));
@@ -201,7 +215,12 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
         {
             var result = await Aria2CClient.ForcePaush(this.Data.Gid, token);
             if (result == null)
+            {
+                WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveMessager>(
+                    new(TellState.Active, TellState.Paused, _gid)
+                );
                 return;
+            }
             if (result.Result == this._gid)
             {
                 WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveMessager>(

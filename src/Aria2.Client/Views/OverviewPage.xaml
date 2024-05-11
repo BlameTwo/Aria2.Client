@@ -22,26 +22,25 @@
         </core:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     <ScrollView>
-
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <StackPanel.ChildrenTransitions>
                 <TransitionCollection>
                     <RepositionThemeTransition />
                 </TransitionCollection>
             </StackPanel.ChildrenTransitions>
-            <Grid Height="250">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*" />
-                    <ColumnDefinition Width="7*" />
-                </Grid.ColumnDefinitions>
+            <Grid Height="240">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="8*" />
+                </Grid.RowDefinitions>
                 <Border
-                    Grid.Column="0"
+                    Grid.Row="1"
                     Background="{ThemeResource AcrylicBackgroundFillColorBaseBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="5">
                     <lvc:CartesianChart
-                        Margin="-21.5,10,10,10"
+                        Margin="0,0,20,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Series="{x:Bind ViewModel.Series, Mode=OneWay}"
@@ -49,9 +48,31 @@
                         YAxes="{x:Bind ViewModel.SpeedY}"
                         ZoomMode="None" />
                 </Border>
+                <Border
+                    Grid.Row="0"
+                    Padding="10"
+                    Background="{ThemeResource AcrylicBackgroundFillColorBaseBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Center">
+                            <Run Text="当前活动总数：" />
+                            <Run Foreground="{ThemeResource AccentAAFillColorDefaultBrush}" Text="{x:Bind ViewModel.Space.NumActive, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Margin="15,0,0,0" HorizontalAlignment="Center">
+                            <Run Text="当前等待中数量：" />
+                            <Run Foreground="{ThemeResource AccentAAFillColorDefaultBrush}" Text="{x:Bind ViewModel.Space.NumWaiting, Mode=OneWay}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
             </Grid>
             <TextBlock
                 x:Uid="OverViewPage_Aria2Global"
+                Margin="0,8,0,0"
                 FontSize="15"
                 FontWeight="Bold" />
             <setting:SettingsExpander x:Uid="OverViewPage_Aria2GlobalSpeed" Margin="0,5,0,0">
@@ -128,12 +149,6 @@
 
                     </setting:SettingsCard>
                 </setting:SettingsExpander.Items>
-                <Button Style="{ThemeResource TransparentButtonStyle}">
-                    <FontIcon
-                        FontFamily="Segoe Fluent Icons"
-                        FontSize="10"
-                        Glyph="&#xE72C;" />
-                </Button>
             </setting:SettingsExpander>
             <!--<setting:SettingsExpander Margin="0,5,0,0" Header="自动调整下载">
             <setting:SettingsExpander.HeaderIcon>

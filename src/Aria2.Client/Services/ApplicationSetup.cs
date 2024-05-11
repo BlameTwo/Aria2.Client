@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Aria2.Client.Helpers;
 using Aria2.Client.Services.Contracts;
+using Aria2.Client.UI.Controls;
 using Aria2.Client.Views;
 using Aria2.Client.Views.FirstLaunchView;
 using Aria2.Client.Views.InstallerPluginView;
@@ -209,9 +210,10 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
             desiredLeft = workspace.Right - windowWidth;
         }
         var desiredTop = workspace.Height;
+        var dpi = TitleBar.GetScaleAdjustment(LeftPane);
         LeftPane.MoveAndResize(
             desiredLeft,
-            desiredTop - LeftPane.Height,
+            desiredTop - (LeftPane.Height* dpi),
             windowWidth,
             LeftPane.Height
         );

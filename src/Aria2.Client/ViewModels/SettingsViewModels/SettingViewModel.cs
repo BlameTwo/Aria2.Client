@@ -2,7 +2,6 @@
 using Aria2.Client.Models;
 using Aria2.Client.Services.Contracts;
 using System;
-using System.Text.Json;
 
 namespace Aria2.Client.ViewModels;
 

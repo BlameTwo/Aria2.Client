@@ -10,18 +10,13 @@
     Margin="25"
     mc:Ignorable="d">
     <StackPanel HorizontalAlignment="Stretch">
+
         <Grid>
             <TextBlock
                 x:Uid="Setting_Theme_Header"
                 Margin="5,0,0,0"
                 FontSize="15"
                 FontWeight="Bold" />
-            <Button HorizontalAlignment="Right" Style="{ThemeResource TransparentButtonStyle}">
-                <FontIcon
-                    FontFamily="Segoe Fluent Icons"
-                    FontSize="15"
-                    Glyph="&#xE72C;" />
-            </Button>
         </Grid>
 
         <settings:SettingsCard x:Uid="Setting_Theme_Color_Header" Margin="0,8,0,0">

@@ -52,14 +52,14 @@
                 CornerRadius="5">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                     <HyperlinkButton Content="Github" />
-                    <HyperlinkButton Content="AppCenter" />
+
                     <HyperlinkButton Content="BiliBili" />
                     <markdown:ImageEx
-                        Height="60"
+                        Height="55"
                         Source="Assets/VisualStudioLogo.png"
                         Stretch="UniformToFill" />
                     <markdown:ImageEx
-                        Height="60"
+                        Height="55"
                         Source="Assets/CSharpLogo.png"
                         Stretch="UniformToFill" />
                 </StackPanel>

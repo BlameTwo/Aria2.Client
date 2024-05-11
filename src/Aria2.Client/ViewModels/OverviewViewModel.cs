@@ -59,12 +59,26 @@ public sealed partial class OverviewViewModel : ObservableRecipient
         );
         this.LogPath = Config.LogFilePath;
         this.SessionPath = Config.SesionFilePath;
-        Match match = Regex.Match(Config.MaxDownloadSpeed, @"(\d+)([A-Z]+)");
-        this.InputDownload = double.Parse(match.Groups[1].Value);
-        this.SelectDownload = (match.Groups[2].Value);
-        Match upload = Regex.Match(Config.MaxUploadSpeed, @"(\d+)([A-Z]+)");
-        this.InputUpload = double.Parse(upload.Groups[1].Value);
-        this.SelectUpload = (upload.Groups[2].Value);
+        if(Config.MaxDownloadSpeed != "0")
+        {
+            Match match = Regex.Match(Config.MaxDownloadSpeed, @"(\d+)([A-Z]+)");
+            this.InputDownload = double.Parse(match.Groups[1].Value);
+            this.SelectDownload = (match.Groups[2].Value);
+        }
+        else
+        {
+            this.SelectDownload = "M";
+        }
+        if (Config.MaxUploadSpeed != "0")
+        {
+            Match upload = Regex.Match(Config.MaxUploadSpeed, @"(\d+)([A-Z]+)");
+            this.InputUpload = double.Parse(upload.Groups[1].Value);
+            this.SelectUpload = (upload.Groups[2].Value);
+        }
+        else
+        {
+            this.SelectUpload = "M";
+        }
         this.MaxResult = Config.MaxSaveResultCount;
         var trackers = await ProgramLife
             .GetService<ILocalSettingsService>()

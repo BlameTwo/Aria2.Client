@@ -24,8 +24,8 @@ partial class OverviewViewModel
     {
         new Axis()
         {
-            MaxLimit = 100,
-            IsVisible = false
+            IsVisible = true,
+            
         }
     };
 
@@ -64,8 +64,8 @@ partial class OverviewViewModel
         Timer.Start();
         Series = new ObservableCollection<ISeries>()
         {
-            new LineSeries<ObservableValue>() { Values = _downloadSpeed,Fill = null,GeometrySize = 0 },
-            new LineSeries<ObservableValue>() { Values = _uploadSpeed,Fill = null,GeometrySize = 0 }
+            new LineSeries<ObservableValue>() { Values = _downloadSpeed,Fill = null,GeometrySize = 0,MiniatureShapeSize=5 },
+            new LineSeries<ObservableValue>() { Values = _uploadSpeed,Fill = null,GeometrySize = 0 ,MiniatureShapeSize=5,}
         };
     }
 

@@ -1,4 +1,8 @@
-﻿using Aria2.Client.Models;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using Aria2.Client.Models;
 using Aria2.Client.Models.Messagers;
 using Aria2.Client.Models.Wallpaper;
 using Aria2.Client.Services;
@@ -13,15 +17,15 @@ using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 using WinUIEx;
 
 namespace Aria2.Client.ViewModels;
 
-public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tuple<bool, AppNotifyMessager>>,IRecipient<AppClearNotifyMessager>,IRecipient<AppWallpaperMessager>
+public sealed partial class ShellViewModel
+    : ObservableRecipient,
+        IRecipient<Tuple<bool, AppNotifyMessager>>,
+        IRecipient<AppClearNotifyMessager>,
+        IRecipient<AppWallpaperMessager>
 {
     public ShellViewModel(
         IApplicationSetup<App> applicationSetup,
@@ -32,7 +36,11 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
         IDialogManager dialogManager,
         IAria2cClient aria2CClient,
         ITipShow tipShow,
-        IDataFactory dataFactory,IAppMessageService appMessageService,IWallpaperService wallpaperService
+        IDataFactory dataFactory,
+        IAppMessageService appMessageService,
+        IWallpaperService wallpaperService,
+        ILocalSettingsService localSettingsService,
+        IThemeService<App> themeService
     )
     {
         ApplicationSetup = applicationSetup;
@@ -44,12 +52,17 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
         DataFactory = dataFactory;
         AppMessageService = appMessageService;
         WallpaperService = wallpaperService;
+        LocalSettingsService = localSettingsService;
+        ThemeService = themeService;
         Aria2CClient.Aria2ConnectStateChanged += Aria2CClient_Aria2ConnectStateChanged;
         HomeNavigationService.Navigated += HomeNavigationService_Navigated;
         this.IsActive = true;
     }
 
-    private void HomeNavigationService_Navigated(object sender, Microsoft.UI.Xaml.Navigation.NavigationEventArgs e)
+    private void HomeNavigationService_Navigated(
+        object sender,
+        Microsoft.UI.Xaml.Navigation.NavigationEventArgs e
+    )
     {
         this.IsBack = HomeNavigationService.CanGoBack;
     }
@@ -72,6 +85,8 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     public IDataFactory DataFactory { get; }
     public IAppMessageService AppMessageService { get; }
     public IWallpaperService WallpaperService { get; }
+    public ILocalSettingsService LocalSettingsService { get; }
+    public IThemeService<App> ThemeService { get; }
 
     private void Aria2CClient_Aria2ConnectStateChanged(
         object source,
@@ -99,13 +114,13 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     }
 
     [ObservableProperty]
-    ObservableCollection<AppMessageItemData> _MessageList=new();
+    ObservableCollection<AppMessageItemData> _MessageList = new();
 
     [ObservableProperty]
     Visibility _WallpaperVisibility;
 
     [ObservableProperty]
-    int _MessageCount=0;
+    int _MessageCount = 0;
 
     partial void OnMessageCountChanged(int value)
     {
@@ -125,9 +140,23 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     async Task Loaded()
     {
         NavigationService.NavigationTo<HomeViewModel>(null);
-        AppMessageService.SendMessage("Aria2启动成功", "应用消息", Models.Enums.MessageLevel.Default,true);
-        AppMessageService.SendTimeSpanMessage(TimeSpan.FromSeconds(60), "延时关闭消息", "应用消息", Models.Enums.MessageLevel.Default);
+        AppMessageService.SendMessage("Aria2启动成功", "应用消息", Models.Enums.MessageLevel.Default, true);
+        AppMessageService.SendTimeSpanMessage(
+            TimeSpan.FromSeconds(60),
+            "延时关闭消息",
+            "应用消息",
+            Models.Enums.MessageLevel.Default
+        );
         this.WallpaperUrl = await this.WallpaperService.GetYurikoWallpaper();
+        this.WallpaperVisibility =
+            Convert.ToBoolean(
+                (await LocalSettingsService.ReadConfig(AppSettingKey.WallpaperEnable))
+            ) == true
+                ? Visibility.Visible
+                : Visibility.Collapsed;
+        await ThemeService.SetThemeAsync(
+            (ElementTheme)(int)await LocalSettingsService.ReadConfig(AppSettingKey.ThemeColor)
+        );
     }
 
     [RelayCommand]
@@ -165,7 +194,7 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     {
         foreach (var item in MessageList.ToArray())
         {
-            if(item.Data.IsClear)
+            if (item.Data.IsClear)
                 MessageList.Remove(item);
         }
         MessageCount = MessageList.Count;
@@ -182,7 +211,7 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     {
         await Aria2CClient.DisconnectAsync();
         await Aria2CClient.ExitAria2();
-        var reStart =  Microsoft.Windows.AppLifecycle.AppInstance.Restart("");
+        var reStart = Microsoft.Windows.AppLifecycle.AppInstance.Restart("");
     }
 
     [RelayCommand]
@@ -212,7 +241,7 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
         {
             foreach (var item in this.MessageList.ToList())
             {
-                if(item.Data == message.Item2 )
+                if (item.Data == message.Item2)
                 {
                     MessageList.Remove(item);
                     break;
@@ -227,7 +256,7 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     {
         foreach (var item in this.MessageList.ToArray())
         {
-            if(item.Data.Guid == message.Guid)
+            if (item.Data.Guid == message.Guid)
             {
                 MessageList.Remove(item);
             }
@@ -256,7 +285,7 @@ public sealed partial class ShellViewModel : ObservableRecipient, IRecipient<Tup
     [RelayCommand]
     async Task Exit()
     {
-        if(await DialogManager.ExitApp()== ContentDialogResult.Primary)
+        if (await DialogManager.ExitApp() == ContentDialogResult.Primary)
         {
             Environment.Exit(0);
         }
