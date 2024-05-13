@@ -88,7 +88,6 @@ public partial class TitleBar : ContentControl
         DisplayArea displayArea = DisplayArea.GetFromWindowId(wndId, DisplayAreaFallback.Primary);
         IntPtr hMonitor = Win32Interop.GetMonitorFromDisplayId(displayArea.DisplayId);
 
-        // Get DPI.
         int result = GetDpiForMonitor(
             hMonitor,
             Monitor_DPI_Type.MDT_Default,

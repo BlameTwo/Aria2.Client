@@ -7,8 +7,8 @@
     xmlns:local="using:Aria2.Client.Views.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Padding="0"
-    Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
     CornerRadius="5"
+    Style="{ThemeResource DefaultDialogStyle}"
     mc:Ignorable="d">
     <ContentDialog.Resources>
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />

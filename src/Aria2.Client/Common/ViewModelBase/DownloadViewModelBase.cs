@@ -125,6 +125,7 @@ public abstract partial class DownloadViewModelBase: PageViewModelBase
 
     public virtual void OnUnLoad()
     {
+        this.Downloads.CollectionChanged -= Downloads_CollectionChanged;
         TokenSource.Cancel();
     }
 

@@ -10,7 +10,7 @@
     Title="警告"
     BorderBrush="{ThemeResource SystemFillColorCriticalBrush}"
     BorderThickness="2"
-    Style="{ThemeResource DefaultContentDialogStyle}"
+    Style="{ThemeResource DefaultDialogStyle}"
     mc:Ignorable="d">
 
     <TextBlock Text="是否退出程序?" />

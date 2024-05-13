@@ -1,9 +1,9 @@
-﻿using Microsoft.UI.Windowing;
-using Microsoft.UI.Xaml;
-using System.Runtime.InteropServices;
-using System;
-using Windows.Graphics;
+﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Microsoft.UI.Windowing;
+using Microsoft.UI.Xaml;
+using Windows.Graphics;
 
 namespace Aria2.Client.UI.Controls;
 
@@ -21,11 +21,12 @@ partial class TitleBar
         set { SetValue(WindowProperty, value); }
     }
 
-    public static readonly DependencyProperty WindowProperty =
-        DependencyProperty.Register("Window", typeof(Window), typeof(TitleBar), new PropertyMetadata(default,OnWindowChanged));
-
-    
-
+    public static readonly DependencyProperty WindowProperty = DependencyProperty.Register(
+        "Window",
+        typeof(Window),
+        typeof(TitleBar),
+        new PropertyMetadata(default, OnWindowChanged)
+    );
 
     /// <summary>
     /// 是否拓展标题栏
@@ -36,8 +37,12 @@ partial class TitleBar
         set { SetValue(IsExtendsContentIntoTitleBarProperty, value); }
     }
     public static readonly DependencyProperty IsExtendsContentIntoTitleBarProperty =
-        DependencyProperty.Register("IsExtendsContentIntoTitleBar", typeof(bool), typeof(TitleBar), new PropertyMetadata(default));
-
+        DependencyProperty.Register(
+            "IsExtendsContentIntoTitleBar",
+            typeof(bool),
+            typeof(TitleBar),
+            new PropertyMetadata(default)
+        );
 
     /// <summary>
     /// 标题栏
@@ -49,9 +54,12 @@ partial class TitleBar
         set { SetValue(TitleProperty, value); }
     }
 
-    public static readonly DependencyProperty TitleProperty =
-        DependencyProperty.Register("Title", typeof(object), typeof(TitleBar), new PropertyMetadata(default));
-
+    public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
+        "Title",
+        typeof(object),
+        typeof(TitleBar),
+        new PropertyMetadata(default)
+    );
 
     /// <summary>
     /// 头部交互
@@ -62,10 +70,12 @@ partial class TitleBar
         set { SetValue(HeaderProperty, value); }
     }
 
-    public static readonly DependencyProperty HeaderProperty =
-        DependencyProperty.Register("Header", typeof(object), typeof(TitleBar), new PropertyMetadata(default));
-
-
+    public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
+        "Header",
+        typeof(object),
+        typeof(TitleBar),
+        new PropertyMetadata(default)
+    );
 
     #region 对齐方式
     public HorizontalAlignment HeadHorizontalAlignment
@@ -75,9 +85,12 @@ partial class TitleBar
     }
 
     public static readonly DependencyProperty HeadHorizontalAlignmentProperty =
-        DependencyProperty.Register("HeadHorizontalAlignment", typeof(HorizontalAlignment), typeof(TitleBar), new PropertyMetadata(null));
-
-
+        DependencyProperty.Register(
+            "HeadHorizontalAlignment",
+            typeof(HorizontalAlignment),
+            typeof(TitleBar),
+            new PropertyMetadata(null)
+        );
 
     public VerticalAlignment HeadVerticalAlignment
     {
@@ -86,10 +99,12 @@ partial class TitleBar
     }
 
     public static readonly DependencyProperty HeadVerticalAlignmentProperty =
-        DependencyProperty.Register("HeadVerticalAlignment", typeof(VerticalAlignment), typeof(TitleBar), new PropertyMetadata(null));
-
-
-
+        DependencyProperty.Register(
+            "HeadVerticalAlignment",
+            typeof(VerticalAlignment),
+            typeof(TitleBar),
+            new PropertyMetadata(null)
+        );
 
     public HorizontalAlignment TitleHorizontalAlignment
     {
@@ -99,9 +114,12 @@ partial class TitleBar
 
     // Using a DependencyProperty as the backing store for TitleHorizontalAlignment.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty TitleHorizontalAlignmentProperty =
-        DependencyProperty.Register("TitleHorizontalAlignment", typeof(HorizontalAlignment), typeof(TitleBar), new PropertyMetadata(null));
-
-
+        DependencyProperty.Register(
+            "TitleHorizontalAlignment",
+            typeof(HorizontalAlignment),
+            typeof(TitleBar),
+            new PropertyMetadata(null)
+        );
 
     public VerticalAlignment TitleVerticalAlignment
     {
@@ -111,10 +129,12 @@ partial class TitleBar
 
     // Using a DependencyProperty as the backing store for TitleVerticalAlignment.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty TitleVerticalAlignmentProperty =
-        DependencyProperty.Register("TitleVerticalAlignment", typeof(VerticalAlignment), typeof(TitleBar), new PropertyMetadata(null));
-
-
-
+        DependencyProperty.Register(
+            "TitleVerticalAlignment",
+            typeof(VerticalAlignment),
+            typeof(TitleBar),
+            new PropertyMetadata(null)
+        );
 
     public HorizontalAlignment FooterHorizontalAlignment
     {
@@ -124,10 +144,12 @@ partial class TitleBar
 
     // Using a DependencyProperty as the backing store for FooterHorizontalAlignment.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty FooterHorizontalAlignmentProperty =
-        DependencyProperty.Register("FooterHorizontalAlignment", typeof(HorizontalAlignment), typeof(TitleBar), new PropertyMetadata(null));
-
-
-
+        DependencyProperty.Register(
+            "FooterHorizontalAlignment",
+            typeof(HorizontalAlignment),
+            typeof(TitleBar),
+            new PropertyMetadata(null)
+        );
 
     public VerticalAlignment FooterVerticalAlignment
     {
@@ -137,8 +159,12 @@ partial class TitleBar
 
     // Using a DependencyProperty as the backing store for FooterVerticalAlignment.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty FooterVerticalAlignmentProperty =
-        DependencyProperty.Register("FooterVerticalAlignment", typeof(VerticalAlignment), typeof(TitleBar), new PropertyMetadata(null));
-
+        DependencyProperty.Register(
+            "FooterVerticalAlignment",
+            typeof(VerticalAlignment),
+            typeof(TitleBar),
+            new PropertyMetadata(null)
+        );
 
     #endregion
 
@@ -151,10 +177,12 @@ partial class TitleBar
         set { SetValue(FooterProperty, value); }
     }
 
-    public static readonly DependencyProperty FooterProperty =
-        DependencyProperty.Register("Footer", typeof(object), typeof(TitleBar), new PropertyMetadata(default));
-
-
+    public static readonly DependencyProperty FooterProperty = DependencyProperty.Register(
+        "Footer",
+        typeof(object),
+        typeof(TitleBar),
+        new PropertyMetadata(default)
+    );
 
     /// <summary>
     /// 标题栏类型
@@ -166,16 +194,20 @@ partial class TitleBar
     }
 
     // Using a DependencyProperty as the backing store for TitleMode.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty TitleModeProperty =
-        DependencyProperty.Register("TitleMode", typeof(TitleBarHeightOption), typeof(TitleBar), new PropertyMetadata(TitleBarHeightOption.Standard,OnTitleBarModeChanged));
+    public static readonly DependencyProperty TitleModeProperty = DependencyProperty.Register(
+        "TitleMode",
+        typeof(TitleBarHeightOption),
+        typeof(TitleBar),
+        new PropertyMetadata(TitleBarHeightOption.Standard, OnTitleBarModeChanged)
+    );
 
     [DllImport("Shcore.dll", SetLastError = true)]
     public static extern int GetDpiForMonitor(
-      IntPtr hmonitor,
-      Monitor_DPI_Type dpiType,
-      out uint dpiX,
-      out uint dpiY
-   );
+        IntPtr hmonitor,
+        Monitor_DPI_Type dpiType,
+        out uint dpiX,
+        out uint dpiY
+    );
 
     public enum Monitor_DPI_Type : int
     {
@@ -196,8 +228,12 @@ partial class TitleBar
 
     // Using a DependencyProperty as the backing store for IsMaxButtonVisibility.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty IsMaxButtonVisibilityProperty =
-        DependencyProperty.Register("IsMaxButtonVisibility", typeof(bool), typeof(TitleBar), new PropertyMetadata(true, OnMaxButtonVisibilityChanged));
-
+        DependencyProperty.Register(
+            "IsMaxButtonVisibility",
+            typeof(bool),
+            typeof(TitleBar),
+            new PropertyMetadata(true, OnMaxButtonVisibilityChanged)
+        );
 
     /// <summary>
     /// 最小化按钮的可见度
@@ -210,8 +246,12 @@ partial class TitleBar
 
     // Using a DependencyProperty as the backing store for IsMinButtonVisibility.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty IsMinButtonVisibilityProperty =
-        DependencyProperty.Register("IsMinButtonVisibility", typeof(bool), typeof(TitleBar), new PropertyMetadata(true, OnMinButtonVisibilityChanged));
-
+        DependencyProperty.Register(
+            "IsMinButtonVisibility",
+            typeof(bool),
+            typeof(TitleBar),
+            new PropertyMetadata(true, OnMinButtonVisibilityChanged)
+        );
 
     public List<RectInt32> ContentRects
     {
@@ -219,7 +259,10 @@ partial class TitleBar
         set { SetValue(ContentRectsProperty, value); }
     }
 
-    public static readonly DependencyProperty ContentRectsProperty =
-        DependencyProperty.Register("ContentRects", typeof(List<RectInt32>), typeof(TitleBar), new PropertyMetadata(null,OnContentRectChange));
-
+    public static readonly DependencyProperty ContentRectsProperty = DependencyProperty.Register(
+        "ContentRects",
+        typeof(List<RectInt32>),
+        typeof(TitleBar),
+        new PropertyMetadata(null, OnContentRectChange)
+    );
 }
