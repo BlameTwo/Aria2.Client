@@ -2,7 +2,6 @@
 using Aria2.Client.Models.Messagers;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +19,7 @@ public sealed partial class StopViewModel : DownloadViewModelBase, IRecipient<Te
 
     public override void OnInitEnd()
     {
-        this.Aria2CClient.Aria2DownloadStateEvent += Aria2CClient_Aria2DownloadStateEvent;
+        Aria2CClient.Aria2DownloadStateEvent += Aria2CClient_Aria2DownloadStateEvent;
     }
 
     public override void Unregister()
@@ -30,17 +29,16 @@ public sealed partial class StopViewModel : DownloadViewModelBase, IRecipient<Te
             item.Disponse();
         }
         Downloads.Clear();
-        this.Aria2CClient.Aria2DownloadStateEvent -= Aria2CClient_Aria2DownloadStateEvent;
+        Aria2CClient.Aria2DownloadStateEvent -= Aria2CClient_Aria2DownloadStateEvent;
         base.Unregister();
     }
-    public async override Task OnRefreshAsync()
+    public override async Task OnRefreshAsync()
     {
-        var result = await Aria2CClient.GetStopedTaskAsync(0,1000,TokenSource.Token);
+        var result = await Aria2CClient.GetStoppedTaskAsync(0, 1000, TokenSource.Token);
         if (result.Result == null)
             return;
-        foreach (var item in result.Result)
+        foreach (var download in result.Result.Select(DataFactory.CreateownloadTellItemData))
         {
-            var download = DataFactory.CreateownloadTellItemData(item);
             AddDownload(download);
         }
     }
@@ -49,10 +47,9 @@ public sealed partial class StopViewModel : DownloadViewModelBase, IRecipient<Te
     {
         if (message.IsRemove)
         {
-            foreach (var item in Downloads.ToList())
+            foreach (var item in Downloads.ToList().Where(item => item.Data.Gid == message.Value.Data.Gid))
             {
-                if (item.Data.Gid == message.Value.Data.Gid)
-                    Downloads.Remove(item);
+                Downloads.Remove(item);
             }
         }
     }
@@ -63,13 +60,12 @@ public sealed partial class StopViewModel : DownloadViewModelBase, IRecipient<Te
     )
     {
         if (
-            eventType == Net.Enums.WebSocketEventType.Stop
-            || eventType == Net.Enums.WebSocketEventType.Error
+            eventType is Net.Enums.WebSocketEventType.Stop or Net.Enums.WebSocketEventType.Error
         )
         {
-            this.AddDownload(state.Params);
+            AddDownload(state.Params);
             return;
         }
-        this.RemoveDownload(state.Params);
+        RemoveDownload(state.Params);
     }
 }

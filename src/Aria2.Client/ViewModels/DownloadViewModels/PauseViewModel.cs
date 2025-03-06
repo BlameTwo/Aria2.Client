@@ -2,7 +2,6 @@
 using Aria2.Client.Models.Messagers;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,11 +15,11 @@ public sealed partial class PauseViewModel : DownloadViewModelBase, IRecipient<P
         IDataFactory dataFactory,
         IApplicationSetup<App> applicationSetup
     )
-        : base(aria2CClient, dataFactory, applicationSetup) { this.IsActive = true; }
+        : base(aria2CClient, dataFactory, applicationSetup) { IsActive = true; }
 
     public override void OnInitEnd()
     {
-        this.Aria2CClient.Aria2DownloadStateEvent += Aria2CClient_Aria2DownloadStateEvent;
+        Aria2CClient.Aria2DownloadStateEvent += Aria2CClient_Aria2DownloadStateEvent;
         
     }
 
@@ -31,13 +30,13 @@ public sealed partial class PauseViewModel : DownloadViewModelBase, IRecipient<P
             item.Disponse();
         }
         Downloads.Clear();
-        this.Aria2CClient.Aria2DownloadStateEvent -= Aria2CClient_Aria2DownloadStateEvent;
+        Aria2CClient.Aria2DownloadStateEvent -= Aria2CClient_Aria2DownloadStateEvent;
         base.Unregister();
     }
 
-    public async override Task OnRefreshAsync()
+    public override async Task OnRefreshAsync()
     {
-        this.Downloads.Clear();
+        Downloads.Clear();
         var result = await Aria2CClient.GetWaitingTaskAsync(0,1000,TokenSource.Token);
         if (result.Result == null)
             return;
@@ -65,7 +64,7 @@ public sealed partial class PauseViewModel : DownloadViewModelBase, IRecipient<P
     public void Receive(TellTaskStateAddRemoveItemMessager message)
     {
         if (message.IsRemove)
-            this.Downloads.Remove(message.Value);
+            Downloads.Remove(message.Value);
     }
 
     private void Aria2CClient_Aria2DownloadStateEvent(

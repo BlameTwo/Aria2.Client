@@ -17,7 +17,7 @@ public class PluginManager : IPluginManager
     public async IAsyncEnumerable<IBTSearchPlugin> GetSearchPlugins([EnumeratorCancellation]CancellationToken token = default)
     {
         bool flage = true;
-        if (this.SearchPlugins.Count > 0)
+        if (SearchPlugins.Count > 0)
         {
             foreach (var item in SearchPlugins)
             {
@@ -39,7 +39,7 @@ public class PluginManager : IPluginManager
                     var result = await LoadSingleSearchAsync(path.FullName);
                     if (result == null)
                         continue;
-                    this.SearchPlugins.Add(result);
+                    SearchPlugins.Add(result);
                     GC.Collect();
 
                     yield return result;
@@ -51,7 +51,7 @@ public class PluginManager : IPluginManager
     async Task<IBTSearchPlugin> LoadSingleSearchAsync(string path, CancellationToken token = default)
     {
         PluginConfig config = null;
-        var folderName = System.IO.Path.GetDirectoryName(path);
+        var folderName = Path.GetDirectoryName(path);
         if (!Directory.Exists(folderName))
             return null;
         foreach (var item in new DirectoryInfo(folderName).GetFiles("*.json"))
@@ -76,7 +76,7 @@ public class PluginManager : IPluginManager
             config = new();
         if (config.IsUninstall)
         {
-            Directory.Delete(System.IO.Path.GetDirectoryName(path)!, true);
+            Directory.Delete(Path.GetDirectoryName(path)!, true);
             return null;
         }
         using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))

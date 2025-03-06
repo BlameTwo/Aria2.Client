@@ -7,8 +7,8 @@ public sealed partial class AddTorrentDialog : ContentDialog
 {
     public AddTorrentDialog()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<AddTorrentViewModel>();
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<AddTorrentViewModel>();
     }
 
     public AddTorrentViewModel ViewModel { get; }

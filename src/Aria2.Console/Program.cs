@@ -1,8 +1,5 @@
 ﻿// 创建一个新的Web客户端实例
 using HtmlAgilityPack;
-using System.Net;
-using System.ServiceModel.Syndication;
-using System.Xml;
 
 var html= await File.ReadAllTextAsync(AppDomain.CurrentDomain.BaseDirectory+"1.html");
 HtmlDocument doc = new();

@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Threading.Tasks;
-using Windows.Storage;
 using Windows.System;
 
 namespace Aria2.Client.ViewModels;

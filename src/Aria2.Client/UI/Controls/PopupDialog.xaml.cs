@@ -13,10 +13,10 @@ namespace Aria2.Client.UI.Controls
 
         public PopupDialog()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             _popup = new Popup();
             _popup.Child = this;
-            this.Loaded += PopupNoticeLoaded;
+            Loaded += PopupNoticeLoaded;
         }
 
         public PopupDialog(string popupContentString, Panel uIElement, Symbol symbol)
@@ -36,18 +36,18 @@ namespace Aria2.Client.UI.Controls
         private void PopupNoticeLoaded(object sender, RoutedEventArgs e)
         {
             PopupContent.Text = _popupContent;
-            this.PopupIn.Begin();
-            this.PopupIn.Completed += PopupInCompleted;
-            this.Width = uIElement.ActualWidth;
-            this.Height = uIElement.ActualHeight;
+            PopupIn.Begin();
+            PopupIn.Completed += PopupInCompleted;
+            Width = uIElement.ActualWidth;
+            Height = uIElement.ActualHeight;
         }
 
         public async void PopupInCompleted(object sender, object e)
         {
             await Task.Delay(1000);
 
-            this.PopupOut.Begin();
-            this.PopupOut.Completed += PopupOutCompleted;
+            PopupOut.Begin();
+            PopupOut.Completed += PopupOutCompleted;
         }
 
         public void PopupOutCompleted(object sender, object e)

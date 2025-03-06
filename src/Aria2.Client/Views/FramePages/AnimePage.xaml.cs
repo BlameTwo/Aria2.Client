@@ -9,16 +9,16 @@ public sealed partial class AnimePage : Page
 {
     public AnimePage()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<AnimeViewModel>();
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<AnimeViewModel>();
         
     }
 
 
     protected override void OnNavigatedFrom(NavigationEventArgs e)
     {
-        this.ViewModel.Dispose();
-        this.ViewModel = null;
+        ViewModel.Dispose();
+        ViewModel = null;
         GC.Collect();
         GC.WaitForPendingFinalizers();
         base.OnNavigatedFrom(e);

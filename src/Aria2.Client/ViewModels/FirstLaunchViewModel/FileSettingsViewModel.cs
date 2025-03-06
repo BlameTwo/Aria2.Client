@@ -16,8 +16,8 @@ public sealed partial class FileSettingsViewModel : ObservableRecipient
     {
         NavigationService = navigationService;
         LocalSettingsService = localSettingsService;
-        this.LogPath = Aria2Config.LogPath;
-        this.SessionPath = Aria2Config.SessionPath;
+        LogPath = Aria2Config.LogPath;
+        SessionPath = Aria2Config.SessionPath;
     }
 
     public INavigationService NavigationService { get; }
@@ -32,7 +32,7 @@ public sealed partial class FileSettingsViewModel : ObservableRecipient
     [RelayCommand]
     void GoNext() 
     {
-        this.NavigationService.NavigationTo<ThemeSettingViewModel>(null);
+        NavigationService.NavigationTo<ThemeSettingViewModel>(null);
     }
 
 

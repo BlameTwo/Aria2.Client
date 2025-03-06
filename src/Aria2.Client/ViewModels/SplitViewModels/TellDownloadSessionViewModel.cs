@@ -12,7 +12,6 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Linq;
-using System;
 
 namespace Aria2.Client.ViewModels.SplitViewModels;
 
@@ -77,24 +76,24 @@ public sealed partial  class TellDownloadSessionViewModel:ObservableObject
     [RelayCommand]
     void CloseDialog()
     {
-        this._timer.Stop();
-        this._timer = null;
-        this.Peers = null;
-        this.Data = null;
-        this._source.Cancel();
-        this.DialogManager.CloseDialog();
+        _timer.Stop();
+        _timer = null;
+        Peers = null;
+        Data = null;
+        _source.Cancel();
+        DialogManager.CloseDialog();
     }
 
     async Task Refresh()
     {
         if (Data != null)
         {
-            var ips = await Aria2CClient.GetBittorrentPeers(this.Gid, _source.Token);
+            var ips = await Aria2CClient.GetBittorrentPeers(Gid, _source.Token);
             if (ips == null)
             {
                 return;
             }
-            this.Peers = new(ips.Result);
+            Peers = new(ips.Result);
         }
     }
 
@@ -132,9 +131,9 @@ public sealed partial  class TellDownloadSessionViewModel:ObservableObject
 
     public async Task RefreshTask(string gidName)
     {
-        this.Gid = gidName;
-        var data = await Aria2CClient.GetTellStatusAsync(this.Gid, _source.Token);
-        this.Data = DataFactory.CreateownloadTellItemData(data.Result);
+        Gid = gidName;
+        var data = await Aria2CClient.GetTellStatusAsync(Gid, _source.Token);
+        Data = DataFactory.CreateownloadTellItemData(data.Result);
         RefreshTracker();
         _timer = new DispatcherTimer();
         _timer.Tick += _timer_Tick;
@@ -151,25 +150,25 @@ public sealed partial  class TellDownloadSessionViewModel:ObservableObject
         {
             trackers.AddRange(item);
         }
-        this.Trackers = new(trackers);
+        Trackers = new(trackers);
     }
 
     private async Task refreshDownloads()
     {
-        if (this.Data.Data.Bittorrent == null)
+        if (Data.Data.Bittorrent == null)
             return;
-        var downloads = await this.Aria2CClient.GetFiles(this.Gid, _source.Token);
+        var downloads = await Aria2CClient.GetFiles(Gid, _source.Token);
         if (downloads == null)
             return;
-        this.Downloads = new(downloads.Result);
-        this.SelectFile = Downloads.Count();
-        this.Size = 2312;
+        Downloads = new(downloads.Result);
+        SelectFile = Downloads.Count();
+        Size = 2312;
     }
 
     [RelayCommand]
     async Task EditerTask()
     {
-        var pauseResult = await Aria2CClient.ForcePaush(Gid, _source.Token);
+        var pauseResult = await Aria2CClient.ForcePause(Gid, _source.Token);
         if (pauseResult == null)
             return;
         string numbers = "";

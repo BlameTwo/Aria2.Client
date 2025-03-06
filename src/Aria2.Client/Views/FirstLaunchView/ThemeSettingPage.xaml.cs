@@ -7,8 +7,8 @@ public sealed partial class ThemeSettingPage : Page
 {
     public ThemeSettingPage()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<ThemeSettingViewModel>();
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<ThemeSettingViewModel>();
     }
 
     public ThemeSettingViewModel ViewModel { get; }

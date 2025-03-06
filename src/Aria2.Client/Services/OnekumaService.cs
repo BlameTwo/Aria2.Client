@@ -1,10 +1,8 @@
 
 using Aria2.Client.Models.Anime;
-using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Security.Principal;
 using System.ServiceModel.Syndication;
 using System.Text.Json;
 using System.Threading;
@@ -19,7 +17,7 @@ public class OnekumaService:IOnekumaService
 
     public OnekumaService()
     {
-        this._client = new HttpClient();
+        _client = new HttpClient();
     }
     public void AddUrl(string url)
     {

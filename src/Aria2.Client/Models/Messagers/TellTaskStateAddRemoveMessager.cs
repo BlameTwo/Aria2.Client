@@ -1,5 +1,4 @@
-﻿using Aria2.Net.Models.ClientModel;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Aria2.Client.Models.Messagers;
 

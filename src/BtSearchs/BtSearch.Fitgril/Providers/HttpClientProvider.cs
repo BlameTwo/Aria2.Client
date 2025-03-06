@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Text;
+﻿using System.Net.Http;
 
 namespace BtSearch.Fitgril.Providers;
 

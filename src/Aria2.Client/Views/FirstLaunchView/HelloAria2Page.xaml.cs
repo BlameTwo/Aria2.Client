@@ -7,15 +7,15 @@ public sealed partial class HelloAria2Page : Page
 {
     public HelloAria2Page(HelloAria2ViewModel vm)
     {
-        this.InitializeComponent();
-        this.ViewModel = vm;
-        this.ViewModel.NavigationService.RegisterView(this.frame);
+        InitializeComponent();
+        ViewModel = vm;
+        ViewModel.NavigationService.RegisterView(frame);
         Loaded += HelloAria2Page_Loaded;
     }
 
     private void HelloAria2Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        this.titlebar.Window = ViewModel.ApplicationSetup.Application.MainWindow;
+        titlebar.Window = ViewModel.ApplicationSetup.Application.MainWindow;
     }
 
     public HelloAria2ViewModel ViewModel { get; }

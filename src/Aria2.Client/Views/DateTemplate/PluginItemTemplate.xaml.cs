@@ -1,8 +1,6 @@
-using BtSearch.Loader.Models;
 using IBtSearch;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System;
 
 namespace Aria2.Client.Views.DateTemplate;
 
@@ -10,7 +8,7 @@ public sealed partial class PluginItemTemplate : UserControl
 {
     public PluginItemTemplate()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 
     public IBTSearchPlugin Data

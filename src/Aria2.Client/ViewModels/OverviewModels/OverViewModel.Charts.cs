@@ -5,7 +5,6 @@ using Microsoft.UI.Xaml;
 using System.Collections.ObjectModel;
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections;
 using System.Collections.Generic;
 using LiveChartsCore.Kernel.Sketches;
 using Aria2.Net.Models.ClientModel;
@@ -44,12 +43,12 @@ partial class OverviewViewModel
 
     partial void OnSpaceChanged(AllTellStatus value)
     {
-        this._downloadSpeed.Add(new(double.Parse(value.DownloadSpeed)));
+        _downloadSpeed.Add(new(double.Parse(value.DownloadSpeed)));
         if (_downloadSpeed.Count > 100)
         {
             _downloadSpeed.RemoveAt(0);
         }
-        this._uploadSpeed.Add(new(double.Parse(value.UploadSpeed)));
+        _uploadSpeed.Add(new(double.Parse(value.UploadSpeed)));
         if (_uploadSpeed.Count > 100)
         {
             _uploadSpeed.RemoveAt(0);
@@ -72,6 +71,6 @@ partial class OverviewViewModel
     private async void Timer_Tick(object sender, object e)
     {
         var tell = await Aria2CClient.GetAllTellStatus();
-        this.Space = tell.Result;
+        Space = tell.Result;
     }
 }

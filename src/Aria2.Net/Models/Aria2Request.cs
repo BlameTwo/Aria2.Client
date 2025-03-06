@@ -18,7 +18,7 @@ public class Aria2Request
     public string Method { get; set; } = null!;
 
     [JsonPropertyName("params")]
-    public IList<object?>? Parameters { get; set; }
+    public IList<object>? Parameters { get; set; }
 }
 
 
@@ -31,5 +31,5 @@ public class MulticallRequest
     public string MethodName { get; set; } = null!;
 
     [JsonPropertyName("params")]
-    public IList<object> Parameters { get; set; } = new List<object>();
+    public IList<object> Parameters { get; set; } = [];
 }

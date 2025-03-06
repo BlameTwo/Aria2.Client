@@ -1,6 +1,5 @@
 ﻿using Aria2.Client.Models.Wallpaper;
 using Aria2.Client.Services.Contracts;
-using CommunityToolkit.WinUI.UI.Controls.TextToolbarSymbols;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
@@ -14,7 +13,7 @@ public sealed partial class WallpaperService : IWallpaperService
 
     public WallpaperService()
     {
-        this.Client = new();
+        Client = new();
     }
 
     public async Task<YurikotoModel> GetYurikoWallpaper(CancellationToken canceltoken = default)

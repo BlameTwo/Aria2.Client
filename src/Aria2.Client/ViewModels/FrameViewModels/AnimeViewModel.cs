@@ -9,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using static SkiaSharp.HarfBuzz.SKShaper;
 
 namespace Aria2.Client.ViewModels.FrameViewModels;
 
@@ -20,7 +19,7 @@ public sealed partial class AnimeViewModel : ObservableRecipient,IDisposable
         RssService = rssService;
         DataFactory = dataFactory;
         Resources.CollectionChanged += Resources_CollectionChanged;
-        this.CardVisibility = 0;
+        CardVisibility = 0;
         _cts = new();
     }
 
@@ -73,7 +72,7 @@ public sealed partial class AnimeViewModel : ObservableRecipient,IDisposable
         switch (value)
         {
             case "動畫":
-                this.Fansubs = new()
+                Fansubs = new()
                 {
                     "默认",
                     "桜都字幕组",
@@ -110,10 +109,10 @@ public sealed partial class AnimeViewModel : ObservableRecipient,IDisposable
                 };
                 break;
             case "特攝":
-                this.Fansubs = new() { "默认", "魔星字幕团", "DBD制作组", "KRL字幕组", };
+                Fansubs = new() { "默认", "魔星字幕团", "DBD制作组", "KRL字幕组", };
                 break;
             case "日劇":
-                this.Fansubs = new()
+                Fansubs = new()
                 {
                     "默认",
                     "幻月字幕组",
@@ -149,7 +148,7 @@ public sealed partial class AnimeViewModel : ObservableRecipient,IDisposable
                 };
                 break;
             default:
-                this.Fansubs.Clear();
+                Fansubs.Clear();
                 break;
         }
     }
@@ -172,9 +171,9 @@ public sealed partial class AnimeViewModel : ObservableRecipient,IDisposable
     )
     {
         if (Resources.Count == 0)
-            this.CardVisibility = 1;
+            CardVisibility = 1;
         else
-            this.CardVisibility = 0;
+            CardVisibility = 0;
     }
 
 
@@ -183,25 +182,25 @@ public sealed partial class AnimeViewModel : ObservableRecipient,IDisposable
     {
         Number = 1;
         await Refresh(Number);
-        if (this.Resources.Count > 0)
+        if (Resources.Count > 0)
             MaxNumber++;
     }
 
     async Task Refresh(int page)
     {
-        this.Number = page;
-        this.Resources.Clear();
+        Number = page;
+        Resources.Clear();
         AnimeTorrentModel result = null;
         result = await RssService.SearchKeyWord(
                 new List<string>() { Query },
-                Fliter == null ? null : this.Fliter.Split(' ').ToList(),
+                Fliter == null ? null : Fliter.Split(' ').ToList(),
                 SelectType == "默认" ? null : SelectType,
-                this.Fansub == "默认" ? null : this.Fansub,
+                Fansub == "默认" ? null : Fansub,
                 default, Number
             );
         if (result == null)
         {
-            this.CardVisibility = 0;
+            CardVisibility = 0;
             return;
         }
         if (_cts.IsCancellationRequested)
@@ -231,8 +230,8 @@ public sealed partial class AnimeViewModel : ObservableRecipient,IDisposable
     {
         _cts.Cancel();
         ((IDisposable)_cts).Dispose();
-        this.Resources.Clear();
-        this.Resources = null;
+        Resources.Clear();
+        Resources = null;
     }
 
 }

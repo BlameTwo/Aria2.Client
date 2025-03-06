@@ -19,8 +19,8 @@ public partial class SettingViewModel : PageViewModelBase
     {
         #region themeColor
 
-        this.ThemeColor = ((int)await LocalSettingsService.ReadConfig(AppSettingKey.ThemeColor));
-        this.WallpaperEnable = Convert.ToBoolean((await LocalSettingsService.ReadConfig(AppSettingKey.WallpaperEnable)));
+        ThemeColor = ((int)await LocalSettingsService.ReadConfig(AppSettingKey.ThemeColor));
+        WallpaperEnable = Convert.ToBoolean((await LocalSettingsService.ReadConfig(AppSettingKey.WallpaperEnable)));
         #endregion
     }
 

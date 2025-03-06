@@ -7,8 +7,8 @@ public sealed partial class AboutPage : Page
 {
     public AboutPage()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<AboutViewModel>();
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<AboutViewModel>();
     }
 
     public AboutViewModel ViewModel { get; }

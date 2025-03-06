@@ -7,10 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using BtSearch.Fitgril.Providers;
-using CommunityToolkit.Mvvm.Input;
 using HtmlAgilityPack;
 using IBtSearch;
-using IBtSearch.Bases;
 using IBtSearch.Models;
 
 namespace BtSearch.Fitgril;
@@ -149,13 +147,13 @@ public partial class FitgrilPlugin : IBTSearchPlugin
     {
         if (!Directory.Exists(folderPath))
         {
-            this.IsEditerConfig = false;
+            IsEditerConfig = false;
             return;
         }
         JsonPath = folderPath + $"\\{Name}_Config.json";
         if (File.Exists(JsonPath))
         {
-            this.Config =
+            Config =
                 JsonSerializer.Deserialize<PluginConfig>(await File.ReadAllTextAsync(JsonPath))
                 ?? new();
             return;
@@ -167,7 +165,7 @@ public partial class FitgrilPlugin : IBTSearchPlugin
         {
             await writer.WriteLineAsync(JsonSerializer.Serialize(pluginConfig) ?? "");
         }
-        this.Config = pluginConfig;
+        Config = pluginConfig;
     }
 
     public async Task SetUninstall()

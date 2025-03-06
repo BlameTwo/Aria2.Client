@@ -1,12 +1,9 @@
 ﻿using Aria2.Client.Models;
-using Aria2.Client.Services;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Models;
 using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.UI.Xaml;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -23,7 +20,7 @@ public abstract partial class DownloadViewModelBase: PageViewModelBase
         DataFactory = dataFactory;
         ApplicationSetup = applicationSetup;
         OnInitEnd();
-        this.Downloads.CollectionChanged += Downloads_CollectionChanged;
+        Downloads.CollectionChanged += Downloads_CollectionChanged;
     }
 
     private void Downloads_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -38,7 +35,7 @@ public abstract partial class DownloadViewModelBase: PageViewModelBase
     internal void RefreshCard()
     {
 
-        if (this.Downloads.Count == 0)
+        if (Downloads.Count == 0)
             CardVisibility = 1;
         else 
             CardVisibility = 0;
@@ -86,7 +83,7 @@ public abstract partial class DownloadViewModelBase: PageViewModelBase
                 if (gid.Result == null)
                     continue;
                 var tell = DataFactory.CreateownloadTellItemData(gid.Result);
-                if (this.Downloads.Count == 0)
+                if (Downloads.Count == 0)
                 {
                     Downloads.Add(tell);
                     break;
@@ -105,9 +102,9 @@ public abstract partial class DownloadViewModelBase: PageViewModelBase
     {
         ApplicationSetup.TryEnqueue(() =>
         {
-            var list = this.Downloads.Where((x) => x.Data.Gid == download.Data.Gid);
+            var list = Downloads.Where((x) => x.Data.Gid == download.Data.Gid);
             if (list.Count() == 0)
-                this.Downloads.Add(download);
+                Downloads.Add(download);
         });
     }
 
@@ -125,7 +122,7 @@ public abstract partial class DownloadViewModelBase: PageViewModelBase
 
     public virtual void OnUnLoad()
     {
-        this.Downloads.CollectionChanged -= Downloads_CollectionChanged;
+        Downloads.CollectionChanged -= Downloads_CollectionChanged;
         TokenSource.Cancel();
     }
 

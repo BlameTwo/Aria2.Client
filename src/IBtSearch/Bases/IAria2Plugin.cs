@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using IBtSearch.Models;
+﻿using IBtSearch.Models;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 

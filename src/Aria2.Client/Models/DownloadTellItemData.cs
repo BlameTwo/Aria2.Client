@@ -1,5 +1,4 @@
-﻿using Aria2.Client.Common;
-using Aria2.Client.Extentions;
+﻿using Aria2.Client.Extentions;
 using Aria2.Client.Helpers;
 using Aria2.Client.Models.Bases;
 using Aria2.Client.Models.Messagers;
@@ -13,9 +12,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -74,18 +71,18 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     {
         try
         {
-            if (this._stopFlage)
+            if (_stopFlage)
                 return;
-            var result = (await Aria2CClient.GetTellStatusAsync(this.Data.Gid, token));
+            var result = (await Aria2CClient.GetTellStatusAsync(Data.Gid, token));
             if (result == null) return;
-            this.Data = result.Result;
+            Data = result.Result;
             if (Data == null) return;
-            DataRefresh(this.Data);
-            this.ProgressRatio = Math.Round(
+            DataRefresh(Data);
+            ProgressRatio = Math.Round(
                 double.Parse(Data.CompletedLength) / double.Parse(Data.TotalLength) * 100,
                 2
             );
-            this.IsRemoved = (Data.Status == TellState.Stopped || Data.Status == TellState.Removed);
+            IsRemoved = (Data.Status == TellState.Stopped || Data.Status == TellState.Removed);
         }
         catch (Exception ex)
         {
@@ -97,13 +94,13 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     [RelayCommand]
     async Task OpenFolderLocal()
     {
-        var result =  await this.Aria2CClient.GetFiles(this.Data.Gid);
+        var result =  await Aria2CClient.GetFiles(Data.Gid);
         if (Data.Files.Count == 1)
         {
-            int v = Shell.ShellExecute(
+            int v = ShellExecute(
                 IntPtr.Zero, // 父窗口句柄，NULL表示无父窗口
                 "open", // 操作类型，这里为打开操作
-                this.Data.Dir, // 文件名或路径，这里是要打开的文件夹路径
+                Data.Dir, // 文件名或路径，这里是要打开的文件夹路径
                 null, // 参数，对于打开文件夹不需要参数
                 null, // 初始目录，可以为null，默认当前目录
                 ShowCommands.SW_SHOW
@@ -114,7 +111,7 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
             int v = ShellExecute(
                 IntPtr.Zero, // 父窗口句柄，NULL表示无父窗口
                 "open", // 操作类型，这里为打开操作
-                System.IO.Path.GetDirectoryName(Data.Files[0].Path), // 文件名或路径，这里是要打开的文件夹路径
+                Path.GetDirectoryName(Data.Files[0].Path), // 文件名或路径，这里是要打开的文件夹路径
                 null, // 参数，对于打开文件夹不需要参数
                 null, // 初始目录，可以为null，默认当前目录
                 ShowCommands.SW_SHOW
@@ -126,30 +123,30 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
 
     private async void DataRefresh(FileDownloadTell data)
     {
-        this._gid = data.Gid;
+        _gid = data.Gid;
         RefreshFileName();
-        if(this.Data.Bittorrent != null)
+        if(Data.Bittorrent != null)
         {
-            var result = await Aria2CClient.GetBittorrentPeers(this._gid);
-            if(this.Data.Bitfield != null)
+            var result = await Aria2CClient.GetBittorrentPeers(_gid);
+            if(Data.Bitfield != null)
             {
-                var value = TellHelper.GetBitfield(this.Data.Bitfield.ToUpper());
-                this.Bitfields = value;
+                var value = TellHelper.GetBitfield(Data.Bitfield.ToUpper());
+                Bitfields = value;
             }
         }
         switch (data.Status)
         {
             case TellState.Active:
-                this.StateFont = "\uE769";
+                StateFont = "\uE769";
                 break;
             case TellState.Waiting:
-                this.StateFont = "\uE768";
+                StateFont = "\uE768";
                 break;
             case TellState.Paused:
-                this.StateFont = "\uE768";
+                StateFont = "\uE768";
                 break;
             default:
-                this.StateFont = "\uE783";
+                StateFont = "\uE783";
                 break;
         }
     }
@@ -163,10 +160,10 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     [RelayCommand]
     async Task RemoveStopTask()
     {
-        this._timer.Stop();
+        _timer.Stop();
         string gid = "";
         bool clearFlage = false;
-        var result = await Aria2CClient.RemoveTask(this._gid, token);
+        var result = await Aria2CClient.RemoveTask(_gid, token);
         if (result == null)
         {
             WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveItemMessager>(new(this, true, false));
@@ -211,9 +208,9 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     [RelayCommand]
     async Task ActiveTask()
     {
-        if (this.Data.Status == TellState.Active)
+        if (Data.Status == TellState.Active)
         {
-            var result = await Aria2CClient.ForcePaush(this.Data.Gid, token);
+            var result = await Aria2CClient.ForcePause(Data.Gid, token);
             if (result == null)
             {
                 WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveMessager>(
@@ -221,7 +218,7 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
                 );
                 return;
             }
-            if (result.Result == this._gid)
+            if (result.Result == _gid)
             {
                 WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveMessager>(
                     new(TellState.Active, TellState.Paused, _gid)
@@ -229,14 +226,14 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
             }
         }
         else if (
-            this.Data.Status == TellState.Waiting
-            || this.Data.Status == TellState.Paused
-            || this.Data.Status == TellState.Removed
+            Data.Status == TellState.Waiting
+            || Data.Status == TellState.Paused
+            || Data.Status == TellState.Removed
         )
         {
-            var result = await Aria2CClient.Unpause(this.Data.Gid, token);
+            var result = await Aria2CClient.Unpause(Data.Gid, token);
             if(result == null)return;
-            if (result.Result == this._gid)
+            if (result.Result == _gid)
             {
                 WeakReferenceMessenger.Default.Send<TellTaskStateAddRemoveMessager>(
                     new(TellState.Paused, TellState.Active, _gid)
@@ -260,27 +257,27 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     {
         if (Data.Files.Count == 1)
         {
-            this.FileName = System.IO.Path.GetFileName(Data.Files[0].Path);
+            FileName = Path.GetFileName(Data.Files[0].Path);
             var icon =  FileHelper.GetIcon(Data.Files[0].Path, true);
             if(icon == null)
             {
-                this.FileImageVisibility = true;
+                FileImageVisibility = true;
                 return;
             }
             var bitmap = icon.ToBitmap();
             if (bitmap == null)
             {
-                this.FileImageVisibility = true;
+                FileImageVisibility = true;
                 return;
             }
-            this.FileImage = await FileHelper.BitmapToBitmapImage(bitmap);
+            FileImage = await FileHelper.BitmapToBitmapImage(bitmap);
         }
         else
         {
             DirectoryInfo info = new DirectoryInfo(Data.Files[0].Path);
-            this.FileName = info.Parent.Name;
-            this.FileImage = await FileHelper.BitmapToBitmapImage(FileHelper.GetIcon(info.Parent.FullName, true).ToBitmap());
-            this.FileImageVisibility = false;
+            FileName = info.Parent.Name;
+            FileImage = await FileHelper.BitmapToBitmapImage(FileHelper.GetIcon(info.Parent.FullName, true).ToBitmap());
+            FileImageVisibility = false;
         }
     }
 
@@ -288,7 +285,7 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     {
         if (message.OldStatus == message.NewStatus)
             return;
-        if (message.NewStatus != this.Data.Status)
+        if (message.NewStatus != Data.Status)
         {
             cts.Cancel();
             _timer.Stop();
@@ -306,6 +303,6 @@ public partial class DownloadTellItemData : ItemDownloadBase<FileDownloadTell>
     void OpenDetailsDialog()
     {
         //DialogManager.ShowDownloadDetails(this.Data.Gid);
-        WeakReferenceMessenger.Default.Send<OpenDownloadSessionMessager>(new(true, this.Data.Gid));
+        WeakReferenceMessenger.Default.Send<OpenDownloadSessionMessager>(new(true, Data.Gid));
     }
 }

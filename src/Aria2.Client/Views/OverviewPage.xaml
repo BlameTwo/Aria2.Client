@@ -1,14 +1,11 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="Aria2.Client.Views.OverviewPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converter="using:Aria2.Client.Converters"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:lvc="using:LiveChartsCore.SkiaSharpView.WinUI"
-    xmlns:lvcx="using:LiveChartsCore.SkiaSharpView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:setting="using:CommunityToolkit.WinUI.Controls"
     Margin="40,25,25,25"
@@ -17,9 +14,9 @@
         <converter:BackBoolConverter x:Key="BackBoolConverter" />
     </Page.Resources>
     <i:Interaction.Behaviors>
-        <core:EventTriggerBehavior EventName="Loaded">
-            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand, Mode=OneWay}" />
-        </core:EventTriggerBehavior>
+        <i:EventTriggerBehavior EventName="Loaded">
+            <i:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand, Mode=OneWay}" />
+        </i:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     <ScrollView>
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

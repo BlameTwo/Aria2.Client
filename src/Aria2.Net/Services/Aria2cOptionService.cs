@@ -17,11 +17,11 @@ public class Aria2cOptionService : IAria2cOptionService
 
     public async Task<ResultCode<string>> ChangeMaxDownloadAsync(string value, CancellationToken token)
     {
-        return await Aria2CClient.ChangGlobalOption(Models.Enums.Aria2GlobalOptionEnum.MaxAllDownloadLimit, value,token);
+        return await Aria2CClient.ChangeGlobalOption(Models.Enums.Aria2GlobalOptionEnum.MaxAllDownloadLimit, value,token);
     }
 
     public async Task<ResultCode<string>> ChangeMaxUploadAsync(string value, CancellationToken token)
     {
-        return await Aria2CClient.ChangGlobalOption(Models.Enums.Aria2GlobalOptionEnum.MaxAllUploadLimit, value, token);
+        return await Aria2CClient.ChangeGlobalOption(Models.Enums.Aria2GlobalOptionEnum.MaxAllUploadLimit, value, token);
     }
 }

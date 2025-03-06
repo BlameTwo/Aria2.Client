@@ -1,11 +1,7 @@
-﻿using Aria2.Client.Common;
-using Aria2.Client.Services.Contracts;
-using Aria2.Net.Models.ClientModel;
+﻿using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.UI.Xaml;
-using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using WinUIEx;

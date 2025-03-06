@@ -8,22 +8,22 @@ partial class TitleBar
 {
     internal void UpDate()
     {
-        if (this.Window == null) return;
-        if (!this.IsExtendsContentIntoTitleBar)
+        if (Window == null) return;
+        if (!IsExtendsContentIntoTitleBar)
         {
-            this.Window.AppWindow.TitleBar.ExtendsContentIntoTitleBar = false;
-            this.SizeChanged -= TitleBar_SizeChanged;
+            Window.AppWindow.TitleBar.ExtendsContentIntoTitleBar = false;
+            SizeChanged -= TitleBar_SizeChanged;
             return;
         }
         else
         {
-            this.Window.AppWindow.TitleBar.PreferredHeightOption = this.TitleMode;
+            Window.AppWindow.TitleBar.PreferredHeightOption = TitleMode;
         }
-        if(this.TitleMode == Microsoft.UI.Windowing.TitleBarHeightOption.Tall)
+        if(TitleMode == TitleBarHeightOption.Tall)
         {
             VisualStateManager.GoToState(this, "Tall",true);
         }
-        else if(this.TitleMode == Microsoft.UI.Windowing.TitleBarHeightOption.Standard)
+        else if(TitleMode == TitleBarHeightOption.Standard)
         {
             VisualStateManager.GoToState(this, "Standard", true);
         }

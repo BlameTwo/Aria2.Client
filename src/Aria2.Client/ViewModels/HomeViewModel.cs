@@ -2,7 +2,6 @@
 using Aria2.Client.Services;
 using Aria2.Client.Services.Contracts;
 using Aria2.Client.ViewModels.DownloadViewModels;
-using Aria2.Client.ViewModels.FrameViewModels;
 using Aria2.Client.ViewModels.SplitViewModels;
 using Aria2.Client.Views;
 using Aria2.Client.Views.DownloadPages;
@@ -10,10 +9,7 @@ using Aria2.Client.Views.FramePages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using IBtSearch;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI.Xaml.Controls;
-using System.Threading.Tasks;
 
 namespace Aria2.Client.ViewModels;
 
@@ -31,8 +27,8 @@ public sealed partial class HomeViewModel
         NavigationViewService = navigationViewService;
         NavigationService = navigationService;
         NavigationService.Navigated += NavigationService_Navigated;
-        this.TellDownloadSessionViewModel = ProgramLife.GetService<TellDownloadSessionViewModel>();
-        this.IsActive = true;
+        TellDownloadSessionViewModel = ProgramLife.GetService<TellDownloadSessionViewModel>();
+        IsActive = true;
     }
 
     [ObservableProperty]
@@ -59,45 +55,45 @@ public sealed partial class HomeViewModel
         Microsoft.UI.Xaml.Navigation.NavigationEventArgs e
     )
     {
-        var selectedItem = this.NavigationViewService.GetSelectItem(e.SourcePageType);
-        this.NavigationSelectItem = selectedItem;
+        var selectedItem = NavigationViewService.GetSelectItem(e.SourcePageType);
+        NavigationSelectItem = selectedItem;
         if (e.SourcePageType == typeof(ActivePage))
         {
-            this.Title = "活动中";
+            Title = "活动中";
         }
         if (e.SourcePageType == typeof(PausePage))
         {
-            this.Title = "暂停中";
+            Title = "暂停中";
         }
         if (e.SourcePageType == typeof(StopPage))
         {
-            this.Title = "停止中";
+            Title = "停止中";
         }
         if (e.SourcePageType == typeof(OverviewPage))
         {
-            this.Title = "总览";
+            Title = "总览";
         }
         if (e.SourcePageType == typeof(AnimePage))
         {
-            this.Title = "Anime Search";
+            Title = "Anime Search";
         }
         if (e.SourcePageType == typeof(SearchPage))
         {
-            this.Title = "搜索种子";
+            Title = "搜索种子";
         }
         if (e.SourcePageType == typeof(PluginPage))
         {
-            this.Title = "插件管理";
+            Title = "插件管理";
         }
         if(e.SourcePageType == typeof(AboutPage))
         {
-            this.Title = "关于";
+            Title = "关于";
         }
     }
 
     public async void Receive(OpenDownloadSessionMessager message)
     {
-        this.IsPaneOpen = true;
-        await this.TellDownloadSessionViewModel.RefreshTask(message.Gid);
+        IsPaneOpen = true;
+        await TellDownloadSessionViewModel.RefreshTask(message.Gid);
     }
 }

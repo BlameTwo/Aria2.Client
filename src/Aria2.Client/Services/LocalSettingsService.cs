@@ -42,7 +42,7 @@ namespace Aria2.Client.Services
                 //获取到传入的默认值然后写入并保存
                 if (values != null && values.Count > 0)
                 {
-                    this.Config = values;
+                    Config = values;
                     await SaveAsync(token);
                 }
                 return true;
@@ -51,9 +51,9 @@ namespace Aria2.Client.Services
             bool saveFlage = false;
             foreach (var item in values)
             {
-                if (this.Config.ContainsKey(item.Key))
+                if (Config.ContainsKey(item.Key))
                     continue;
-                this.Config.Add(item.Key, item.Value);
+                Config.Add(item.Key, item.Value);
                 saveFlage = true;
             }
             if (saveFlage)

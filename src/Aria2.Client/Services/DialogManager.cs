@@ -3,7 +3,6 @@ using Aria2.Client.Services.Contracts;
 using Aria2.Client.Views.Dialogs;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
 using System;
 using System.Threading.Tasks;
 
@@ -25,7 +24,7 @@ public class DialogManager : IDialogManager
 
     public void RegisterRoot(XamlRoot root)
     {
-        this.Root = root;
+        Root = root;
     }
 
     public async Task ShowAddTorrentAsync()
@@ -35,7 +34,7 @@ public class DialogManager : IDialogManager
         => await ShowDialogAsync<AddUriDialog>();
 
     public async Task ShowAddUriAsync(string url)
-        => await this.ShowDialogAsync<AddUriDialog,string>(url);
+        => await ShowDialogAsync<AddUriDialog,string>(url);
 
     private async Task ShowDialogAsync<T>()
         where T:ContentDialog
@@ -43,7 +42,7 @@ public class DialogManager : IDialogManager
         var dialog = ProgramLife.GetService<T>();
         if (dialog == null) return;
         dialog.XamlRoot = Root;
-        this._dialog = dialog;
+        _dialog = dialog;
         await dialog.ShowAsync();
     }
 
@@ -53,7 +52,7 @@ public class DialogManager : IDialogManager
         var dialog = ProgramLife.GetService<T>();
         if (dialog == null) return ContentDialogResult.None;
         dialog.XamlRoot = Root;
-        this._dialog = dialog;
+        _dialog = dialog;
         return await _dialog.ShowAsync();
     }
 
@@ -62,13 +61,13 @@ public class DialogManager : IDialogManager
         var dialog = ProgramLife.GetService<T>();
         if (dialog == null) return;
         dialog.XamlRoot = Root;
-        this._dialog = dialog;
+        _dialog = dialog;
         dialog.SetData(type);
         await dialog.ShowAsync();
     }
 
     public async Task<ContentDialogResult> ExitApp()
     {
-        return await this.ShowResultDialogAsync<ExitDialog>();
+        return await ShowResultDialogAsync<ExitDialog>();
     }
 }

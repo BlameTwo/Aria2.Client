@@ -7,10 +7,10 @@ public sealed partial class HomePage : Page
 {
     public HomePage()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<HomeViewModel>();
-        this.ViewModel.NavigationService.RegisterView(frame);
-        this.ViewModel.NavigationViewService.Register(navigation);
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<HomeViewModel>();
+        ViewModel.NavigationService.RegisterView(frame);
+        ViewModel.NavigationViewService.Register(navigation);
     }
 
     public HomeViewModel ViewModel { get; }

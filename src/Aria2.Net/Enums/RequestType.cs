@@ -6,6 +6,7 @@ public enum RequestType
     /// WebSocket
     /// </summary>
     WebSocket,
+
     /// <summary>
     /// Http
     /// </summary>

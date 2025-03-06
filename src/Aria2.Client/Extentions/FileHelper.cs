@@ -69,7 +69,7 @@ public static class FileHelper
         // 从句柄创建Icon对象
         if (hImg != IntPtr.Zero)
         {
-            Icon icon = (Icon)System.Drawing.Icon.FromHandle(shinfo.hIcon).Clone();
+            Icon icon = (Icon)Icon.FromHandle(shinfo.hIcon).Clone();
             DestroyIcon(shinfo.hIcon); // 释放系统分配的资源
             return icon;
         }

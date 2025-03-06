@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Aria2.Client.Common;
 using Aria2.Client.Helpers;
 using Aria2.Client.Services.Contracts;
-using Aria2.Client.UI.Controls;
 using Aria2.Client.Views;
 using Aria2.Client.Views.FirstLaunchView;
 using Aria2.Client.Views.InstallerPluginView;
@@ -18,29 +18,23 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.Win32;
 using Microsoft.Windows.AppLifecycle;
 using WinUIEx;
+using TitleBar = Aria2.Client.UI.Controls.TitleBar;
 
 namespace Aria2.Client.Services;
 
-public class ApplicationSetup<App> : IApplicationSetup<App>
-    where App : Aria2.Client.Common.ClientApplication
+public class ApplicationSetup<TApp>(
+    IThemeService<TApp> themeService,
+    ILocalSettingsService localSettingsService)
+    : IApplicationSetup<TApp>
+    where TApp : ClientApplication
 {
-    public ApplicationSetup(
-        IThemeService<App> themeService,
-        ILocalSettingsService localSettingsService
-    )
-    {
-        LeftPane = null;
-        ThemeService = themeService;
-        LocalSettingsService = localSettingsService;
-    }
-
-    public App Application { get; private set; }
+    public TApp Application { get; private set; }
 
     public string AppName = "Aria2.Client";
 
     public TaskbarIcon NotyfiIcon { get; private set; }
 
-    public WindowEx LeftPane;
+    public WindowEx LeftPane = null;
 
     public bool IsSystemSetup
     {
@@ -66,57 +60,61 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
     }
 
     public AppActivationArguments LauncherArgs { get; private set; }
-    public IThemeService<App> ThemeService { get; }
-    public ILocalSettingsService LocalSettingsService { get; }
+    public IThemeService<TApp> ThemeService { get; } = themeService;
+    public ILocalSettingsService LocalSettingsService { get; } = localSettingsService;
 
     public async Task LauncherAsync(
-        App app,
-        Microsoft.Windows.AppLifecycle.AppActivationArguments activatedEventArgs
+        TApp app,
+        AppActivationArguments activatedEventArgs
     )
     {
-        this.LauncherArgs = activatedEventArgs;
+        LauncherArgs = activatedEventArgs;
         var isFlag = Convert.ToBoolean(await LocalSettingsService.ReadConfig("SetupFlag"));
         if (isFlag)
         {
-            this.Application = app;
-            this.Application.MainWindow = new();
-            this.Application.MainWindow.SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop();
-            this.Application.MainWindow.ExtendsContentIntoTitleBar = true;
-            Application.MainWindow.Content = ProgramLife.GetService<HelloAria2Page>();
-            this.Application.MainWindow.MinWidth = 800;
-            this.Application.MainWindow.MinHeight = 470;
-            this.Application.MainWindow.Width = 800;
-            this.Application.MainWindow.Height = 470;
-            this.Application.MainWindow.MaxWidth = 800;
-            this.Application.MainWindow.MaxHeight = 470;
-            this.Application.MainWindow.IsMaximizable = false;
-            this.Application.MainWindow.IsMinimizable = false;
-            this.Application.MainWindow.IsResizable = true;
-            this.Application.MainWindow.Activate();
+            Application = app;
+            Application.MainWindow = new()
+            {
+                SystemBackdrop = new MicaBackdrop(),
+                ExtendsContentIntoTitleBar = true,
+                Content = ProgramLife.GetService<HelloAria2Page>(),
+                MinWidth = 800,
+                MinHeight = 470,
+                Width = 800,
+                Height = 470,
+                MaxWidth = 800,
+                MaxHeight = 470,
+                IsMaximizable = false,
+                IsMinimizable = false,
+                IsResizable = true
+            };
+            Application.MainWindow.Activate();
         }
         else if (
-            activatedEventArgs.Kind == Microsoft.Windows.AppLifecycle.ExtendedActivationKind.Launch
+            activatedEventArgs.Kind == ExtendedActivationKind.Launch
         )
         {
-            this.Application = app;
-            this.Application.MainWindow = new();
-            this.Application.MainWindow.ExtendsContentIntoTitleBar = true;
-            Application.MainWindow.Content = ProgramLife.GetService<ShellPage>();
-            this.Application.MainWindow.AppWindow.Closing += (sender, e) =>
+            Application = app;
+            Application.MainWindow = new()
+            {
+                ExtendsContentIntoTitleBar = true,
+                Content = ProgramLife.GetService<ShellPage>(),
+                SystemBackdrop = new MicaBackdrop(),
+                MinWidth = 500,
+                MinHeight = 550
+            };
+            Application.MainWindow.AppWindow.Closing += (sender, e) =>
             {
                 e.Cancel = true;
-                this.Application.MainWindow.Hide();
+                Application.MainWindow.Hide();
             };
-            this.Application.MainWindow.SystemBackdrop = new MicaBackdrop();
-            this.Application.MainWindow.Activate();
-            this.Application.MainWindow.MinWidth = 500;
-            this.Application.MainWindow.MinHeight = 550;
+            Application.MainWindow.Activate();
             var trackers = await ProgramLife
                 .GetService<ILocalSettingsService>()
                 .ReadObjectConfig<List<string>>("Trackers");
             var config = new Aria2LauncherConfig()
             {
-                SesionFilePath = Aria2Config.SessionPath,
+                SessionFilePath = Aria2Config.SessionPath,
                 LogFilePath = Aria2Config.LogPath,
                 BtTracker = trackers,
                 MaxDownloadSpeed = "0",
@@ -128,29 +126,31 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
             await ProgramLife.GetService<IAria2cClient>().ConnectAsync();
         }
         else if (
-            activatedEventArgs.Kind == Microsoft.Windows.AppLifecycle.ExtendedActivationKind.File
+            activatedEventArgs.Kind == ExtendedActivationKind.File
         )
         {
-            this.Application = app;
-            this.Application.MainWindow = new();
-            this.Application.MainWindow.SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop();
-            this.Application.MainWindow.ExtendsContentIntoTitleBar = true;
-            Application.MainWindow.Content = ProgramLife.GetService<PluginShellPage>();
-            this.Application.MainWindow.Activate();
+            Application = app;
+            Application.MainWindow = new()
+            {
+                SystemBackdrop = new MicaBackdrop(),
+                ExtendsContentIntoTitleBar = true,
+                Content = ProgramLife.GetService<PluginShellPage>()
+            };
+            Application.MainWindow.Activate();
         }
         await InitAsync(app);
     }
 
-    private async Task InitAsync(App app)
+    private async Task InitAsync(TApp app)
     {
         await ThemeService.InitializeAsync(app);
     }
 
     private void InitSettings(Aria2LauncherConfig config)
     {
-        var localsetting = ProgramLife.GetService<ILocalSettingsService>();
+        var localSetting = ProgramLife.GetService<ILocalSettingsService>();
         Dictionary<string, object> settings = new() { { "LauncherConfig", config } };
-        localsetting.InitSetting(settings);
+        localSetting.InitSetting(settings);
     }
 
     public void SetSystemSetup(string appPath, bool enable)
@@ -177,26 +177,21 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
 
     public void TryEnqueue(Action action)
     {
-        this.Application.MainWindow.DispatcherQueue.TryEnqueue(
+        Application.MainWindow.DispatcherQueue.TryEnqueue(
             new Microsoft.UI.Dispatching.DispatcherQueueHandler(() => action())
         );
     }
 
     public void RegisterNotifyIcon(TaskbarIcon icon)
     {
-        this.NotyfiIcon = icon;
+        NotyfiIcon = icon;
     }
 
     public void ShowLeftPanelWindow()
     {
-        LeftPane = new();
-        LeftPane.SystemBackdrop = new DesktopAcrylicBackdrop();
-        LeftPane.Height = 450;
-        LeftPane.Width = 350;
-        var postion = WindowHelper.GetCursorPos(out var lpPoint);
+        var position = WindowHelper.GetCursorPos(out var lpPoint);
         var width = WindowHelper.GetSystemMetrics(WindowHelper.SM_CXSCREEN);
         var height = WindowHelper.GetSystemMetrics(WindowHelper.SM_CYSCREEN);
-        var warkspace = WindowHelper.GetDesktopWorkArea();
         var windowWidth = LeftPane.Width;
         var halfWindowWidth = windowWidth / 2;
         var desiredLeft = lpPoint.X - halfWindowWidth;
@@ -211,39 +206,45 @@ public class ApplicationSetup<App> : IApplicationSetup<App>
         }
         var desiredTop = workspace.Height;
         var dpi = TitleBar.GetScaleAdjustment(LeftPane);
+        LeftPane = new()
+        {
+            SystemBackdrop = new DesktopAcrylicBackdrop(),
+            Height = 450,
+            Width = 350,
+            ExtendsContentIntoTitleBar = true,
+            IsMinimizable = false,
+            IsMaximizable = false,
+            IsResizable = false,
+            IsTitleBarVisible = false,
+            Content = ProgramLife.GetService<NotifyMainPage>()
+        };
         LeftPane.MoveAndResize(
             desiredLeft,
             desiredTop - (LeftPane.Height* dpi),
             windowWidth,
             LeftPane.Height
         );
-        LeftPane.ExtendsContentIntoTitleBar = true;
-        LeftPane.IsMinimizable = false;
-        LeftPane.IsMaximizable = false;
-        LeftPane.IsResizable = false;
-        LeftPane.IsTitleBarVisible = false;
-        LeftPane.Content = ProgramLife.GetService<NotyfiMainPage>();
         LeftPane.Activate();
         LeftPane.Activated += LeftPane_Activated;
         LeftPane.Content.Focus(FocusState.Pointer);
     }
 
-    private void LeftPane_Activated(object sender, Microsoft.UI.Xaml.WindowActivatedEventArgs args)
+    private void LeftPane_Activated(object sender, WindowActivatedEventArgs args)
     {
-        if (args.WindowActivationState == Microsoft.UI.Xaml.WindowActivationState.Deactivated)
+        if (args.WindowActivationState == WindowActivationState.Deactivated)
         {
             Debug.WriteLine("取消激活");
             LeftPane.Close();
             LeftPane = null;
         }
         else if (
-            args.WindowActivationState == Microsoft.UI.Xaml.WindowActivationState.CodeActivated
+            args.WindowActivationState == WindowActivationState.CodeActivated
         )
         {
             ShowLeftPanelWindow();
         }
         else if (
-            args.WindowActivationState == Microsoft.UI.Xaml.WindowActivationState.PointerActivated
+            args.WindowActivationState == WindowActivationState.PointerActivated
         )
         {
             ShowLeftPanelWindow();

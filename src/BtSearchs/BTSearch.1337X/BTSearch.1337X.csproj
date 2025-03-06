@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>BTSearch._1337X</RootNamespace>
     <Nullable>enable</Nullable>
-	  <LangVersion>11.0</LangVersion>
+	  <LangVersion>latest</LangVersion>
 	  <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
 

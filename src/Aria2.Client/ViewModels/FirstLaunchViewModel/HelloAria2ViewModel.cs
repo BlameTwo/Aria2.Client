@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Aria2.Client.Services;
 using Aria2.Client.Services.Contracts;
 using Aria2.Client.Views.FirstLaunchView;
@@ -46,18 +45,18 @@ public sealed partial class HelloAria2ViewModel : ObservableRecipient
     [RelayCommand]
     void Loaded()
     {
-        this.NavigationService.NavigationTo<FileSettingsViewModel>(null);
+        NavigationService.NavigationTo<FileSettingsViewModel>(null);
     }
 
     internal void RefreshContent(BreadcrumbBarItemClickedEventArgs args)
     {
         if (args.Index == 0)
         {
-            this.NavigationService.NavigationTo<FileSettingsViewModel>(null);
+            NavigationService.NavigationTo<FileSettingsViewModel>(null);
         }
         else if (args.Index == 1)
         {
-            this.NavigationService.NavigationTo<ThemeSettingViewModel>(null);
+            NavigationService.NavigationTo<ThemeSettingViewModel>(null);
         }
     }
 }

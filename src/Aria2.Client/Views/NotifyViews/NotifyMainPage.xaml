@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <Page
-    x:Class="Aria2.Client.Views.NotifyViews.NotyfiMainPage"
+    x:Class="Aria2.Client.Views.NotifyViews.NotifyMainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cui="using:CommunityToolkit.WinUI.Controls"

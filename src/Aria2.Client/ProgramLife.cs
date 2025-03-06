@@ -22,7 +22,6 @@ using Aria2.Net.Contracts;
 using Aria2.Net.Services;
 using Aria2.Net.Services.Contracts;
 using BtSearch.Loader.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Aria2.Client;
@@ -70,7 +69,7 @@ public static class ProgramLife
             .AddTransient<PluginViewModel>()
             .AddTransient<ExitDialog>()
         #region 托盘图标
-            .AddSingleton<NotyfiMainPage>()
+            .AddSingleton<NotifyMainPage>()
             .AddSingleton<NotifyMainViewModel>()
         #endregion
         #region 插件安装

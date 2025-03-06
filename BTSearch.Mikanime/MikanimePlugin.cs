@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
@@ -30,13 +29,13 @@ public class MikanimePlugin : IBTSearchPlugin
     {
         if (!Directory.Exists(folderPath))
         {
-            this.IsEditerConfig = false;
+            IsEditerConfig = false;
             return;
         }
         JsonPath = folderPath + $"\\{Name}_Config.json";
         if (File.Exists(JsonPath))
         {
-            this.Config =
+            Config =
                 JsonSerializer.Deserialize<PluginConfig>(await File.ReadAllTextAsync(JsonPath))
                 ?? new();
             return;
@@ -48,12 +47,12 @@ public class MikanimePlugin : IBTSearchPlugin
         {
             await writer.WriteLineAsync(JsonSerializer.Serialize(pluginConfig) ?? "");
         }
-        this.Config = pluginConfig;
+        Config = pluginConfig;
     }
 
     public MikanimePlugin()
     {
-        this.HttpClientProvider = new(true);
+        HttpClientProvider = new(true);
     }
 
     public async IAsyncEnumerable<BTSearchResult> SearchAsync(

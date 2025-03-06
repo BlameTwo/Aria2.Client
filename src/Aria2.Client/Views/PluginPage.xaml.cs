@@ -9,14 +9,14 @@ public sealed partial class PluginPage : Page
 {
     public PluginPage()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<PluginViewModel>();
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<PluginViewModel>();
     }
 
     protected override void OnNavigatedFrom(NavigationEventArgs e)
     {
         ViewModel.Unregister();
-        this.ViewModel = null;
+        ViewModel = null;
         GC.Collect();
         base.OnNavigatedFrom(e);
     }

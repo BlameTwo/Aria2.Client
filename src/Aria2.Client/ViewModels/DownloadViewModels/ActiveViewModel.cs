@@ -1,15 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Aria2.Client.Common.ViewModelBase;
-using Aria2.Client.Models;
 using Aria2.Client.Models.Messagers;
-using Aria2.Client.Services;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;
-using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace Aria2.Client.ViewModels.DownloadViewModels;

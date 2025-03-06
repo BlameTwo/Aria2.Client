@@ -7,8 +7,8 @@ public sealed partial class SettingPage : Page
 {
     public SettingPage()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<SettingViewModel>();
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<SettingViewModel>();
        
     }
 

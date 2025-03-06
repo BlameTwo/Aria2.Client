@@ -2,16 +2,15 @@
 using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Threading.Tasks;
-using WinUIEx;
 
 namespace Aria2.Client.Services.Contracts;
 
 public interface IApplicationSetup<App>
-    where App : Aria2.Client.Common.ClientApplication
+    where App : Common.ClientApplication
 {
     public App Application { get; }
 
-    public Task LauncherAsync(App app, Microsoft.Windows.AppLifecycle.AppActivationArguments activatedEventArgs);
+    public Task LauncherAsync(App app, AppActivationArguments activatedEventArgs);
 
     public void TryEnqueue(Action action);
 
