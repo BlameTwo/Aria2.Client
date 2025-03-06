@@ -9,8 +9,8 @@ namespace Aria2.Client.Views.DownloadPages
     {
         public ActivePage()
         {
-            this.InitializeComponent();
-            this.ViewModel = ProgramLife.GetService<ActiveViewModel>();
+            InitializeComponent();
+            ViewModel = ProgramLife.GetService<ActiveViewModel>();
         }
 
         public ActiveViewModel ViewModel { get; private set; }
@@ -18,7 +18,7 @@ namespace Aria2.Client.Views.DownloadPages
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             ViewModel.Unregister();
-            this.ViewModel = null;
+            ViewModel = null;
             GC.Collect();
             base.OnNavigatingFrom(e);
         }

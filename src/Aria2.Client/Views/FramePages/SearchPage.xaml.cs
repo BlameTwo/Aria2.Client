@@ -11,14 +11,14 @@ namespace Aria2.Client.Views.FramePages
     {
         public SearchPage()
         {
-            this.InitializeComponent();
-            this.ViewModel = ProgramLife.GetService<SearchViewModel>();
+            InitializeComponent();
+            ViewModel = ProgramLife.GetService<SearchViewModel>();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            this.ViewModel.Unregister();
-            this.ViewModel = null;
+            ViewModel.Unregister();
+            ViewModel = null;
             GC.Collect();
             base.OnNavigatingFrom(e);
         }

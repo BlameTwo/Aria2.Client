@@ -7,18 +7,18 @@ public sealed partial class ShellPage : Page
 {
     public ShellPage()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<ShellViewModel>();
-        this.ViewModel.NavigationService.RegisterView(frame);
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<ShellViewModel>();
+        ViewModel.NavigationService.RegisterView(frame);
         Loaded += ShellPage_Loaded;
     }
 
     private void ShellPage_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        this.TitleBar.Window = ViewModel.ApplicationSetup.Application.MainWindow;
-        this.ViewModel.DialogManager.RegisterRoot(this.XamlRoot);
-        this.ViewModel.ApplicationSetup.RegisterNotifyIcon(this.notifyIcon);
-        this.ViewModel.TipShow.Owner = this.grid;
+        TitleBar.Window = ViewModel.ApplicationSetup.Application.MainWindow;
+        ViewModel.DialogManager.RegisterRoot(XamlRoot);
+        ViewModel.ApplicationSetup.RegisterNotifyIcon(notifyIcon);
+        ViewModel.TipShow.Owner = grid;
     }
 
     public ShellViewModel ViewModel { get; }

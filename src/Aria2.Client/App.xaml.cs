@@ -14,8 +14,8 @@ public sealed partial class App : ClientApplication
 {
     public App()
     {
-        this.InitializeComponent();
-        this.UnhandledException += App_UnhandledException;
+        InitializeComponent();
+        UnhandledException += App_UnhandledException;
         
     }
 
@@ -33,7 +33,7 @@ public sealed partial class App : ClientApplication
     public static string SearchPluginFolder =
         Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Aria2ClientPlugin";
 
-    public Microsoft.Windows.AppLifecycle.AppInstance Instance { get; private set; }
+    public AppInstance Instance { get; private set; }
 
     protected async override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {

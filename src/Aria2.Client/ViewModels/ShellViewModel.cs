@@ -56,7 +56,7 @@ public sealed partial class ShellViewModel
         ThemeService = themeService;
         Aria2CClient.Aria2ConnectStateChanged += Aria2CClient_Aria2ConnectStateChanged;
         HomeNavigationService.Navigated += HomeNavigationService_Navigated;
-        this.IsActive = true;
+        IsActive = true;
     }
 
     private void HomeNavigationService_Navigated(
@@ -64,7 +64,7 @@ public sealed partial class ShellViewModel
         Microsoft.UI.Xaml.Navigation.NavigationEventArgs e
     )
     {
-        this.IsBack = HomeNavigationService.CanGoBack;
+        IsBack = HomeNavigationService.CanGoBack;
     }
 
     [ObservableProperty]
@@ -110,7 +110,7 @@ public sealed partial class ShellViewModel
                 await Aria2CClient.ReconnectionSocket();
             });
         }
-        catch (System.Exception) { }
+        catch (Exception) { }
     }
 
     [ObservableProperty]
@@ -147,8 +147,8 @@ public sealed partial class ShellViewModel
             "应用消息",
             Models.Enums.MessageLevel.Default
         );
-        this.WallpaperUrl = await this.WallpaperService.GetYurikoWallpaper();
-        this.WallpaperVisibility =
+        WallpaperUrl = await WallpaperService.GetYurikoWallpaper();
+        WallpaperVisibility =
             Convert.ToBoolean(
                 (await LocalSettingsService.ReadConfig(AppSettingKey.WallpaperEnable))
             ) == true
@@ -233,13 +233,13 @@ public sealed partial class ShellViewModel
     {
         if (message.Item1)
         {
-            this.MessageList.Add(
+            MessageList.Add(
                 DataFactory.CreateItemData<AppMessageItemData, AppNotifyMessager>(message.Item2)
             );
         }
         else
         {
-            foreach (var item in this.MessageList.ToList())
+            foreach (var item in MessageList.ToList())
             {
                 if (item.Data == message.Item2)
                 {
@@ -249,12 +249,12 @@ public sealed partial class ShellViewModel
             }
         }
 
-        this.MessageCount = MessageList.Count;
+        MessageCount = MessageList.Count;
     }
 
     public void Receive(AppClearNotifyMessager message)
     {
-        foreach (var item in this.MessageList.ToArray())
+        foreach (var item in MessageList.ToArray())
         {
             if (item.Data.Guid == message.Guid)
             {

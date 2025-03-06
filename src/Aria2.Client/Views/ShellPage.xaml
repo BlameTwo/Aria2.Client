@@ -3,8 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:coui="using:CommunityToolkit.WinUI"
     xmlns:cui="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
@@ -17,9 +15,9 @@
     xmlns:wui="using:WinUICommunity"
     mc:Ignorable="d">
     <i:Interaction.Behaviors>
-        <core:EventTriggerBehavior EventName="Loaded">
-            <core:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand, Mode=OneWay}" />
-        </core:EventTriggerBehavior>
+        <i:EventTriggerBehavior EventName="Loaded">
+            <i:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand, Mode=OneWay}" />
+        </i:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     <Page.Resources>
         <Style x:Key="MyGooeyButtonItem" TargetType="wui:GooeyButtonItem">

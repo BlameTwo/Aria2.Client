@@ -1,19 +1,15 @@
-﻿using Aria2.Client.Common;
-using Aria2.Client.Common.ViewModelBase;
+﻿using Aria2.Client.Common.ViewModelBase;
 using Aria2.Client.Models;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;
-using BtSearch.Loader.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using IBtSearch;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Media.Devices;
 
 namespace Aria2.Client.ViewModels.FrameViewModels;
 
@@ -42,7 +38,7 @@ public sealed partial class SearchViewModel : PageViewModelBase
             if (item == null)
                 continue;
             if (item.Config!=null && item.Config.IsEnabled)
-                this.Tabs.Add(item);
+                Tabs.Add(item);
         }
     }
 
@@ -78,33 +74,33 @@ public sealed partial class SearchViewModel : PageViewModelBase
     {
         try
         {
-            if (string.IsNullOrWhiteSpace(this.Query))
+            if (string.IsNullOrWhiteSpace(Query))
                 return;
             IsRun = true;
-            this.RunTip = "正在检索";
-            this.Result.Clear();
+            RunTip = "正在检索";
+            Result.Clear();
             
             await foreach (var item in SearchTag.SearchAsync(Query, cts.Token))
             {
                 if (item == null)
                     continue;
-                this.Result.Add(DataFactory.CreateBTSearchRresultItem(item));
-                this.RunTip =
+                Result.Add(DataFactory.CreateBTSearchRresultItem(item));
+                RunTip =
                     $"当前检索位置{item.NowPage - 1}页，最大页面{item.MaxPageCount}，检索总数{Result.Count}";
             }
         }
         catch (Exception)
         {
-            this.cts = new CancellationTokenSource();
+            cts = new CancellationTokenSource();
         }
-        this.RunTip = $"检索总数{Result.Count},开始搜索后清空";
+        RunTip = $"检索总数{Result.Count},开始搜索后清空";
         IsRun = false;
     }
 
     public override void Unregister()
     {
         cts.Cancel();
-        this.Result.Clear();
+        Result.Clear();
         base.Unregister();
     }
 

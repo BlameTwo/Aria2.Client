@@ -19,7 +19,7 @@ public class ResultCode<T>
 public class WebSocketResultCode
 {
     [JsonPropertyName("jsonrpc")]
-    public string JsonPrc { get; set; }
+    public string JsonRpc { get; set; }
 
     [JsonPropertyName("method")]
     public string Method { get; set; }

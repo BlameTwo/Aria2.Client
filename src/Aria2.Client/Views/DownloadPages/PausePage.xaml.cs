@@ -9,8 +9,8 @@ public sealed partial class PausePage : Page
 {
     public PausePage()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<PauseViewModel>();
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<PauseViewModel>();
     }
 
     public PauseViewModel ViewModel { get; private set; }
@@ -18,7 +18,7 @@ public sealed partial class PausePage : Page
     protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
     {
         ViewModel.Unregister();
-        this.ViewModel = null;
+        ViewModel = null;
         GC.Collect();
         base.OnNavigatingFrom(e);
     }

@@ -7,14 +7,14 @@ public sealed partial class AddUriDialog : ContentDialog, IDialogBase<string>
 {
     public AddUriDialog()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<AddUriViewModel>();
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<AddUriViewModel>();
     }
 
     public AddUriViewModel ViewModel { get; }
 
     public void SetData(string data)
     {
-        this.ViewModel.TextUri = data;
+        ViewModel.TextUri = data;
     }
 }

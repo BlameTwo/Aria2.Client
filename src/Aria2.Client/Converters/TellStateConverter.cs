@@ -2,7 +2,6 @@
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using System;
-using System.Globalization;
 using Windows.UI;
 
 namespace Aria2.Client.Converters;

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using WinUIEx;
 
 namespace Aria2.Client.Helpers;
 
@@ -10,7 +9,7 @@ public class WindowHelper
 
 
     [DllImport("user32.dll")]
-    public static extern bool GetCursorPos(out System.Drawing.Point lpPoint);
+    public static extern bool GetCursorPos(out Point lpPoint);
 
     [DllImport("user32.dll")]
     public static extern int GetSystemMetrics(int nIndex);

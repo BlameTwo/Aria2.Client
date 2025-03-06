@@ -3,8 +3,6 @@ using Aria2.Client.Models.Messagers;
 using Aria2.Client.Services.Contracts;
 using CommunityToolkit.Mvvm.Messaging;
 using System;
-using System.Reflection.Emit;
-using WinUIEx.Messaging;
 
 namespace Aria2.Client.Services;
 

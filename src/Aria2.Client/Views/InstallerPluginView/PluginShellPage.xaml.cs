@@ -8,17 +8,17 @@ public sealed partial class PluginShellPage : Page
 {
     public PluginShellPage()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<PluginShellViewModel>();
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<PluginShellViewModel>();
         Loaded += PluginShellPage_Loaded;
     }
 
     private void PluginShellPage_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        this.titlebar.Window = ProgramLife.GetService<IApplicationSetup<App>>().Application.MainWindow;
+        titlebar.Window = ProgramLife.GetService<IApplicationSetup<App>>().Application.MainWindow;
 
-        this.ViewModel.DialogManager.RegisterRoot(this.XamlRoot);
-        this.ViewModel.TipShow.Owner = this.grid;
+        ViewModel.DialogManager.RegisterRoot(XamlRoot);
+        ViewModel.TipShow.Owner = grid;
     }
 
     public PluginShellViewModel ViewModel { get; }

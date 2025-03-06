@@ -1,9 +1,7 @@
 ﻿using Aria2.Client.Models.Messagers;
-using Aria2.Client.Services;
 using Aria2.Client.Services.Contracts;
 using Aria2.Net;
 using Aria2.Net.Models.ClientModel;
-using Aria2.Net.Services;
 using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -50,7 +48,7 @@ public sealed partial class AddTorrentViewModel : ObservableObject
     [RelayCommand]
     async Task OpenTorrentFile()
     {
-        var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
+        var openPicker = new FileOpenPicker();
         var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(
             ApplicationSetup.Application.MainWindow
         );
@@ -72,8 +70,8 @@ public sealed partial class AddTorrentViewModel : ObservableObject
             var files = await Aria2CClient.GetFiles(data.Result);
             if (files != null)
             {
-                this.Downloads = new(files.Result);
-                this._gid = pauseResult.Result;
+                Downloads = new(files.Result);
+                _gid = pauseResult.Result;
             }
         }
     }
@@ -99,7 +97,7 @@ public sealed partial class AddTorrentViewModel : ObservableObject
         if (state.Result.Status == TellState.Paused)
         {
             var data = await Aria2CClient.ChangeTellOption(
-                this._gid,
+                _gid,
                 new Dictionary<string, object>() { { "select-file", numbers } }
             );
             var result = await Aria2CClient.Unpause(_gid);
@@ -123,14 +121,14 @@ public sealed partial class AddTorrentViewModel : ObservableObject
             var state = await Aria2CClient.GetTellStatusAsync(_gid);
             if (state.Result.Status == TellState.Paused)
             {
-                var removeId = await Aria2CClient.RemoveTask(this._gid);
+                var removeId = await Aria2CClient.RemoveTask(_gid);
                 var stopState = await Aria2CClient.GetTellStatusAsync(_gid);
                 if (removeId != null)
                 {
                     await Aria2CClient.Aria2RemoveDownloadResult(removeId.Result);
                 }
                 WeakReferenceMessenger.Default.Send<PauseDownloadStateMessager>(
-                    new(true, this._gid)
+                    new(true, _gid)
                 );
             }
         }

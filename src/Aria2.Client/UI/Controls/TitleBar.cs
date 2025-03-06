@@ -22,7 +22,7 @@ public partial class TitleBar : ContentControl
 {
     public TitleBar()
     {
-        this.DefaultStyleKey = typeof(TitleBar);
+        DefaultStyleKey = typeof(TitleBar);
     }
 
     private ColumnDefinition LeftDropColumn;
@@ -36,23 +36,23 @@ public partial class TitleBar : ContentControl
 
     protected override void OnApplyTemplate()
     {
-        this.LeftDropColumn = (ColumnDefinition)this.GetTemplateChild(nameof(LeftDropColumn));
-        this.LeftPaddingColumn = (ColumnDefinition)this.GetTemplateChild(nameof(LeftPaddingColumn));
-        this.IconTitleDropColumn = (ColumnDefinition)
-            this.GetTemplateChild(nameof(IconTitleDropColumn));
-        this.HeaderColumn = (ColumnDefinition)this.GetTemplateChild(nameof(HeaderColumn));
-        this.CenterContentColumn = (ColumnDefinition)
-            this.GetTemplateChild(nameof(CenterContentColumn));
-        this.FooterColumn = (ColumnDefinition)this.GetTemplateChild(nameof(FooterColumn));
-        this.RightDropColumn = (ColumnDefinition)this.GetTemplateChild(nameof(RightDropColumn));
-        this.RightPaddingColumn = (ColumnDefinition)
-            this.GetTemplateChild(nameof(RightPaddingColumn));
-        this.Loaded += TitleBar_Loaded;
+        LeftDropColumn = (ColumnDefinition)GetTemplateChild(nameof(LeftDropColumn));
+        LeftPaddingColumn = (ColumnDefinition)GetTemplateChild(nameof(LeftPaddingColumn));
+        IconTitleDropColumn = (ColumnDefinition)
+            GetTemplateChild(nameof(IconTitleDropColumn));
+        HeaderColumn = (ColumnDefinition)GetTemplateChild(nameof(HeaderColumn));
+        CenterContentColumn = (ColumnDefinition)
+            GetTemplateChild(nameof(CenterContentColumn));
+        FooterColumn = (ColumnDefinition)GetTemplateChild(nameof(FooterColumn));
+        RightDropColumn = (ColumnDefinition)GetTemplateChild(nameof(RightDropColumn));
+        RightPaddingColumn = (ColumnDefinition)
+            GetTemplateChild(nameof(RightPaddingColumn));
+        Loaded += TitleBar_Loaded;
     }
 
     private void TitleBar_Loaded(object sender, RoutedEventArgs e)
     {
-        this.UpDate();
+        UpDate();
     }
 
     /// <summary>
@@ -61,18 +61,18 @@ public partial class TitleBar : ContentControl
     internal void SetTitleBar()
     {
         //判断是否支持标题栏，或者当前的Window是否为空
-        if (!this.IsExtendsContentIntoTitleBar || this.Window == null)
+        if (!IsExtendsContentIntoTitleBar || Window == null)
             return;
         //检查是否拓展
-        if (!this.Window.AppWindow.TitleBar.ExtendsContentIntoTitleBar)
+        if (!Window.AppWindow.TitleBar.ExtendsContentIntoTitleBar)
         {
-            this.Window.AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+            Window.AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
         }
         UpDate();
-        this.MakeDragLength();
-        this.Window.AppWindow.TitleBar.IconShowOptions = IconShowOptions.HideIconAndSystemMenu;
-        this.SizeChanged -= TitleBar_SizeChanged;
-        this.SizeChanged += TitleBar_SizeChanged;
+        MakeDragLength();
+        Window.AppWindow.TitleBar.IconShowOptions = IconShowOptions.HideIconAndSystemMenu;
+        SizeChanged -= TitleBar_SizeChanged;
+        SizeChanged += TitleBar_SizeChanged;
     }
 
     private void TitleBar_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -126,7 +126,7 @@ public partial class TitleBar : ContentControl
             (LeftPaddingColumn.ActualWidth + HeaderColumn.ActualWidth) * ScaleAdjustment
         );
         dragRectL.Y = 0;
-        dragRectL.Height = (int)(this.ActualHeight * ScaleAdjustment);
+        dragRectL.Height = (int)(ActualHeight * ScaleAdjustment);
         dragRectL.Width = (int)(
             (IconTitleDropColumn.ActualWidth + LeftDropColumn.ActualWidth) * ScaleAdjustment
         );
@@ -141,12 +141,12 @@ public partial class TitleBar : ContentControl
             ) * ScaleAdjustment
         );
         dragRectR.Y = 0;
-        dragRectR.Height = (int)(this.ActualHeight * ScaleAdjustment);
+        dragRectR.Height = (int)(ActualHeight * ScaleAdjustment);
         dragRectR.Width = (int)((RightDropColumn.ActualWidth) * ScaleAdjustment);
         dragRectsList.Add(dragRectL);
         dragRectsList.Add(dragRectR);
-        if(this.ContentRects !=null )
-            dragRectsList.AddRange(this.ContentRects);
+        if(ContentRects !=null )
+            dragRectsList.AddRange(ContentRects);
         Window.AppWindow.TitleBar.SetDragRectangles(dragRectsList.ToArray());
     }
 }

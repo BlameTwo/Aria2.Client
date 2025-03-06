@@ -28,8 +28,8 @@ public partial class OverviewViewModel
 
     async partial void OnInputDownloadChanged(double oldValue, double newValue)
     {
-        var downloadResult = await this.Aria2CClient.ChangGlobalOption(Aria2GlobalOptionEnum.MaxAllUploadLimit, $"{newValue}{SelectDownload}");
-        this.Config.MaxDownloadSpeed = $"{newValue}{SelectDownload}";
+        var downloadResult = await Aria2CClient.ChangeGlobalOption(Aria2GlobalOptionEnum.MaxAllUploadLimit, $"{newValue}{SelectDownload}");
+        Config.MaxDownloadSpeed = $"{newValue}{SelectDownload}";
         await LocalSettingsService.SaveConfig<Aria2LauncherConfig>("LauncherConfig", Config);
         if (oldValue == default) return;
         ShowResult(downloadResult.Result);
@@ -38,8 +38,8 @@ public partial class OverviewViewModel
 
     async partial void OnInputUploadChanged(double oldValue, double newValue)
     {
-        var downloadResult = await this.Aria2CClient.ChangGlobalOption(Aria2GlobalOptionEnum.MaxAllDownloadLimit, $"{newValue}{SelectUpload}");
-        this.Config.MaxUploadSpeed = $"{newValue}{SelectUpload}";
+        var downloadResult = await Aria2CClient.ChangeGlobalOption(Aria2GlobalOptionEnum.MaxAllDownloadLimit, $"{newValue}{SelectUpload}");
+        Config.MaxUploadSpeed = $"{newValue}{SelectUpload}";
         await LocalSettingsService.SaveConfig<Aria2LauncherConfig>("LauncherConfig", Config);
         if (oldValue == default) return;
         ShowResult(downloadResult.Result);
@@ -49,17 +49,17 @@ public partial class OverviewViewModel
     [RelayCommand]
     async Task ClearSpeed()
     {
-        var uoloadResult = await this.Aria2CClient.ChangGlobalOption(Aria2GlobalOptionEnum.MaxAllUploadLimit, $"0");
-        var downloadResult = await this.Aria2CClient.ChangGlobalOption(Aria2GlobalOptionEnum.MaxAllDownloadLimit, $"0");
+        var uoloadResult = await Aria2CClient.ChangeGlobalOption(Aria2GlobalOptionEnum.MaxAllUploadLimit, $"0");
+        var downloadResult = await Aria2CClient.ChangeGlobalOption(Aria2GlobalOptionEnum.MaxAllDownloadLimit, $"0");
         if (uoloadResult.Result == GlobalUsings.RequestOK)
         {
             TipShow.ShowMessage("重置上传限制", Microsoft.UI.Xaml.Controls.Symbol.Accept);
-            this.InputUpload = 0;
+            InputUpload = 0;
         }
         if (downloadResult.Result == GlobalUsings.RequestOK)
         {
             TipShow.ShowMessage("重置下载限制", Microsoft.UI.Xaml.Controls.Symbol.Accept);
-            this.InputDownload = 0;
+            InputDownload = 0;
         }
     }
 }

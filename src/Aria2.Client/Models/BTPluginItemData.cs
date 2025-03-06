@@ -18,28 +18,28 @@ public partial class BTPluginItemData: ItemDownloadBase<IAria2Plugin>
     [RelayCommand]
     async Task SetEnable()
     {
-        await this.Data.SetEnabledAsync();
+        await Data.SetEnabledAsync();
         RefreshData();
     }
 
     [RelayCommand]
     async Task SetUninstall()
     {
-        await this.Data.SetUninstall();
+        await Data.SetUninstall();
         RefreshData();
     }
 
     void RefreshData()
     {
-        if (this.Data.Config.IsUninstall)
+        if (Data.Config.IsUninstall)
         {
-            this.message = AppMessageService.SendMessage($"{Data.Name}卸载标识已标记，重启应用生效","插件消息", Enums.MessageLevel.Warn,false);
-            this.IsUninstall = Visibility.Collapsed;
+            message = AppMessageService.SendMessage($"{Data.Name}卸载标识已标记，重启应用生效","插件消息", Enums.MessageLevel.Warn,false);
+            IsUninstall = Visibility.Collapsed;
         }
         else
         {
             if(message != null)
-                AppMessageService.ClearMessage(this.message);
+                AppMessageService.ClearMessage(message);
         }
     }
 

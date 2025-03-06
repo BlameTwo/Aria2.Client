@@ -1,7 +1,4 @@
-﻿using BtSearch.Loader.Models;
-using IBtSearch;
-using System;
-using System.Collections.Generic;
+﻿using IBtSearch;
 
 namespace Aria2.Client.Services.Contracts;
 

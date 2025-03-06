@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
-using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.Storage;
 using System.Threading.Tasks;
@@ -86,17 +85,17 @@ public sealed partial class AddUriViewModel : ObservableRecipient
             if (list == null || list.Length == 0)
                 return;
             var option = new Dictionary<string, object>();
-            if (!string.IsNullOrWhiteSpace(this.UserAgent))
+            if (!string.IsNullOrWhiteSpace(UserAgent))
                 option.Add("user-agent", UserAgent);
-            if (!string.IsNullOrWhiteSpace(this.Refrere))
+            if (!string.IsNullOrWhiteSpace(Refrere))
                 option.Add("referer", UserAgent);
-            if (!string.IsNullOrWhiteSpace(this.HttpHeader))
+            if (!string.IsNullOrWhiteSpace(HttpHeader))
                 option.Add("header", UserAgent);
             var result = await Aria2CClient.AddUriAsync(
                 list,
                 new Dictionary<string, object>()
                 {
-                    { "dir", this.SavePath },
+                    { "dir", SavePath },
                     { "follow-torrent", true }
                 },
                 1
@@ -121,7 +120,7 @@ public sealed partial class AddUriViewModel : ObservableRecipient
     [RelayCommand]
     async Task SelectSaveFolder()
     {
-        FolderPicker openPicker = new Windows.Storage.Pickers.FolderPicker();
+        FolderPicker openPicker = new FolderPicker();
         var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(
             ApplicationSetup.Application.MainWindow
         );
@@ -131,7 +130,7 @@ public sealed partial class AddUriViewModel : ObservableRecipient
         StorageFolder folder = await openPicker.PickSingleFolderAsync();
         if (folder != null)
         {
-            this.SavePath = folder.Path;
+            SavePath = folder.Path;
         }
     }
 

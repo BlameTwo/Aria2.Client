@@ -6,6 +6,6 @@ public sealed partial class ExitDialog : ContentDialog
 {
     public ExitDialog()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 }

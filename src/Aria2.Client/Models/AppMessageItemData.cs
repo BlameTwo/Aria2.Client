@@ -16,7 +16,7 @@ public partial class AppMessageItemData: ItemDownloadBase<AppNotifyMessager>
     void Close()
     {
         WeakReferenceMessenger.Default.Send<Tuple<bool, AppNotifyMessager>>(
-            new(false, this.Data)
+            new(false, Data)
         );
     }
 
@@ -33,7 +33,7 @@ public partial class AppMessageItemData: ItemDownloadBase<AppNotifyMessager>
     {
         base.SetData(data);
         if (Data.DelayTime == TimeSpan.Zero) return;
-        this.DelayTime = Data.DelayTime;
+        DelayTime = Data.DelayTime;
         TimeSpanVisibility = Visibility.Visible;
         CloseButtonVisibility = Visibility.Collapsed;
         DispatcherTimer timer = new DispatcherTimer();
@@ -42,7 +42,7 @@ public partial class AppMessageItemData: ItemDownloadBase<AppNotifyMessager>
         {
             NowTime = NowTime.Add(TimeSpan.FromSeconds(1));
             var value = DelayTime - NowTime;
-            this.DelayValue = value;
+            DelayValue = value;
             if(DelayValue == TimeSpan.Zero)
             {
                 timer.Stop();

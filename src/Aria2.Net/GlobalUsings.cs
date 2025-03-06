@@ -4,11 +4,11 @@ namespace Aria2.Net;
 
 public static class GlobalUsings
 {
-    public static string Aria2Path => AppDomain.CurrentDomain.BaseDirectory+ "LibSource\\aria2c.exe";
+    public static string Aria2Path => AppDomain.CurrentDomain.BaseDirectory + "LibSource\\aria2c.exe";
 
     public const string Port = "5050";
 
-    public const string HttpRequetBaseUrl = $"http://127.0.0.1:{Port}/jsonrpc";
+    public const string HttpRequestBaseUrl = $"http://127.0.0.1:{Port}/jsonrpc";
 
     public const string WebSocketBaseUrl = $"ws://localhost:{Port}/jsonrpc";
 

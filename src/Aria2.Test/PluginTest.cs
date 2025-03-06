@@ -1,6 +1,5 @@
 ﻿using BtSearch.Fitgril;
 using BTSearch.Mikanime;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 
 namespace Aria2.Test;

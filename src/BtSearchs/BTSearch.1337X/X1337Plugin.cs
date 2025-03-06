@@ -1,9 +1,7 @@
 ﻿using BTSearch._1337X.Providers;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using HtmlAgilityPack;
 using IBtSearch;
-using IBtSearch.Bases;
 using IBtSearch.Models;
 using System;
 using System.Collections.Generic;
@@ -155,14 +153,14 @@ public partial class X1337Plugin : ObservableObject, IBTSearchPlugin
     {
         if (!Directory.Exists(folderPath))
         {
-            this.IsEditerConfig = false;
+            IsEditerConfig = false;
             return;
         }
 
         JsonPath = folderPath + $"\\{Name}_Config.json";
         if (File.Exists(JsonPath))
         {
-            this.Config =
+            Config =
                 JsonSerializer.Deserialize<PluginConfig>(await File.ReadAllTextAsync(JsonPath))
                 ?? new();
             return;
@@ -174,7 +172,7 @@ public partial class X1337Plugin : ObservableObject, IBTSearchPlugin
         {
             await writer.WriteLineAsync(JsonSerializer.Serialize(pluginConfig) ?? "");
         }
-        this.Config = pluginConfig;
+        Config = pluginConfig;
     }
 
 }

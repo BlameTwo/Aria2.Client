@@ -9,8 +9,8 @@ public sealed partial class StopPage : Page
 {
     public StopPage()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<StopViewModel>();
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<StopViewModel>();
     }
 
     public StopViewModel ViewModel { get; private set; }
@@ -18,7 +18,7 @@ public sealed partial class StopPage : Page
     protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
     {
         ViewModel.Unregister();
-        this.ViewModel = null;
+        ViewModel = null;
         GC.Collect();
         base.OnNavigatingFrom(e);
     }

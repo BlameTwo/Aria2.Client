@@ -8,7 +8,7 @@ public sealed partial class TellDownloadSessionView : UserControl
 {
     public TellDownloadSessionView()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 
     public TellDownloadSessionViewModel ViewModel

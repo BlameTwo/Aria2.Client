@@ -7,8 +7,8 @@ public sealed partial class FileSettingsPage : Page
 {
     public FileSettingsPage()
     {
-        this.InitializeComponent();
-        this.ViewModel = ProgramLife.GetService<FileSettingsViewModel>();
+        InitializeComponent();
+        ViewModel = ProgramLife.GetService<FileSettingsViewModel>();
     }
 
     public FileSettingsViewModel ViewModel { get; }

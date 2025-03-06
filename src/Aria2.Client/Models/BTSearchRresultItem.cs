@@ -3,9 +3,7 @@ using Aria2.Client.Services.Contracts;
 using Aria2.Net.Services.Contracts;
 using CommunityToolkit.Mvvm.Input;
 using IBtSearch.Models;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.Storage;
 
 namespace Aria2.Client.Models;
 
@@ -25,7 +23,7 @@ public sealed partial class BTSearchRresultItem : ItemDownloadBase<BTSearchResul
     [RelayCommand]
     async Task Download()
     {
-        await DialogManager.ShowAddUriAsync(this.Data.BTUrl);
+        await DialogManager.ShowAddUriAsync(Data.BTUrl);
         //var result = await Aria2CClient.AddUriAsync(
         //    new List<string>() { this.Data.BTUrl },
         //    new Dictionary<string, object>()

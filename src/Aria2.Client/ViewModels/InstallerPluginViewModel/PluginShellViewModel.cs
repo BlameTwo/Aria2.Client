@@ -14,7 +14,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Windows.ApplicationModel.Activation;
-using Windows.System;
 
 namespace Aria2.Client.ViewModels.InstallerPluginViewModel;
 
@@ -81,7 +80,7 @@ public sealed partial class PluginShellViewModel : ObservableObject
             }
             XmlSerializer xmlser = new XmlSerializer(typeof(PluginHostModel));
             model = (PluginHostModel)xmlser.Deserialize(item.Open());
-            this.PluginModel = model;
+            PluginModel = model;
             break;
         }
         if (model == null)
@@ -90,15 +89,15 @@ public sealed partial class PluginShellViewModel : ObservableObject
         var hostxml = _zipfile.GetEntry(HostfilePath).Open();
         XmlSerializer pluginser = new XmlSerializer(typeof(Aria2PluginEntity));
         var pluginhost = (Aria2PluginEntity)pluginser.Deserialize(hostxml);
-        this.PluginEntity = pluginhost;
+        PluginEntity = pluginhost;
         BitmapImage bmp = new();
         var logo = _zipfile.GetEntry(model.PluginIcon.Src);
-        var temp = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString("N") + ".tmp";
+        var temp = Path.GetTempPath() + Guid.NewGuid().ToString("N") + ".tmp";
         logo.ExtractToFile(temp);
         FileStream fs = new FileStream(temp, FileMode.Open, FileAccess.Read);
         await bmp.SetSourceAsync(fs.AsRandomAccessStream());
-        this.MaxFiles = PluginModel.FilesData.FileList.Count;
-        this.IconBmp = bmp;
+        MaxFiles = PluginModel.FilesData.FileList.Count;
+        IconBmp = bmp;
     }
 
     [RelayCommand]
@@ -116,9 +115,9 @@ public sealed partial class PluginShellViewModel : ObservableObject
             Process.GetCurrentProcess().Kill();
         var arg = ApplicationSetup.LauncherArgs.Data as FileActivatedEventArgs;
         var files = arg.Files[0];
-        this.FilePath = files.Path;
+        FilePath = files.Path;
         await ReadPackage(FilePath);
-        this.InstallPath = Aria2Config.PluginPath + $"\\{PluginEntity.Name}";
+        InstallPath = Aria2Config.PluginPath + $"\\{PluginEntity.Name}";
         if(await CheckExiste())
         {
             if(OldConfig.Version == PluginModel.Version)
@@ -143,8 +142,8 @@ public sealed partial class PluginShellViewModel : ObservableObject
                     if (file.FullName.EndsWith(".json") && file.FullName.Contains("InstallerVersion"))
                     {
                         flage = true;
-                        this.OldConfig = JsonSerializer.Deserialize<PluginInstallerVersion>(await File.ReadAllTextAsync(file.FullName));
-                        if(this.OldConfig.Guid == PluginEntity.GUID)
+                        OldConfig = JsonSerializer.Deserialize<PluginInstallerVersion>(await File.ReadAllTextAsync(file.FullName));
+                        if(OldConfig.Guid == PluginEntity.GUID)
                         {
                             versionEx = true;
                         }
@@ -163,7 +162,7 @@ public sealed partial class PluginShellViewModel : ObservableObject
     [RelayCommand]
     async Task SetupAsync()
     {
-        this.InstallType = InstallType.Installing;
+        InstallType = InstallType.Installing;
         await Task.Run(async () =>
         {
             Directory.CreateDirectory(InstallPath);
@@ -172,7 +171,7 @@ public sealed partial class PluginShellViewModel : ObservableObject
                 try
                 {
                     var stream = _zipfile.GetEntry(item.FilePath);
-                    var filename = System.IO.Path.GetFileName(item.FilePath);
+                    var filename = Path.GetFileName(item.FilePath);
                     stream.ExtractToFile($"{InstallPath}\\{filename}");
                     ProgramLife.GetService<IApplicationSetup<App>>().TryEnqueue(() =>
                     {
@@ -193,7 +192,7 @@ public sealed partial class PluginShellViewModel : ObservableObject
                 Version = PluginModel.Version
             };
             await File.WriteAllTextAsync($"{InstallPath}\\InstallerVersion.json", JsonSerializer.Serialize(version));
-            this.InstallType = InstallType.Installed;
+            InstallType = InstallType.Installed;
         });
     }
 

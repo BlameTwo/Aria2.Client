@@ -1,12 +1,8 @@
-﻿using Aria2.Client.Common;
-using Aria2.Client.Common.ViewModelBase;
+﻿using Aria2.Client.Common.ViewModelBase;
 using Aria2.Client.Models;
 using Aria2.Client.Services.Contracts;
-using BtSearch.Loader.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using IBtSearch;
-using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -25,7 +21,7 @@ public partial class PluginViewModel : PageViewModelBase
 
     public override void Unregister()
     {
-        this.SearchPlugins.Clear();
+        SearchPlugins.Clear();
     }
 
 
@@ -36,7 +32,7 @@ public partial class PluginViewModel : PageViewModelBase
         {
             if (item == null)
                 continue;
-            this.SearchPlugins.Add(DataFactory.CreatePluginItem(item));
+            SearchPlugins.Add(DataFactory.CreatePluginItem(item));
         }
     }
 

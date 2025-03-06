@@ -23,6 +23,6 @@ public partial class ItemDownloadBase<T> :ObservableRecipient ,IItemData<T>, IRe
     public virtual void SetData(T data)
     {
         IsActive = true;
-        this.Data = data;
+        Data = data;
     }
 }

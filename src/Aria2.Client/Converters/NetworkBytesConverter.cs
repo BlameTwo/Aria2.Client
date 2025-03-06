@@ -1,7 +1,5 @@
-﻿using Aria2.Client.Common;
-using Microsoft.UI.Xaml.Data;
+﻿using Microsoft.UI.Xaml.Data;
 using System;
-using System.Globalization;
 
 namespace Aria2.Client.Converters;
 
